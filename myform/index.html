@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>改进基本的表单</title>
+		<script type="text/javascript" src="../jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="myform.js"></script>
+		<style type="text/css">
+		ol, ul {
+			margin: 0;
+			1padding: 0;
+			list-style: none;
+		}
+		#contact {
+			width: 40%;
+			margin: 0 auto;
+		}
+		fieldset {
+			padding: 4px;
+		}
+		h3 {
+			background-color: #00F;
+			color: #FFF;
+			margin: 4px 0;
+		}
+		h4 {
+			margin: 4px 0;
+		}
+		.flag {
+			color: #F00;
+		}
+		.req-label {
+			font-weight: bold;
+		}
+		.field-keys {
+			background-color: #FF0;
+		}
+		.warning {
+			background-color: #F00;
+		}
+		</style>
+	</head>
+	<body>
+	<form action="" method="post" id="contact">
+	<fieldset>
+		<legend>基本信息</legend>
+		<ol>
+			<li>
+				<label for="first-name">姓:</label>
+				<input class="required" type="text" name="first-name" id="first-name" />
+				<span>(必填)</span>
+			</li>
+			<li>
+				<label for="last-name">名:</label>
+				<input class="required" type="text" name="last-name" id="last-name" />
+				<span>(必填)</span>
+			</li>
+			<li>添加联系方式
+				<ul>
+					<li>
+						<label for="by-email">
+							<input type="checkbox" name="by-contact-type" value="email" id="by-email" />
+							邮箱
+						</label>
+						<input class="conditional" type="text" name="email" id="email" />
+						<span>(当复选框选中时，必填)</span>
+					</li>
+					<li>
+						<label for="by-phone">
+							<input type="checkbox" name="by-contact-type" value="phone" id="by-phone" />
+							手机
+						</label>
+						<input class="conditional" type="text" name="phone" id="phone" />
+						<span>(当复选框选中时，必填)</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<h4>爱好：</h4>
+				<ul id="hobbies">
+					<li><input type="checkbox" name="hobbies[]" value="小说" id="xiaoshuo" />
+						<label for="xiaoshuo">小说</label></li>
+					<li><input type="checkbox" name="hobbies[]" value="音乐" id="music" />
+						<label for="music">音乐</label></li>
+					<li><input type="checkbox" name="hobbies[]" value="电影" id="xiaoshuo" />
+						<label for="xiaoshuo">电影</label></li>
+					<li><input type="checkbox" name="hobbies[]" value="篮球" id="music" />
+						<label for="music">篮球</label></li>
+				</ul>
+			</li>
+			<li><input type="submit" name="sub" value="提交" id="sub" /></li>
+			
+		</ol>
+	</fieldset>
+	</form>	
+	</body>
+</html>
