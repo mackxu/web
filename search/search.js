@@ -2,7 +2,8 @@
 $(document).ready(function($) {
 	$search = $('#search').addClass('overlabel');			// 定位label位置
 	
-	$search_input = $search.find('input');
+	// $search_input = $search.find('input');
+	$search_input = $("#search-text");
 	$search_label = $search.find('label');
 
 	// 输入框获得焦点时，隐藏标签文本
@@ -21,7 +22,38 @@ $(document).ready(function($) {
 	};
 	// 利用对标签元素的单击来触发输入框的focus事件
 	$search_label.click(function() {
-		console.log('label');
 		$search_input.trigger('focus');
 	});
+
+	// Ajax自动完成
+	var timer = null;
+	var $autocomplete = $('<ul class="autocomplete"></ul>').hide().insertAfter('#search-text');
+	$search_input.keyup(function() {
+		clearTimeout(timer);
+		timer = setTimeout(function() {
+			$.ajax({
+				'url': 'autocomplete.php',
+				'data': {'s': $search_input.val()},
+				'dataType': 'json',
+				'type': 'GET',
+				'success': autocomplete
+			});
+		}, 100);
+	});
+	
+	// 自动完成
+	function autocomplete(data) {
+		if (data.length) {
+			$autocomplete.empty();			// 清空历史提示数据
+			// 把数据添加到提示ul中
+			$.each(data, function(index, item) {
+				$('<li></li>').text(item).appendTo($autocomplete)
+				.click(function() {
+					$search_input.val(item);				// 在输入框显示选中的关键词
+					$autocomplete.hide();					// 隐藏关键词列表
+				});
+			});
+			$autocomplete.show();			// 显示提示视图
+		};
+	}
 });

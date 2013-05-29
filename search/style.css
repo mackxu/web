@@ -1,0 +1,28 @@
+body {
+	font-size: 12px;
+}
+.overlabel {
+	position: relative;
+}
+.overlabel label {
+	position: absolute;
+	left: 6px;
+	top: 4px;
+	color: #999;
+	cursor: text;
+}
+ul, li {
+	margin: 0;
+	padding: 0;
+}
+.autocomplete {
+	list-style: none;
+	border: 1px solid #999;
+	width: 150px;
+}
+.autocomplete li {
+	padding: 2px;
+}
+.autocomplete li:hover {
+	background-color: #eee;
+}
