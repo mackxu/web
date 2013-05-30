@@ -28,6 +28,8 @@ $(document).ready(function($) {
 	// Ajax自动完成
 	var timer = null;
 	var $autocomplete = $('<ul class="autocomplete"></ul>').hide().insertAfter('#search-text');
+	// keydown/keypress 会在当前字符输入前触发
+	// keyup 会在字符输入后才触发
 	$search_input.keyup(function() {
 		clearTimeout(timer);
 		timer = setTimeout(function() {
