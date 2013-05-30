@@ -31,7 +31,8 @@ $(document).ready(function($) {
 
 	// keydown/keypress 会在当前字符输入前触发
 	// keyup 会在字符输入后才触发
-	$search_input.keyup(function() {
+	// 关闭内置的自动完成机制
+	$search_input.attr('autocomplete', 'off').keyup(function() {
 		clearTimeout(timer);
 		timer = setTimeout(function() {
 			$.ajax({
@@ -44,7 +45,8 @@ $(document).ready(function($) {
 		}, 100);
 	});
 	
-	// 自动完成
+	// 自动完成 显示从服务器端获取的数据
+	// 设置当前选中项
 	function autocomplete(data) {
 		if (data.length) {
 			$autocomplete.empty();			// 清空历史提示数据
@@ -54,9 +56,31 @@ $(document).ready(function($) {
 				.click(function() {
 					$search_input.val(item);				// 在输入框显示选中的关键词
 					$autocomplete.hide();					// 隐藏关键词列表
+				}).mouseover(function() {
+					setSelectedItem(index);
 				});
 			});
-			$autocomplete.show();			// 显示提示视图
-		};
+			setSelectedItem(0);				// 默认第一项待选中状态
+		}else {
+			setSelectedItem(null);			// 没有要显示的数据
+		}
 	}
+
+	// 设置当前选择项
+	// 并显示下拉列表
+	var selectedItem = null;
+	function setSelectedItem(item) {
+		selectedItem = item;
+		var $lis = $autocomplete.find('li');				// 列表集合
+		if (selectedItem === null) {
+			$autocomplete.hide();
+			return;
+		}else if(selectedItem < 0) {
+			selectedItem = 0;
+		}else if(selectedItem >= $lis.length) {
+			selectedItem = $lis.length - 1;
+		}
+		$lis.removeClass('selected').eq(selectedItem).addClass('selected');
+		$autocomplete.show();
+	} 
 });
