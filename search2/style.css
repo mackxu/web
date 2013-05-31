@@ -3,5 +3,9 @@ body {
 }
 
 .suggestions {
-	
+	position: absolute;
+	border: 1px solid #000;
+}
+.current {
+	background-color: #eee;
 }
