@@ -48,19 +48,33 @@
 
 		// 事件委托，监听建议项
 		// bind/on/live/delegate
-		this.layer.bind('mousedown mouseup mouseover', function(oEvent) {
+		// this.layer.bind('mousedown mouseup mouseover', function(oEvent) {
 			
-			var $target = $(oEvent.target);					// 目标元素
-			// 事件委托，保证目标对象只是建议项
-			if ($target.is(oSelf.layer)) { return; };
+		// 	var $target = $(oEvent.target);					// 目标元素
+		// 	// 事件委托，保证目标对象只是建议项
+		// 	if ($target.is(oSelf.layer)) { return; };
 			
-			if (oEvent.type == 'mousedown') {
-				oSelf.textbox.val($target.text());			// 填充字段
+		// 	if (oEvent.type == 'mousedown') {
+		// 		oSelf.textbox.val($target.text());			// 填充字段
+		// 		oSelf.hideSuggestions();					// 隐藏建议列表
+		// 	}else if (oEvent.type == 'mouseover') {
+		// 		// 当鼠标在建议项上，高亮建议项
+		// 		oSelf.highlightSuggestion($target);
+		// 	}else {
+		// 		// 文本框重新获得焦点
+		// 		oSelf.textbox.focus();
+		// 	}
+		// });
+		this.layer.delegate('div', {
+			'mousedown': function(oEvent) {
+				oSelf.textbox.val($(this).text());			// 填充字段
 				oSelf.hideSuggestions();					// 隐藏建议列表
-			}else if (oEvent.type == 'mouseover') {
+			},
+			'mouseover': function(oEvent) {
 				// 当鼠标在建议项上，高亮建议项
-				oSelf.highlightSuggestion($target);
-			}else {
+				oSelf.highlightSuggestion($(this));
+			},
+			'mouseup': function(oEvent) {
 				// 文本框重新获得焦点
 				oSelf.textbox.focus();
 			}
