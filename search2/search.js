@@ -4,24 +4,29 @@
 	 * @param {jQuery} oTextbox  搜索框jQuery对象
 	 * @param {SuggestionProvider} oProvider 建议提供者
 	 */
-	function AutoSuggestControl(oTextbox, oProvider) {
-		this.Textbox = oTextbox;				// 搜索框元素
-		this.Provider = oProvider;				// 建议提供者
+	function AutoSuggestControl($textbox, oProvider) {
+		this.textbox = $textbox;				// 搜索框元素
+		this.provider = oProvider;				// 建议提供者
+
+		this.init();
 	}
 	AutoSuggestControl.prototype.init = function() {
-		var self = this;
+		var oSelf = this;
 
-		this.Textbox.keyup(function(oEvent) {
+		this.textbox.keyup(function(oEvent) {
 			
-			self.handleKeyup(oEvent);
+			oSelf.handleKeyup(oEvent);
 
 		}).keydown(function(oEvent) {
 
-			self.handleKeydown(oEvent);
+			oSelf.handleKeydown(oEvent);
 
 		}).blur(function(oEvent) {
 			
-			self.hideSuggestions();
+			// oSelf.hideSuggestions();
+			// console.log(oSelf.textbox.val());
+			// 如果失去焦点开始请求
+			SuggestionProvider.requestSuggestions();
 			
 		});
 
@@ -55,9 +60,22 @@
 	}
 
 	var SuggestionProvider = {};
+	SuggestionProvider.oXHR = null;
 
 	// Ajax获取建议，并调用函数显示
 	// 静态方法
 	SuggestionProvider.requestSuggestions = function(oAutoSuggestControl, bTypeAHead) {
-
+		var oXHR = SuggestionProvider.oXHR;
+		// 取消所有进行中的请求
+		if (oXHR && oXHR.readyState != 0) {
+			oXHR.abort();
+		}
+		SuggestionProvider.oXHR 
+			= $.getJSON('suggestion.php', {})
+			.done(function(data, stateText, jqXHR) {
+				console.log(data, stateText);
+			}).fail(function(jqXHR, stateText, error) {
+				
+				console.log(stateText, error);
+			});
 	}

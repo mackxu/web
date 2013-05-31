@@ -5,6 +5,11 @@
 	<title>搜索框 自能提示 加强版</title>
 	<script type="text/javascript" src="../../jquery-1.9.1.js"></script>
 	<script type="text/javascript" src="search.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		var oTextbox = new AutoSuggestControl($('#search-text'), SuggestionProvider);
+	});
+	</script>
 	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
