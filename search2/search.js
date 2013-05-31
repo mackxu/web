@@ -12,24 +12,52 @@
 		var self = this;
 
 		this.Textbox.keyup(function(oEvent) {
+			
+			self.handleKeyup(oEvent);
 
 		}).keydown(function(oEvent) {
 
+			self.handleKeydown(oEvent);
+
 		}).blur(function(oEvent) {
+			
 			self.hideSuggestions();
+			
 		});
 
-		this.createDropDown();
+		// 下拉建议列表外框，并为其添加监听事件
+		this.createDropDown();					
 	}
 	AutoSuggestControl.prototype.autosuggest = function(aSuggests, bTypeAHead) {
 		
 	}
-
+	// 创建最外层<div/>
+	// 事件委托，监听事件鼠标事件
+	// 
 	AutoSuggestControl.prototype.createDropDown = function() {
 		
 	}
 
-	// 建议提供者，与从服务器端获取
-	function SuggestionProvider(oAutoSuggestControl, bTypeAHead) {
+	AutoSuggestControl.prototype.handleKeyup = function(oEvent) {
+		
+	}
+
+	AutoSuggestControl.prototype.handleKeydown = function(oEvent) {
+		
+	}
+	// 隐藏下拉建议列表
+	AutoSuggestControl.prototype.hideSuggestions = function() {
+		
+	}
+	// 添加和显示建议
+	AutoSuggestControl.prototype.showSuggestions = function(aSuggestions) {
+		
+	}
+
+	var SuggestionProvider = {};
+
+	// Ajax获取建议，并调用函数显示
+	// 静态方法
+	SuggestionProvider.requestSuggestions = function(oAutoSuggestControl, bTypeAHead) {
 
 	}
