@@ -71,9 +71,11 @@
 				oSelf.textbox.val($(this).text());			// 填充字段
 				oSelf.hideSuggestions();					// 隐藏建议列表
 			},
-			'mouseover': function(oEvent) {
-				// 当鼠标在建议项上，高亮建议项
-				oSelf.highlightSuggestion($(this));
+			'mouseover': function(oEvent) {					// 鼠标在建议项上移动
+				// 没有参数的index()返回在同辈元素中的位置
+				oSelf.cur = $(this).index();				// 记录鼠标所在建议项的位置
+				oSelf.highlightSuggestion($(this));			// 并高亮这个建议项
+				console.log(oSelf.cur);
 			},
 			'mouseup': function(oEvent) {
 				// 文本框重新获得焦点
@@ -126,7 +128,8 @@
 
 	AutoSuggestControl.prototype.goToSuggestion = function(iDiff) {
 		var $suggestions = this.layer.children('div');		// 所有建议项集合
-
+		// 跟踪this.cur的值
+		console.log(this.cur);
 		if ($suggestions.length > 0) {
 			var $suggestion = null;
 			if (iDiff > 0) {								// 处理下箭头事件
@@ -138,8 +141,8 @@
 					$suggestion = $suggestions.eq(--this.cur);
 				}
 			}
-			if ($suggestion) {								// 当用键盘，选中了建议项
-				this.highlightSuggestion($suggestion);		// 高亮当前建议项
+			if ($suggestion) {								// 使用键盘，当前选中的建议项
+				this.highlightSuggestion($suggestion);		// 高亮当前选中
 				this.textbox.val($suggestion.text());		// 填充字段
 			}
 		}
