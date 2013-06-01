@@ -19,13 +19,13 @@
 
 		this.textbox.keyup(function(oEvent) {
 			
-			oSelf.handleKeyup(oEvent);					// 键盘事件，处理能改变文字的键
+			oSelf.handleKeyup(oEvent);						// 键盘事件，处理能改变文字的键
 
 		}).keydown(function(oEvent) {
 
-			oSelf.handleKeydown(oEvent);				// 键盘事件，处理指定的键
+			oSelf.handleKeydown(oEvent);					// 键盘事件，处理指定的键
 
-		}).blur(function(oEvent) {						// 当搜索框失去焦点时
+		}).blur(function(oEvent) {							// 当搜索框失去焦点时
 			
 			oSelf.hideSuggestions();
 			
@@ -75,7 +75,10 @@
 				// 没有参数的index()返回在同辈元素中的位置
 				oSelf.cur = $(this).index();				// 记录鼠标所在建议项的位置
 				oSelf.highlightSuggestion($(this));			// 并高亮这个建议项
-				console.log(oSelf.cur);
+			},
+			'mouseleave': function(oEvent) {				// 鼠标移开时
+				oSelf.cur = -1;								// 没有建议项被选中
+				$(this).removeClass('current');				// 移除之前选中的样式
 			},
 			'mouseup': function(oEvent) {
 				// 文本框重新获得焦点
@@ -117,19 +120,18 @@
 				this.goToSuggestion(1);						// 选中下一个建议
 				break;
 			case 27: 	// Esc
-				this.textbox.val(this.searchText);			// 清除补充的文本
+				this.textbox.val(this.searchText);			// 清除输入前提示
 				// 将光标放在用户输入文本的后面，等待继续输入
-
+				// this.selectRange(this.textbox.get(0), this.searchText.length, 0);
 			case 13: 	// 回车键
 				this.hideSuggestions();						// 隐藏下拉建议
 				oEvent.preventDefault();					// 取消默认行为
 		}
 	}
-
+	// 处理键盘上下键操作
 	AutoSuggestControl.prototype.goToSuggestion = function(iDiff) {
 		var $suggestions = this.layer.children('div');		// 所有建议项集合
-		// 跟踪this.cur的值
-		console.log(this.cur);
+		
 		if ($suggestions.length > 0) {
 			var $suggestion = null;
 			if (iDiff > 0) {								// 处理下箭头事件
@@ -151,12 +153,12 @@
 
 	// 接收服务器端发来的数据
 	// 并决定在页面中显示
-	AutoSuggestControl.prototype.autosuggest = function(aSuggests, bTypeAHead) {
+	AutoSuggestControl.prototype.autosuggest = function(aSuggestions, bTypeAHead) {
 		this.cur = -1;										// 每次显示建议前，重置当前指针
 
-		if(aSuggests.length > 0) {							// 存在建议项
-
-			this.showSuggestions(aSuggests);				// 显示
+		if(aSuggestions.length > 0) {						// 存在建议项
+			this.typeAHead(aSuggestions[0]);				// 输入前提示
+			this.showSuggestions(aSuggestions);				// 显示
 		}else {												// 否则，
 			this.hideSuggestions();							// 隐藏建议列表
 		}
@@ -189,6 +191,27 @@
 
 		// 去除之前的高亮项，高亮当前项
 		$suggestion.addClass('current').siblings('div').removeClass('current');
+	}
+	// 输入前提示，第一项建议 
+	AutoSuggestControl.prototype.typeAHead = function(sSuggestion) {
+		var oTextbox = this.textbox.get(0);					// jQuery对象转化成DOM元素
+		if (oTextbox.createTextRange || oTextbox.setSelectionRange) {
+			var iLen = oTextbox.value.length;
+			oTextbox.value = sSuggestion;
+			this.selectRange(oTextbox, iLen, sSuggestion.length);
+		}
+	}	
+	// 选中部分文本框文字
+	AutoSuggestControl.prototype.selectRange = function(oTextbox, iStart, iEnd) {	
+		if (oTextbox.createTextRange) {						// IE
+			var oRange = oTextbox.createTextRange();
+			oRange.moveStart('character', iStart);
+			oRange.moveEnd('character', iEnd-oTextbox.value.length);
+			oRange.select();
+		}else if(oTextbox.setSelectionRange) {				// FF/chrome
+			oTextbox.setSelectionRange(iStart, iEnd);
+		}
+		oTextbox.focus();
 	}
 
 	//------------------------------ class SuggestionProvider ------------------
