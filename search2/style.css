@@ -1,7 +1,9 @@
 body {
 
 }
-
+#search-text {
+	border: 1px solid #ccc;
+}
 .suggestions {
 	position: absolute;
 	border: 1px solid #000;
