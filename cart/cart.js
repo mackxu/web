@@ -4,6 +4,7 @@ Cart.include({
 	init: function() { 
 		 
 		 this.stripe();					// 商品的条纹
+		 this.deleteView();				// 删除按钮
 
 		 $('.quantity input')			// 订单变动事件
 		 	.keypress($.proxy(this.keypressHandle, this))
@@ -15,7 +16,7 @@ Cart.include({
 			event.preventDefault();
 		}
 	},
-	// 每次删除、加载、更改数量，都应触发
+	// 每次删除、加载(服务器计算)、更改数量，都应触发
 	changeHandle: function() {
 		var totalQuantity = 0, 
 			totalCost = 0,
@@ -31,7 +32,7 @@ Cart.include({
 			totalCost += cost;
 		});
 		// 所有商品的价格
-		$('.subtotal .cost').text('￥' + totalCost);
+		$('.subtotal .cost').text('￥' + totalCost.toFixed(2));
 		// 税费
 		// parseFloat不能理解百分号，只能获取数值
 		var taxRate = parseFloat($('.tax .price').text()) / 100;
@@ -46,12 +47,36 @@ Cart.include({
 		$('.shipping .cost').text('￥' + shippingCost.toFixed(2));
 		totalCost += shippingCost;									// 加上运费
 
-		$('.total .cost').text('￥' + totalCost);					// 合计
+		$('.total .cost').text('￥' + totalCost.toFixed(2));		// 合计
 	},
-	deleteView: function() {},
-	deleteHandle: function() {},
+	deleteView: function() {
+		$('<th>操作</th>').insertAfter('#cart thead th:nth-child(2)');
+		$('<td>&nbsp;</td>').insertAfter('#cart tfoot td:nth-child(2)');
+		$('#cart tbody tr').each(function() {
+			var $deleteButton = $('<a>删除</a>').attr({
+				'href': 'javascript:void(0);',
+				'class': 'delete'
+			});
+			$('<td></td>').insertAfter($('td:nth-child(2)', this)).append($deleteButton);
+		});
+		var that = this;
+		// 为删除按钮添加监听事件
+		$('#cart').delegate('a.delete', 'click', function(event) {
+			$(this).parents('tr')
+				.find('td.quantity input').val(0)
+				.trigger('change')
+				.end().hide();
+			that.stripe();
+		});
+
+	},
+	deleteHandle: function(event) {
+
+	},
 	stripe: function() {
-		$('#cart tbody tr:nth-child(odd)').addClass('alt');
+		// 清除所有.alt
+		$('#cart tbody tr').removeClass('alt')
+		.filter(':visible:nth-child(odd)').addClass('alt');
 	}
 });
 
