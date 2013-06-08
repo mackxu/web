@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>购物车</title>
+	<script type="text/javascript" src="../../jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="../class.js"></script>
+	<script type="text/javascript" src="cart.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		var cart = new Cart();
+	});
+	</script>
+	<style type="text/css">
+	body, table {
+		margin: 0;
+		padding: 0;
+		font-size: 14px;
+	}
+	#cart {
+		margin: 20px auto;
+		padding: 8px;
+		width: 80%;
+		border: 1px solid #000;
+	}
+	#cart thead {
+		color: #FFF;
+		background-color: #000;
+	}
+	#cart th {
+		text-align: left;
+		font-size: 16px;
+	}
+	#cart tfoot tr {
+		border-bottom: 1px dashed #000;
+	}
+	#cart tbody {
+		background-color: #ccc;
+	}
+	#cart tbody tr.alt {
+		background-color: #FFF;
+	}
+	</style>
+</head>
+<body>
+<form action="checkout.php" method="post"> 
+<table id="cart" cellpadding="2" cellspacing="0">
+<colgroup>
+	<col class="item"></col>
+	<col class="quantity"></col>
+	<col class="price"></col>
+	<col class="cost"></col>
+</colgroup>
+<thead>
+	<tr>
+		<th class="item">商品</th>
+		<th class="quantity">数量</th>
+		<th class="price">价格</th>
+		<th class="cost">花费</th>
+	</tr>
+</thead>
+<tfoot>
+	<tr class="subtotal">
+		<td class="item">商品总价</td>
+		<td class="quantity"></td>
+		<td class="price"></td>
+		<td class="cost">￥150.00</td>
+	</tr>
+	<tr class="tax">
+		<td class="item">税费</td>
+		<td class="quantity"></td>
+		<td class="price">6%</td>
+		<td class="cost">￥9.18</td>
+	</tr>
+	<tr class="shipping">
+		<td class="item">运费</td>
+		<td class="quantity">5</td>
+		<td class="price">￥2(每件)</td>
+		<td class="cost">￥10.00</td>
+	</tr>
+	<tr class="total">
+		<td class="item">合计</td>
+		<td class="quantity"></td>
+		<td class="price"></td>
+		<td class="cost">￥172.00</td>
+	</tr>
+	<tr class="action">
+		<td></td>
+		<td><input type="button" name="recalculate" value="重新计算" id="recalculate" /></td>
+		<td></td>
+		<td><input type="submit" name="submit" value="提交订单" id="submit" /></td>
+	</tr>
+</tfoot>
+<tbody>
+	<tr>
+		<td class="item">JavaScript设计模式</td>
+		<td class="quantity">
+			<input type="text" name="quantity-1" value="2" id="quantity-1" size="3" maxlength="3" />
+		</td>
+		<td class="price">￥26.99</td>
+		<td class="cost">￥53.78</td>
+	</tr>
+	<tr>
+		<td class="item">PHP设计模式</td>
+		<td class="quantity">
+			<input type="text" name="quantity-2" value="1" id="quantity-2" size="3" maxlength="3" />
+		</td>
+		<td class="price">￥30.00</td>
+		<td class="cost">￥30.00</td>
+	</tr>
+	<tr>
+		<td class="item">JavaScript设计模式</td>
+		<td class="quantity">
+			<input type="text" name="quantity-3" value="2" id="quantity-3" size="3" maxlength="3" />
+		</td>
+		<td class="price">￥26.99</td>
+		<td class="cost">￥53.78</td>
+	</tr>
+	<tr>
+		<td class="item">PHP设计模式</td>
+		<td class="quantity">
+			<input type="text" name="quantity-4" value="1" id="quantity-4" size="3" maxlength="3" />
+		</td>
+		<td class="price">￥30.00</td>
+		<td class="cost">￥30.00</td>
+	</tr>
+</tbody>
+</table>
+</form>
+</body>
+</html>
