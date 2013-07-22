@@ -97,9 +97,12 @@ var scrollImg = function() {
 			// 当鼠标在图片上时，停止滚动
 			imgList.addEventListener('mouseover', function(e) {
 				clearTimeout(timer);
+				console.log('imgList mouseover', 'index:'+index);
 				e.stopPropagation();
 			}, false);
 			imgList.addEventListener('mouseout', function(e) {
+				console.log('imgList mouseout', 'index:'+index);
+				clearTimeout(timer);
 				timer = setTimeout(scrollImg.scroll, 500);
 				e.stopPropagation();
 			}, false);
@@ -110,16 +113,21 @@ var scrollImg = function() {
 			this.numOrder();
 			var that = this;
 			// 事件委托，为数字按钮添加事件
+			// 当鼠标停留在数字按钮上时，显示对应序列的图片
+			// 此时动画可能向左滑动，也可能向右滑动
 			order.addEventListener('mouseover', function(e) {
 				var e = e || window.event;
 				var target = e.target || e.srcElement;
 
 				if (target.tagName.toLowerCase() === 'li') {
-					clearTimeout(timer);							// 暂停图片滚动
-					var id = target.getAttribute('data-index');
-
-					
-					
+					clearTimeout(timer);							// 暂停图片轮翻
+					console.log('order mouseover');
+					// 转换成数字待计算
+					var id = parseInt(target.getAttribute('data-index')),
+						start = offsetLength * index,
+						end = offsetLength * id;
+					console.log(index, id);
+					scrollImg.animate(imgList, start, end, 100, false);
 					index = id;
 				}
 				e.stopPropagation();
@@ -130,7 +138,9 @@ var scrollImg = function() {
 				var target = e.target || e.srcElement;
 
 				if (target.tagName.toLowerCase() === 'li') {
-					// timer = setTimeout(scrollImg.scroll, 500);
+					console.log('order mouseout', 'index:'+index);
+					clearTimeout(timer);
+					timer = setTimeout(scrollImg.scroll, 500);
 				}
 				e.stopPropagation();				
 			});
@@ -145,25 +155,24 @@ var scrollImg = function() {
 				// 开启新的动画，从左向右运动把图片列表拉回原始位置				
 				start = offsetLength * (imgNum - 1);
 				end = 0;
-				scrollImg.animate(imgList, start, end, 100);
+				scrollImg.animate(imgList, start, end, 100, true);
 				index = 0;					// 重新滚动
 			}else {
 				// 第index图片滑出，第index+1个图片滑入
 				start = offsetLength * index;
 				end = offsetLength * (index + 1);
-				scrollImg.animate(imgList, start, end, 20);		
+				scrollImg.animate(imgList, start, end, 20, true);		
 				index ++;					// 待滑入的图片
 			}
 		},
 		// 动画，以speed速度从start运动到end
-		// 如果需要可以开启下一个动画。
+		// active为true开启下一个动画。
 		animate: function(elem, start, end, speed, active) {
 			var temp = + new Date();
 			// console.log(index, temp - datetime);
 			datetime = temp;
 
 			var speed = end > start ? speed : - speed				// 确定运动方向
-				active = active || true,							// 默认展示下一张图片
 				startTemp = start,
 				offset = 0,
 				animateTimer = null,
