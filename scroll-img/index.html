@@ -118,7 +118,7 @@ var scrollImg = function() {
 					clearTimeout(timer);							// 暂停图片滚动
 					var id = target.getAttribute('data-index');
 
-					// imgList.style.left = offsetLength * id + 'px';
+					
 					
 					index = id;
 				}
@@ -135,28 +135,35 @@ var scrollImg = function() {
 				e.stopPropagation();				
 			});
 
-			datetime = + new Date();
+			datetime = + new Date();		// 开始时间
 		},
 		// 每隔一段时间执行一次动画
 		scroll: function() {
 			console.log('index: ', index);
+			var start, end;
 			if (index >= imgNum - 1) {		// 当显示最后一张图片时
-				// 开启新的动画，从左向右运动				
-				scrollImg.animate(imgList, offsetLength * (imgNum - 1), 0, 100);
+				// 开启新的动画，从左向右运动把图片列表拉回原始位置				
+				start = offsetLength * (imgNum - 1);
+				end = 0;
+				scrollImg.animate(imgList, start, end, 100);
 				index = 0;					// 重新滚动
 			}else {
-				// 执行一次动画内容
-				scrollImg.animate(imgList, offsetLength* index, offsetLength * (index+1), 20);		
+				// 第index图片滑出，第index+1个图片滑入
+				start = offsetLength * index;
+				end = offsetLength * (index + 1);
+				scrollImg.animate(imgList, start, end, 20);		
 				index ++;					// 待滑入的图片
 			}
 		},
-		
-		animate: function(elem, start, end, speed) {
+		// 动画，以speed速度从start运动到end
+		// 如果需要可以开启下一个动画。
+		animate: function(elem, start, end, speed, active) {
 			var temp = + new Date();
 			// console.log(index, temp - datetime);
 			datetime = temp;
 
 			var speed = end > start ? speed : - speed				// 确定运动方向
+				active = active || true,							// 默认展示下一张图片
 				startTemp = start,
 				offset = 0,
 				animateTimer = null,
@@ -167,8 +174,9 @@ var scrollImg = function() {
 							animateTimer = setTimeout(animateTo, 25);
 						}else {
 							startTemp = end;
-							clearTimeout(animateTimer);
-							timer = setTimeout(scrollImg.scroll, delay);
+							clearTimeout(animateTimer);				// 图片已滑入
+							// 重启图片轮翻，展示下一张图片
+							active && (timer = setTimeout(scrollImg.scroll, delay));
 						}
 						elem.style.left = startTemp + 'px';
 					}else {
@@ -178,7 +186,8 @@ var scrollImg = function() {
 						}else {
 							startTemp = end;
 							clearTimeout(animateTimer);
-							timer = setTimeout(scrollImg.scroll, delay);
+							// 重启图片轮翻，展示下一张图片
+							active && (timer = setTimeout(scrollImg.scroll, delay));
 						}
 						elem.style.left = startTemp + 'px';
 					}
