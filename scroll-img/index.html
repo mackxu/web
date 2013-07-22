@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>图片轮转-幻灯片</title>
+	<style type="text/css">
+	body,ul {
+		padding: 0;
+		margin: 0;
+		font-size: 12px;
+	}
+	ul {		
+		list-style: none;
+	}
+	img {
+		border: none;
+	}
+	#container {
+		width: 380px;
+		height: 252px;
+		margin: 100px auto;
+		border: 1px solid #000;
+
+		position: relative;
+
+		overflow: hidden;
+	}
+	ul.scroll {
+		width: 1900px;
+		height: 252px;
+		position: absolute;				/* 触发创建块级格式化上下文，闭合浮动 */
+	}
+	ul.scroll li {
+		float: left;
+	}
+	ul.scroll li a {
+		display: inline-block;
+		width: 380px;
+		height: 252px;
+	}
+	/* 数字按钮 */
+	ul.order {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+
+		background-color: rgba(0, 0, 0, .6);
+		width: 100%;
+		padding: 4px;
+	}
+	ul.order li {
+		float: left;
+		padding: 2px 6px;
+		text-align: center;
+		margin-right: 8px;
+		border: 1px solid #000;
+		background-color: #FF6;
+	}
+	</style>
+</head>
+<body>
+<div id="container">
+	<ul class="scroll">
+		<li><a href="#"><img src="images/1.jpg"></a></li>
+		<li><a href="#"><img src="images/2.jpg"></a></li>
+		<li><a href="#"><img src="images/3.jpg"></a></li>
+		<li><a href="#"><img src="images/4.jpg"></a></li>
+		<li><a href="#"><img src="images/5.jpg"></a></li>
+	</ul>
+	<!-- 图片的排列次序 -->
+	<ul class="order"></ul>				
+</div>
+<script type="text/javascript">
+var scrollImg = function() {
+	var container,
+		imgList,
+		order,								// 数字次序，根据图片个数生成
+		imgNum,
+		offsetLength,						// 图片列表每次的偏移长度
+		speed,								// 图片滚动速度
+		timer,								// 定时器的引用
+		index;								// 页面当前显示的图片
+
+	var datetime;
+	return {
+		init: function() {
+			container = document.getElementById('container');
+			imgList = container.getElementsByClassName('scroll')[0];
+			order = container.getElementsByClassName('order')[0];
+			imgNum = container.getElementsByTagName('li').length;
+
+			offsetLength = -380;			// 一张图片的长度
+			delay = 1000;					// 用毫秒做单位
+			index = 0;
+
+			
+			// 当鼠标在图片上时，停止滚动
+			imgList.addEventListener('mouseover', function(e) {
+				clearTimeout(timer);
+				e.stopPropagation();
+			}, false);
+			imgList.addEventListener('mouseout', function(e) {
+				timer = setTimeout(scrollImg.scroll, 500);
+				e.stopPropagation();
+			}, false);
+			timer = setTimeout(scrollImg.scroll, delay);			// 动画从这开始
+			
+
+			// 生成数字次序,并为其添加事件处理程序
+			this.numOrder();
+			var that = this;
+			// 事件委托，为数字按钮添加事件
+			order.addEventListener('mouseover', function(e) {
+				var e = e || window.event;
+				var target = e.target || e.srcElement;
+
+				if (target.tagName.toLowerCase() === 'li') {
+					clearTimeout(timer);							// 暂停图片滚动
+					var id = target.getAttribute('data-index');
+
+					// imgList.style.left = offsetLength * id + 'px';
+					
+					index = id;
+				}
+				e.stopPropagation();
+			});
+
+			order.addEventListener('mouseout', function(e) {
+				var e = e || window.event;
+				var target = e.target || e.srcElement;
+
+				if (target.tagName.toLowerCase() === 'li') {
+					// timer = setTimeout(scrollImg.scroll, 500);
+				}
+				e.stopPropagation();				
+			});
+
+			datetime = + new Date();
+		},
+		// 每隔一段时间执行一次动画
+		scroll: function() {
+			console.log('index: ', index);
+			if (index >= imgNum - 1) {		// 当显示最后一张图片时
+				// 开启新的动画，从左向右运动				
+				scrollImg.animate(imgList, offsetLength * (imgNum - 1), 0, 100);
+				index = 0;					// 重新滚动
+			}else {
+				// 执行一次动画内容
+				scrollImg.animate(imgList, offsetLength* index, offsetLength * (index+1), 20);		
+				index ++;					// 待滑入的图片
+			}
+		},
+		
+		animate: function(elem, start, end, speed) {
+			var temp = + new Date();
+			// console.log(index, temp - datetime);
+			datetime = temp;
+
+			var speed = end > start ? speed : - speed				// 确定运动方向
+				startTemp = start,
+				offset = 0,
+				animateTimer = null,
+				animateTo = function() {
+					if (end > start) {					
+						if(startTemp < end) {
+							startTemp += speed;
+							animateTimer = setTimeout(animateTo, 25);
+						}else {
+							startTemp = end;
+							clearTimeout(animateTimer);
+							timer = setTimeout(scrollImg.scroll, delay);
+						}
+						elem.style.left = startTemp + 'px';
+					}else {
+						if (startTemp > end) {
+							startTemp += speed;
+							animateTimer = setTimeout(animateTo, 25);
+						}else {
+							startTemp = end;
+							clearTimeout(animateTimer);
+							timer = setTimeout(scrollImg.scroll, delay);
+						}
+						elem.style.left = startTemp + 'px';
+					}
+				};
+			animateTimer = setTimeout(animateTo, 25);
+		},
+		// 动态生成数字按钮
+		numOrder: function() {
+			var fragment = document.createDocumentFragment();
+			for(var i=0; i<imgNum; i++) {
+				var li = document.createElement('li');
+				li.setAttribute('data-index', i);
+				li.appendChild(document.createTextNode(i+1));
+				fragment.appendChild(li);
+			}
+			order.appendChild(fragment);
+		}
+	};
+}();
+
+scrollImg.init();
+</script>
+</body>
+</html>
