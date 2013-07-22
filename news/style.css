@@ -1,0 +1,35 @@
+body {
+	width: 500px;
+	margin: 100px auto;
+	font-size: 12px;
+}
+#news-feed {
+	position: relative;
+	height: 200px;
+	width: 17em;
+	background-color: #efd;
+	overflow: hidden;
+}
+.fade-slice {
+	position: absolute;
+	width: 17em;
+	height: 2px;
+	background-color: #efd;
+	z-index: 3;
+}
+.headline {
+	position: absolute;
+	height: 200px;
+	top: 210px;
+	padding: 4px;
+	overflow: hidden;
+}
+.headline h4 {
+	margin: 0;
+}
+.publication-date {
+	font-style: italic;
+}
+.summary {
+	padding-top: 16px;
+}

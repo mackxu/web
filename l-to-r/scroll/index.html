@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>无缝滚动</title>
+<script type="text/javascript" src="scroll.js"></script>
+<style type="text/css">
+	body {
+		margin: 0;
+		padding: 0;
+	}
+
+	img {
+		border: none;
+	}
+	.scroll {
+		width: 640px;
+		height: 106px;
+		margin: 200px auto;
+		border: 1px solid #000;
+		overflow: hidden;
+
+		position: relative;
+	}
+	.scroll .images {
+		
+		width: 1920px;
+
+		position: absolute;
+		left: 0;
+
+		font-size: 0;					/* 解决图片间隔的空白 */
+		letter-spacing: -1px;			/* IE6-7之间1px间隔 */
+	}
+	.scroll .images a {
+		
+	}
+
+</style>
+</head>
+<body>
+<div class="scroll">
+	<div class="images">
+		<a href="#"><img src="../images/1.jpg" alt="aaa"></a>
+		<a href="#"><img src="../images/2.jpg" alt="aaa"></a>
+		<a href="#"><img src="../images/3.jpg" alt="aaa"></a>
+		<a href="#"><img src="../images/4.jpg" alt="aaa"></a>
+		<a href="#"><img src="../images/5.jpg" alt="aaa"></a>
+		<a href="#"><img src="../images/6.jpg" alt="aaa"></a>
+	</div>
+</div>
+</body>
+</html>

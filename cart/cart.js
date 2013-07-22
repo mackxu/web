@@ -74,7 +74,7 @@ Cart.include({
 
 	},
 	stripe: function() {
-		// 清除所有.alt
+		// 首先清除所有.alt
 		$('#cart tbody tr').removeClass('alt')
 		.filter(':visible:nth-child(odd)').addClass('alt');
 	}

@@ -1,0 +1,24 @@
+img {
+	border: none;
+}
+#featured-books {
+	position: relative;
+	background-color: #ddd;
+	width: 544px;
+	height: 142px;
+	overflow: scroll;
+	margin: 1em auto;
+	z-index: 2;
+}
+#featured-books .covers {
+	position: relative;
+	width: 1056px;
+	z-index: 1;
+}
+/*浮动能让a成为块盒子*/
+#featured-books a {
+	float: left;			
+	padding: 10px 8px;
+	height: 106px;
+	outline: none;
+}
