@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>图片轮转-幻灯片</title>
+	<style type="text/css">
+	body,ul {
+		padding: 0;
+		margin: 0;
+		font-size: 12px;
+	}
+	ul {		
+		list-style: none;
+	}
+	img {
+		border: none;
+	}
+	#container {
+		width: 380px;
+		height: 252px;
+		margin: 50px auto;
+		border: 1px solid #000;
+
+		position: relative;
+
+		overflow: hidden;
+	}
+	ul.scroll {
+		width: 1900px;
+		height: 252px;
+		position: absolute;				/* 触发了创建块级格式化上下文，闭合浮动 */
+	}
+	ul.scroll li {
+		float: left;
+	}
+	ul.scroll li a {
+		display: inline-block;
+		width: 380px;
+		height: 252px;
+	}
+	#footer {
+		position: absolute;
+		bottom: 0;
+
+		background-color: rgba(0, 0, 0, .6);
+		padding: 4px;
+		width: 100%;
+
+		overflow: hidden;
+	}
+	#footer .desc {
+		float: left;
+
+		color: #FFF;
+		line-height: 24px;
+	}
+	/* 数字按钮 */
+	ul.num-order {
+		float: right;
+	}
+	ul.num-order li {
+		float: left;
+		padding: 2px 6px;
+		text-align: center;
+		margin-right: 8px;
+		border: 1px solid #888;
+		1background-color: #FF6;
+		color: #ccc;
+
+		cursor: pointer;
+	}
+	ul.num-order li.hover {
+		background-color: #FF6;
+
+		color: #000;
+		border-color: #ccc;
+	}
+	</style>
+</head>
+<body>
+<div id="container">
+	<ul class="scroll">
+		<li><a href="#" data-title="111111"><img src="images/1.jpg"></a></li>
+		<li><a href="#" data-title="222222"><img src="images/2.jpg"></a></li>
+		<li><a href="#" data-title="333333"><img src="images/3.jpg"></a></li>
+		<li><a href="#" data-title="444444"><img src="images/4.jpg"></a></li>
+		<li><a href="#" data-title="555555"><img src="images/5.jpg"></a></li>
+	</ul>
+	<!-- 图片的排列次序 -->
+	<div id="footer">
+		<div class="desc">aaaaaaaaaaaa</div>
+		<ul class="num-order"></ul>
+	</div>				
+</div>
+<script type="text/javascript" src="event.js"></script>
+<script type="text/javascript" src="animate.js"></script>
+<script type="text/javascript">
+var scrollImg = function() {
+	var oContainer = document.getElementById('container');
+	var oFooter = document.getElementById('footer');
+	var oImgContainer = oContainer.getElementsByClassName('scroll')[0];
+	var aLinks = oImgContainer.getElementsByTagName('a');
+	var oDesc = oFooter.getElementsByClassName('desc')[0];			// 图片title
+	var oNumOrder = oFooter.getElementsByTagName('ul')[0];
+	var iNum = aLinks.length;										// 图片的个数
+	// 每张图片的宽度
+	var offsetWidth = parseInt(getStyle(oImgContainer, 'width')) / iNum;		
+	var aNumOrder;													// 存放动态生成数字按钮的数组
+	var iCur = 0;													// 当前显示的图片，从0开始
+	var timer = null;
+	return {
+		// 添加事件处理函数
+		// 设置初始化状态
+		init: function() {
+			Event.addEvent(oContainer, 'mouseover', function() {
+				clearInterval(timer);
+			});
+			Event.addEvent(oContainer, 'mouseout', this.proxy(this, this.scrollImg));
+
+			Event.addEvent(oNumOrder, 'mouseover', this.proxy(this, this.numMouseoverHandle));
+
+			Event.addEvent(oNumOrder, 'mouseout', this.proxy(this, this.numMouseoutHandle));
+			
+			aNumOrder = this.numOrder();
+			// 图片描述和数字按钮的初始化状态
+			this.setNumBg(0);
+			this.setTitle(0);
+			this.scrollImg();
+		},
+		scrollImg: function() {
+			var that = this;
+
+			clearInterval(timer);
+			timer = setInterval(function() {
+				console.log(iCur);				
+				if(iCur === iNum - 1) {					// 一趟滚动结束
+					animate(oImgContainer, {left: 0});
+					iCur = 0;
+				}else {
+					animate(oImgContainer, {left: -offsetWidth * (iCur + 1)});
+					iCur ++;
+				}
+				that.setTitle(iCur);
+				that.setNumBg(iCur);
+			}, 2000);
+		},
+		// 动态生成数字按钮
+		numOrder: function() {
+			var aNumOrder = [];
+			var fragment = document.createDocumentFragment();
+			for(var i=0; i<iNum; i++) {
+				var li = document.createElement('li');
+				li.setAttribute('data-index', i);					// 自定义属性存储信息
+				li.appendChild(document.createTextNode(i+1));
+				fragment.appendChild(li);
+
+				aNumOrder.push(li);
+			}
+			oNumOrder.appendChild(fragment);
+			return aNumOrder;
+		},
+		setTitle: function(index) {
+			var title = aLinks[index].getAttribute('data-title');
+			oDesc.innerHTML = title;
+		},
+		setNumBg: function(index) {
+			// 先清除所有数字按钮上的hover类
+			var rg_hover = /\bhover\b/;
+			for(var i=iNum; i--; ) {
+				var className = aNumOrder[i].className;
+				if(rg_hover.test(className)) {
+					aNumOrder[i].className = className.replace(rg_hover, '');
+				}
+			}
+			// 然后给指定的元素添加该样式
+			if (aNumOrder[index].className) {
+				aNumOrder[index].className += ' hover';
+			}else {
+				aNumOrder[index].className = 'hover';
+			}			
+		},
+		// 事件代理函数保证其本对象上执行
+		numMouseoverHandle: function(e) {
+			var e = Event.getEvent(e);
+			var target = Event.getTarget(e);
+			if(target.tagName.toLowerCase() === 'li') {
+				clearInterval(timer);
+				// 获取的元素属性值是数字型字符串
+				// 最好立即转换成数字型
+				var index = parseInt(target.getAttribute('data-index'));
+				iCur = index;
+
+				animate(oImgContainer, {left: -offsetWidth * index});
+				this.setTitle(index);
+				this.setNumBg(index);
+			}
+			Event.stopBubble(e);
+		},
+		numMouseoutHandle: function(e) {
+			var e = Event.getEvent(e);
+			var target = Event.getTarget(e);
+			if(target.tagName.toLowerCase() === 'li') {
+				this.scrollImg();
+			}
+			Event.stopBubble(e);
+		},
+		// 函数fn在context对象上执行
+		proxy: function(context, fn) {
+			return function() {
+				fn.apply(context, arguments);
+			}
+		}
+	};
+}();
+
+scrollImg.init();
+</script>
+</body>
+</html>
