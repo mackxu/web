@@ -39,6 +39,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 	};
 
 用函数封装动画
+
 	var timer = null;
 	// elem: 运动的元素
 	// iTarget: 运动的目标
@@ -60,6 +61,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 2.	计算速度，开启定时器
 3.	判断停止条件，执行运动
 根据目标判断速度方向
+
 	var timer = null;
 	// elem: 运动的元素
 	// iTarget: 运动的目标
@@ -101,6 +103,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 对于速度：距离越远，速度越大；速度 = （目标点-当前值）/ 缩放系数
 问题：1. 速度需要取整（正向速度向上取整，负向速度向下取整）原因是样式的像素会舍去小数部分
 2.	潜在问题，目标值不是整数时（跟随页面滚动的缓冲侧边栏）
+
 	var timer = null;
 	function animate(elem, iTarget) {
 	
@@ -161,6 +164,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 物体大小属性（offsetWidth / offsetHeight）的Bug。
 原因：offsetWidth包含了border的宽，对拥有边框的div不等于其width属性
 解决办法：获取真正的width值。
+	
 	// 返回指定属性的属性值
 	// 返回值是整数
 	function getStyle(elem, attr) {
