@@ -28,7 +28,7 @@
 	ul.scroll {
 		width: 1900px;
 		height: 252px;
-		position: absolute;				/* 触发创建块级格式化上下文，闭合浮动 */
+		position: absolute;				/* 触发了创建块级格式化上下文，闭合浮动 */
 	}
 	ul.scroll li {
 		float: left;
@@ -55,6 +55,8 @@
 		margin-right: 8px;
 		border: 1px solid #000;
 		background-color: #FF6;
+
+		cursor: pointer;
 	}
 	</style>
 </head>
@@ -70,6 +72,7 @@
 	<!-- 图片的排列次序 -->
 	<ul class="order"></ul>				
 </div>
+<script type="text/javascript" src="event.js"></script>
 <script type="text/javascript">
 var scrollImg = function() {
 	var container,
@@ -120,18 +123,17 @@ var scrollImg = function() {
 				var target = e.target || e.srcElement;
 
 				if (target.tagName.toLowerCase() === 'li') {
-					clearTimeout(timer);							// 暂停图片轮翻
 					console.log('order mouseover');
+					clearTimeout(timer);							// 暂停图片轮翻
 					// 转换成数字待计算
 					var id = parseInt(target.getAttribute('data-index')),
 						start = offsetLength * index,
 						end = offsetLength * id;
-					console.log(index, id);
 					scrollImg.animate(imgList, start, end, 100, false);
 					index = id;
 				}
 				e.stopPropagation();
-			});
+			}, false);
 
 			order.addEventListener('mouseout', function(e) {
 				var e = e || window.event;
@@ -143,7 +145,7 @@ var scrollImg = function() {
 					timer = setTimeout(scrollImg.scroll, 500);
 				}
 				e.stopPropagation();				
-			});
+			}, false);
 
 			datetime = + new Date();		// 开始时间
 		},
@@ -169,37 +171,23 @@ var scrollImg = function() {
 		// active为true开启下一个动画。
 		animate: function(elem, start, end, speed, active) {
 			var temp = + new Date();
-			// console.log(index, temp - datetime);
+			console.log(index, temp - datetime);
 			datetime = temp;
 
-			var speed = end > start ? speed : - speed				// 确定运动方向
-				startTemp = start,
-				offset = 0,
+			var speedTemp = end > start ? speed : - speed			// 带有方向的速度
+				currLocal = start,									// 运动中当前位置
 				animateTimer = null,
 				animateTo = function() {
-					if (end > start) {					
-						if(startTemp < end) {
-							startTemp += speed;
-							animateTimer = setTimeout(animateTo, 25);
-						}else {
-							startTemp = end;
-							clearTimeout(animateTimer);				// 图片已滑入
-							// 重启图片轮翻，展示下一张图片
-							active && (timer = setTimeout(scrollImg.scroll, delay));
-						}
-						elem.style.left = startTemp + 'px';
+					if(Math.abs(end - currLocal) < speed) {		// 如果离终点足够近
+						clearTimeout(animateTimer);					// 停止动画
+						currLocal = end;							// 把当前位置设置为end
+						active && (timer = setTimeout(scrollImg.scroll, delay));
 					}else {
-						if (startTemp > end) {
-							startTemp += speed;
-							animateTimer = setTimeout(animateTo, 25);
-						}else {
-							startTemp = end;
-							clearTimeout(animateTimer);
-							// 重启图片轮翻，展示下一张图片
-							active && (timer = setTimeout(scrollImg.scroll, delay));
-						}
-						elem.style.left = startTemp + 'px';
+						currLocal += speedTemp;						// 继续向end方向运动
+						animateTimer = setTimeout(animateTo, 25);	// 短暂等待后，下一轮开始
 					}
+					elem.style.left = currLocal + 'px';				// 移动图片				
+
 				};
 			animateTimer = setTimeout(animateTo, 25);
 		},
@@ -208,7 +196,7 @@ var scrollImg = function() {
 			var fragment = document.createDocumentFragment();
 			for(var i=0; i<imgNum; i++) {
 				var li = document.createElement('li');
-				li.setAttribute('data-index', i);
+				li.setAttribute('data-index', i);					// 自定义属性存储信息
 				li.appendChild(document.createTextNode(i+1));
 				fragment.appendChild(li);
 			}
