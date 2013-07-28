@@ -251,8 +251,10 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 	
 	};
 多属性同时改变
+
 目前的运动框架每次运动只能改变一种属性的值.可以通过传递属性/目标值组成的字面量，来同时改变多个属性。
-// 返回指定属性的属性值
+	
+	// 返回指定属性的属性值
 	function getStyle(elem, attr) {
 	    var value = null;
 	    if(elem.currentStyle) {
