@@ -18,13 +18,14 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 
 2013/07/29
+
 运动框架
 开启定时器之前，清除之前的定时器
+
 window.onload = function() {
     var btn = document.getElementById('btn');
     var oDiv = document.getElementById('div1');
     var timer = null;
-
     btn.onclick = function() {
         clearInterval(timer);                   // 避免定时器叠加
         var timer = setInterval(function() {    // 设置定时器，定义动画
@@ -78,12 +79,12 @@ function animate(elem, iTarget, iSpeed) {
     }, 30);
 }
 淡入淡出，改变元素的透明度。需要有一个变量保存透明度值，用来和速度加减，然后赋值给元素的样式，从而实现淡入淡出。
+
 var timer = null;
 var opacity = 30;                   // 默认透明度
 function animate(elem, iTarget, iSpeed) {
     // 计算速度
     iSpeed = opacity < iTarget ? iSpeed : - iSpeed;
-
     clearInterval(timer);    
     timer = setInterval(function() {
         if(opacity === iTarget) {
@@ -124,21 +125,21 @@ function animate(elem, iTarget) {
 每个运动物体都能开启一个属于自己的定时器。做法把定时器作为物体的属性，这样清理时针对自己。
 参数的传递，物体与目标值
 关键点，所有变量不能共享。（如把定时器变量作为物体的属性）
-function animate(elem, iTarget) {
 
-    clearInterval(elem.timer);    
-    elem.timer = setInterval(function() {        
-        var offsetWidth = elem.offsetWidth;
-        // 对正向速度向上取整，对负向速度向下取整
-        var iSpeed = (iTarget - offsetWidth) / 8;
-        iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
-        if(offsetWidth === iTarget) {                // 运动停止条件
-            clearInterval(elem.timer);
-        }else {
-            elem.style.width = offsetWidth + iSpeed + 'px';
-        }
-    }, 30);
-}
+	function animate(elem, iTarget) {
+	    clearInterval(elem.timer);    
+	    elem.timer = setInterval(function() {        
+	        var offsetWidth = elem.offsetWidth;
+	        // 对正向速度向上取整，对负向速度向下取整
+	        var iSpeed = (iTarget - offsetWidth) / 8;
+	        iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+	        if(offsetWidth === iTarget) {                // 运动停止条件
+	            clearInterval(elem.timer);
+	        }else {
+	            elem.style.width = offsetWidth + iSpeed + 'px';
+	        }
+	    }, 30);
+	}
 多物体淡入淡出时，也出现同样的情况。必须针对每一个物体设置透明度属性（不能共享，只能独享）
 function animate(elem, iTarget) {
 
