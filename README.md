@@ -179,6 +179,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 任意值运动
 高度、宽度、透明度、位置。抽象animate函数
+	
 	function animate(elem, attr, iTarget) {
 	
 	    clearInterval(elem.timer);    
@@ -208,6 +209,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 链式运动
 简单地说，一个动画结束时另一个动画开始。(利用回调函数)
+	
 	function animate(elem, attr, iTarget, callback) {
 	
 	    clearInterval(elem.timer);    
