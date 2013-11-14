@@ -8,13 +8,15 @@
 >transition有4个过渡属性：   
 1. transition-property：    设置过渡效果的CSS属性的名称   
 2. transition-duration:    完成过渡效果的秒数或毫秒数  
-3. transition-timing-function: 速度效果曲线      
+3. transition-timing-function: 速度效果曲线   
+4. transition-delay: 规定过渡效果延迟时间      
 >>  
 - linear: 匀速运动   
 - ease: 慢速开始，然后变快，然后慢速结束的过渡效果
 - ease-in: 慢速开始的过渡效果
 - ease-out: 慢速结束的过渡效果
 - ease-in-out: 慢速开始和慢速结束的过渡效果    
+
 
   
 
