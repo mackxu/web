@@ -10,7 +10,7 @@
 2. transition-duration:    完成过渡效果的秒数或毫秒数  
 3. transition-timing-function: 速度效果曲线   
 4. transition-delay: 规定过渡效果延迟时间      
->>  
+>> 速度效果：  
 - linear: 匀速运动   
 - ease: 慢速开始，然后变快，然后慢速结束的过渡效果
 - ease-in: 慢速开始的过渡效果
