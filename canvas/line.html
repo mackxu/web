@@ -1,0 +1,21 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Canvas Line</title>
+	<style>
+	canvas{ border: 1px dashed #000; margin: 50px auto; }
+	</style>
+</head>
+<body>
+	<canvas id="drawing" width="400px" height="300px"></canvas>
+	<script>
+	var canvas = document.getElementById('drawing');
+	var context = canvas.getContext('2d');
+
+	// 画直线
+	context.moveTo(50, 50);
+	context.lineTo(300, 240);
+	context.stroke();
+	</script>
+</body>
+</html>
