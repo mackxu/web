@@ -22,11 +22,51 @@
 		-ms-transform: scale(1.2) rotate(145deg);
 		transform: scale(1.2) rotate(145deg);
 	}
+	.perspective{ 
+		width: 300px;
+		height: 180px;
+		line-height: 180px;
+		background-color: #000;
+
+		-webkit-transition: all 2s 0.2s;
+		-moz-transition: all 2s;
+		-o-transition: all 2s;
+		-ms-transition: all 2s;
+		transition: all 2s;
+	}
+	/*.perspective:hover{
+		-webkit-transform: rotateY(45deg);
+		-moz-transform: perspective(400px) rotateY(40deg);
+		-o-transform: perspective(400px) rotateY(40deg);
+		-ms-transform: perspective(400px) rotateY(40deg);
+		transform: perspective(400px) rotateY(40deg);
+	}*/
+	.perspective img{ 
+		vertical-align: middle;
+	}
+	.wrap{
+		-webkit-perspective-origin: 10% 10%;			/* 待查看这个属性 */
+		-webkit-perspective: 50px;
+		-webkit-transition: all 2s 0.2s;
+	}
+	.wrap:hover{
+		-webkit-perspective: 400px;
+	}
+	.wrap:hover .perspective{
+		-webkit-transform: rotateY(45deg);
+		-moz-transform: perspective(400px) rotateY(40deg);
+		-o-transform: perspective(400px) rotateY(40deg);
+		-ms-transform: perspective(400px) rotateY(40deg);
+		transform: perspective(400px) rotateY(40deg);
+	}
 	</style>
 </head>
 <body>
 	<!-- 变换 -->
 	<div class="h50"></div>
 	<div class="transform scaleRotate bc"></div>
+	<div class="wrap">
+		<div class="perspective bc tc mt10"><img src="images/mm.jpg" height="150" /></div>
+	</div>
 </body>
 </html>
