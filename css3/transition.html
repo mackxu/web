@@ -1,26 +1,40 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>css3 demo</title>
 	<style type="text/css">
-	.slickBtn{
-		color: white;
-		font-weight: bold;
-		padding: 10px;
-		border: solid 1px black;
-		background: lightblue;
-		cursor: pointer;
-		margin: 100px;
-		-webkit-transition: all 0.5s 0.2s;
+	.container{ 
+		position: relative;
+		-webkit-perspective: 800;
+		width: 380px; height: 254px; 
 	}
-	.slickBtn:hover{ color: black; background: yellow; }
+	.flim{
+		width: 100%; height: 100%;
+		-webkit-transition: -webkit-transform 1s;
+		-webkit-transform-style: preserve-3d;
+	}
+	.container:hover .flim{ 
+		-webkit-transform: rotateY(180deg); 
+	}
+	.face{ 
+		position: absolute; 
+		-webkit-backface-visibility: hidden;
+		width: 100%; height: 100%;
+	}
+	.back{ -webkit-transform: rotateY(180deg); background-color: #3b3b3b; color: #eee; }
+	.front{ z-index: 5; }
+	.container:hover .front{ z-index: -1; }
 	</style>
 </head>
 <body>
-	<!-- 基本的颜色过渡 -->
-	<!-- 行内标签的padding和margin -->
-	<span class="slickbtn">Hover Here</span>
-	<!-- <button class="slickBtn">Hover Here</button> -->
+	<div class="container">
+		<div class="flim">
+			<div class="face front">
+				<img src="images/mm.jpg" alt="mm">
+			</div>
+			<div class="face back">this is back</div>
+		</div>
+	</div>
 </body>
 </html>

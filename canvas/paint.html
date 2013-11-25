@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>简单画板</title>
+	<style>
+	.content{ width: 900px; margin: 0 auto; }
+	canvas{ border: 1px dashed #333; }
+
+	</style>
+	<script>
+	window.onload = function() {
+		var p = Paint.create();
+	}
+	</script>
+</head>
+<body>
+	<div class="content">
+		<canvas width="500" height="300" id="paint"></canvas>
+	</div>
+	<script>
+	var Paint = {
+		create: function() {
+			// 取得canvas和绘图上下文
+			var canvas = this.canvas = document.getElementById('paint');
+			this.context = this.canvas.getContext('2d');
+
+			// 添加用于实现绘图操作的事件处理程序
+			// this.canvas.onmousedown = this.startDrawing;
+			// this.canvas.onmouseup = this.canvas.onmouseout = this.stopDrawing;
+			// this.canvas.onmousemove = this.draw;
+			var that = this;
+			canvas.addEventListener('mousedown', function(e) {
+				that.startDrawing(e);
+			}, false);
+			canvas.addEventListener('mouseup', function(e) {
+				that.stopDrawing(e);
+			});
+			canvas.addEventListener('mouseout', function(e) {
+				that.stopDrawing(e);
+			}, false);
+			canvas.addEventListener('mouseover', function(e) {
+				that.draw(e);
+			}, false);
+
+			// 对象的属性
+			this.previousColorElem = null;
+			this.previousThicknessElem = null;
+			this.isDrawing = false;
+		},
+		setColor: function() {},
+		setThickness: function() {},
+		startDrawing: function(e) {
+			this.context.strokeStyle = '#333';
+			this.context.lineWidth = 10;
+
+			this.isDrawing = true;
+			this.context.beginPath();
+
+			// 把画笔放到鼠标当前所在的位置
+			this.context.moveTo(e.pageX - this.canvas.offsetLeft, e.pageY - this.canvas.offsetTop);
+		},
+		stopDrawing: function() {
+			this.isDrawing = false;
+		},
+		draw: function(e) {
+			if(this.isDrawing) {
+				// 找到鼠标的新位置
+				var x = e.pageX - this.canvas.offsetLeft;
+				var y = e.pageY - this.canvas.offsetTop;
+
+				console.log(this);
+
+				// 画一条到新位置的线
+				this.context.lineTo(x, y);
+				this.context.stroke();
+			}
+		},
+		saveCanvas: function() {},
+		on: function(elem, eventType, fn) {
+			// if( typeof eventType !== 'string' ) return false;
+			// var aEventType = eventType.split(' ');					// 多个事件名以空格分开
+			// aEventType.forEach(function(eType, index) {
+			// 	elem.addEventListener(eType, fn, false);
+			// });
+			elem.addEventListener(eventType, fn, false);
+		}
+	}
+	</script>
+</body>
+</html>
