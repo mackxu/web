@@ -21,27 +21,29 @@
 	<script>
 	var Paint = {
 		create: function() {
+			var that = this;
 			// 取得canvas和绘图上下文
 			var canvas = this.canvas = document.getElementById('paint');
 			this.context = this.canvas.getContext('2d');
 
 			// 添加用于实现绘图操作的事件处理程序
-			// this.canvas.onmousedown = this.startDrawing;
-			// this.canvas.onmouseup = this.canvas.onmouseout = this.stopDrawing;
-			// this.canvas.onmousemove = this.draw;
-			var that = this;
-			canvas.addEventListener('mousedown', function(e) {
-				that.startDrawing(e);
-			}, false);
-			canvas.addEventListener('mouseup', function(e) {
-				that.stopDrawing(e);
-			});
-			canvas.addEventListener('mouseout', function(e) {
-				that.stopDrawing(e);
-			}, false);
-			canvas.addEventListener('mouseover', function(e) {
-				that.draw(e);
-			}, false);
+			canvas.onmousedown = function(e) { that.startDrawing(e) };
+			canvas.onmouseup = canvas.onmouseout = function(e) { that.stopDrawing(e) };
+			canvas.onmousemove = function(e) { that.draw(e) };
+
+			
+			// canvas.addEventListener('mousedown', function(e) {
+			// 	that.startDrawing(e);
+			// }, false);
+			// canvas.addEventListener('mouseup', function(e) {
+			// 	that.stopDrawing(e);
+			// });
+			// canvas.addEventListener('mouseout', function(e) {
+			// 	that.stopDrawing(e);
+			// }, false);
+			// canvas.addEventListener('mouseover', function(e) {
+			// 	that.draw(e);
+			// }, false);
 
 			// 对象的属性
 			this.previousColorElem = null;
