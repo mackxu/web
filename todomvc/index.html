@@ -4,8 +4,8 @@
 	<meta charset="utf-8">
 	<title>Todo</title>
 	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<link rel="stylesheet" type="text/css" href="static/css/base.css">
-	<link rel="stylesheet" type="text/css" href="static/css/todo.css">
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/todo.css">
 </head>
 <body>
 <section id="todoapp">
@@ -16,7 +16,17 @@
 	<section id="main">
 		<input type="checkbox" id="toggle-all">
 		<label for="toggle-all">Mark all as compelete</label>
-		<ul id="todo-list"></ul>
+		<ul id="todo-list">
+			<li >
+				<div class="todo-item">
+					<input type="checkbox" class="todo-item-toggle" />
+					<label class="todo-item-label">good work</label>
+					<button class="todo-item-destroy"></button>
+				</div>
+				<input class="edit" value="good work" />
+			</li>
+			
+		</ul>
 	</section>
 	<footer id="footer"></footer>
 </section>

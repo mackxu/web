@@ -1,5 +1,5 @@
 var Todos = Backbone.Collection.extend({
-	model: Todo,
+	model: TodoMdl,
 	localStorage: new Backbone.LocalStorage('todo'),
 	comparator: 'order',
 	done: function() {},
