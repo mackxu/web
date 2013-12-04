@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Todo</title>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="stylesheet" type="text/css" href="static/css/base.css">
+	<link rel="stylesheet" type="text/css" href="static/css/todo.css">
+</head>
+<body>
+<section id="todoapp">
+	<header id="header">
+		<h1>todos</h1>
+		<input type="text" id="new-todo" placeholder="what needs to be done?" autofocus="">		
+	</header>
+	<section id="main">
+		<input type="checkbox" id="toggle-all">
+		<label for="toggle-all">Mark all as compelete</label>
+		<ul id="todo-list"></ul>
+	</section>
+	<footer id="footer"></footer>
+</section>
+<footer id="info"></footer>
+<script type="text/template" id="todoItem-tmpl">
+	<div class="todo-item">
+		<input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %> />
+		<label><%- title %></label>
+		<button class="destroy"></button>
+	</div>
+</script>
+<script type="text/template" id="stats-tmpl">
+	<span id="todo-count"><strong><%= remaining %></strong> <%= remaining ===1 ? 'item' : 'items' %> left</span>
+	<ul id="filters">
+		<li><a class="selected" href="#/">All</li>
+		<li><a href="#/active">Active</li>
+		<li><a href="#/completed">Completed</li>
+	</ul>
+	<% if(completed) { %>
+		<button id="clear-completed">Clear completed (<%= completed %>)</button>
+	<% } %>
+</script>
+<script type="text/javascript" src="js/libs/underscore.js"></script>
+<script type="text/javascript" src="js/libs/zepto.js"></script>
+<script type="text/javascript" src="js/libs/backbone.js"></script>
+<script type="text/javascript" src="js/libs/backbone.localStorage.js"></script>
+<script type="text/javascript" src="js/models/todo_m.js"></script>
+<script type="text/javascript" src="js/collections/todo_c.js"></script>
+<script type="text/javascript" src="js/views/todoItem_v.js"></script>
+<script type="text/javascript" src="js/views/app_v.js"></script>
+</body>
+</html>
