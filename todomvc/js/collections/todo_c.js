@@ -1,6 +1,6 @@
 var Todos = Backbone.Collection.extend({
 	model: TodoMdl,
-	// localStorage: new Backbone.LocalStorage('todo'),
+	localStorage: new Backbone.LocalStorage('todo'),
 	comparator: 'title',
 	done: function() {},
 	remaining: function() {}
@@ -8,21 +8,15 @@ var Todos = Backbone.Collection.extend({
 
 var todos = new Todos([
 	{ id: 1, title: 'zzzzzz', completed: false }, 
-	{ id: 2, title: 'wwwwww', completed: true }
+	{ id: 2, title: 'wwwwww', completed: true },
+	{ id: 5, title: 'bbbbbb', completed: false },
+	{ id: 8, title: 'aaaaaa', completed: true }
 ]);
 
-todos.on({
-	'add': function(model) {
-		console.log('Added: ' + model.get('title'));
-	},
-	'remove': function(model) {
-		console.log('removed: ' + model.get('title'));
-	},
-	'change': function(model) {
-		console.log('completed: ' + model.get('title'));
-	}
-});
 
-todos.set({ id: 2, title: 'aaaaaaa', completed: true });
-
-console.dir(todos.toJSON());
+var titles = todos.chain().filter(function(todo) {
+	return todo.get('completed') === true;
+}).map(function(todo) {
+	return todo.get('title');
+}).value();
+console.log(titles);
