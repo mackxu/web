@@ -33,21 +33,25 @@ var AppView = Backbone.View.extend({
 	},
 	addOne: function(todoMdl) {
 		var todoItem = new TodoItem({ model: todoMdl });
+		// 待优化，在头部加入
 		this.$list.append(todoItem.render().el);
-		console.log('add event');
 	},
 	addAll: function() {
 		this.collection.each(this.addOne, this);
 	},
 	createOnEnter: function(e) {
 		if(e.which !== 13) return;
-		var title = $.trim(this.$input.val());
+		$input = this.$input;
+		var title = $.trim($input.val());
 		if(!title) return;
 		// 发送POST请求，添加新模型到集合(触发add事件，渲染到视图)
 		// 如果失败怎么办？？
 		this.collection.create({ title: title }, { 
 			wait: true,
-			success: function() { console.log('success: add model'); },
+			success: function() { 
+				console.log('success: add model');
+				$input.val(''); 
+			},
 			error: function() { console.log('error: add model'); } 
 		});
 	}

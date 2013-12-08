@@ -136,6 +136,10 @@ label[for="toggle-all"]{
 	line-height: 1.2;
 	-webkit-transition: color 0.4s;
 }
+.done .todo-item-label {
+	text-decoration: line-through;
+	color: #a9a9a9;
+}
 .todo-item-destroy {
 	display: none;
 	position: absolute;
