@@ -103,6 +103,7 @@ label[for="toggle-all"]{
 }
 .todo-item{
 	font-size: 24px;
+	position: relative;
 }
 #todo-list{}
 #todo-list .edit{ display: none; }
@@ -151,4 +152,14 @@ label[for="toggle-all"]{
 	-o-transition: all 0.2s;
 	-ms-transition: all 0.2s;
 	transition: all 0.2s;
+}
+.todo-item-destroy::after {
+    content: "x";
+}
+.todo-item:hover .todo-item-destroy {
+	display: block;
+}
+button{
+	border: none;
+	background: transparent;
 }

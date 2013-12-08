@@ -249,6 +249,7 @@
     this.cid = _.uniqueId('c');
     this.attributes = {};
     _.extend(this, _.pick(options, modelOptions));
+    // 如果定义了parse()方法，在设置前会被执行
     if (options.parse) attrs = this.parse(attrs, options) || {};
     if (defaults = _.result(this, 'defaults')) {
       attrs = _.defaults({}, attrs, defaults);
@@ -865,11 +866,14 @@
     // wait for the server to agree.
     create: function(model, options) {
       options = options ? _.clone(options) : {};
+      // 实例化model
       if (!(model = this._prepareModel(model, options))) return false;
+      // 查看{ wait：true }，如果没设置，向集合中添加模型
       if (!options.wait) this.add(model, options);
       var collection = this;
       var success = options.success;
       options.success = function(resp) {
+        // 如果设置了wait, 等待服务器响应后，再添加模型
         if (options.wait) collection.add(model, options);
         if (success) success(model, resp, options);
       };
@@ -898,6 +902,7 @@
 
     // Prepare a hash of attributes (or other model) to be added to this
     // collection.
+    // 创建模型，并验证，如果有验证的话
     _prepareModel: function(attrs, options) {
       if (attrs instanceof Model) {
         if (!attrs.collection) attrs.collection = this;
@@ -905,6 +910,7 @@
       }
       options || (options = {});
       options.collection = this;
+      // 构建时集合的model属性
       var model = new this.model(attrs, options);
       if (!model._validate(attrs, options)) {
         this.trigger('invalid', this, attrs, options);
@@ -1159,6 +1165,7 @@
     if (options.emulateHTTP && (type === 'PUT' || type === 'DELETE' || type === 'PATCH')) {
       params.type = 'POST';
       if (options.emulateJSON) params.data._method = type;
+      // 先用局部变量指定的参数（beforeSend）保存，然后定义同名方法，加工后，再执行该参数
       var beforeSend = options.beforeSend;
       options.beforeSend = function(xhr) {
         xhr.setRequestHeader('X-HTTP-Method-Override', type);
