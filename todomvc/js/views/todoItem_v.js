@@ -5,17 +5,16 @@ var TodoItem = Backbone.View.extend({
 		'click .todo-item-toggle': 'toggleDone',
 		'click .todo-item-destroy': 'clear'
 	},
-	initializtion: function() {
+	initialize: function() {
 		var model = this.model;
 		model || console.log('实例化时需要参数：model');
 
 		this.listenTo(this.model, 'change', this.render);
-		this.listenTo(model, 'destroy', this.remove);
+		this.listenTo(this.model, 'destroy', this.remove);
 	},
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));
 		this.$el.toggleClass('done', this.model.get('done'));
-		console.log(this.model.get('done'));
 
 		this.$input = this.$('.edit');
 		return this;
