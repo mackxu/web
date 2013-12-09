@@ -42,17 +42,18 @@ var AppView = Backbone.View.extend({
 	},
 	createOnEnter: function(e) {
 		var $input = this.$input;
-		if(event.which !== 13 || !$.trim(this.$input.val())) {
+		if(event.which !== 13 || !$.trim($input.val())) {
 			return;
 		}
 		// 发送POST请求，添加新模型到集合(触发add事件，渲染到视图)
 		// 如果失败怎么办？？
-		this.collection.create({ title: $.trim(this.$input.val()), done: false }, { 
+		this.collection.create({
+			title: $.trim($input.val()),
+			done: false,
+			order: this.collection.nextOrder()
+		}, { 
 			wait: true,
-			success: function() { 
-				console.log('success: add model');
-				$input.val(''); 
-			},
+			success: function() { console.log('success: add model'); $input.val(''); },
 			error: function() { console.log('error: add model'); } 
 		});
 	}

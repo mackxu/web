@@ -692,6 +692,8 @@
 
           // Listen to added models' events, and index models for lookup by
           // `id` and by `cid`.
+          // 触发集合中的model的所有事件都会执行_onModelEvent()方法
+          // 例如model触发destroy事件，集合执行remove()方法
           model.on('all', this._onModelEvent, this);
           this._byId[model.cid] = model;
           if (model.id != null) this._byId[model.id] = model;
