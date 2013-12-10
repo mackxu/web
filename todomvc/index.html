@@ -32,9 +32,9 @@
 <script type="text/template" id="stats-tmpl">
 	<span id="todo-count"><strong><%= remaining %></strong> <%= remaining ===1 ? 'item' : 'items' %> left</span>
 	<ul id="filters" class="w-60 inb clearfix">
-		<li class="fl ml10"><a class="selected" href="#/">All</li>
-		<li class="fl ml10"><a href="#/active">Active</li>
-		<li class="fl ml10"><a href="#/completed">Completed</li>
+		<li class="fl ml10"><a class="selected filter" href="#/" data-filter="all">All</li>
+		<li class="fl ml10"><a class="filter" href="#/active" data-filter="active">Active</li>
+		<li class="fl ml10"><a class="filter" href="#/completed" data-filter="completed">Completed</li>
 	</ul>
 	<% if(done) { %>
 		<button id="clear-completed">Clear completed (<%= done %>)</button>

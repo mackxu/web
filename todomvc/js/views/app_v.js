@@ -3,13 +3,17 @@ var AppView = Backbone.View.extend({
 	el: $('#todoapp'),
 	template: _.template($('#stats-tmpl').html()),
 	events: {
-		'keypress #new-todo': 'createOnEnter'
+		'keypress #new-todo': 'createOnEnter',
+		'click #clear-completed': 'clearDone',
+		'click #toggle-all': 'toggleAllDone',
+		'click .filter': 'filters'
 	},
 	initialize: function() {
 		this.$main = $('#main');
 		this.$footer = $('#footer');
 		this.$input = $('#new-todo');
 		this.$list = $('#todo-list');
+		this.allCheckbox = this.$('#toggle-all')[0];
 
 		var collection = this.collection;
 		collection || console.log('AppView实例化时集合参数');
@@ -33,6 +37,8 @@ var AppView = Backbone.View.extend({
 			this.$main.hide();
 			this.$footer.hide();
 		}
+
+		this.allCheckbox.checked = !remaining;
 	},
 	addOne: function(todoMdl) {
 		var todoItem = new TodoItem({ model: todoMdl });
@@ -58,7 +64,42 @@ var AppView = Backbone.View.extend({
 			success: function() { console.log('success: add model'); $input.val(''); },
 			error: function() { console.log('error: add model'); } 
 		});
+	},
+	// 一键删除所有完成事件
+	clearDone: function() {
+		_.invoke(this.collection.done(), 'destroy');
+		return false;
+	},
+	// 全部标记完成
+	toggleAllDone: function() {
+		var done = this.allCheckbox.checked;
+		// 记住: 不能用_.each()来直接遍历集合
+		this.collection.each(function(todo) {
+			todo.save({'done': done});							// localStorage不支持patch请求
+		});
+	},
+	filters: function(event) {
+		var self = this;
+		this.filterList = ['all', 'active', 'completed'];
+		var filter = $(event.currentTarget);
+		var filterName = '_filters_' + event.currentTarget.getAttribute('data-filter');
+		// 在此处查找元素，而不是在initialize()，是因为初始化时，视图未渲染，找不到DOM元素
+		// 这里是很多时候会犯的错误,因此当你找不要节点时，可以想想是不是在渲染前做了查找
+		this.$list.find('li').each(function(index, item) {
+			self[filterName].call(self, $(item));
+		});
+		return false;
+	},
+	_filters_all: function($item) {
+		$item.removeClass('hidden');
+	},
+	_filters_active: function($item) {
+		$item.toggleClass('hidden', $item.hasClass('done'));
+	},
+	_filters_completed: function($item) {
+		$item.toggleClass('hidden', !$item.hasClass('done'));
 	}
+
 });
 
 new AppView({ collection: new Todos() });
