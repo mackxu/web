@@ -603,6 +603,7 @@
     if (options.comparator !== void 0) this.comparator = options.comparator;
     this._reset();
     this.initialize.apply(this, arguments);
+    // 集合实例化时，执行的是reset()
     if (models) this.reset(models, _.extend({silent: true}, options));
   };
 
@@ -633,6 +634,7 @@
     },
 
     // Add a model, or list of models to the set.
+    // 创建新model，需要用create()
     add: function(models, options) {
       return this.set(models, _.defaults(options || {}, addOptions));
     },
@@ -676,7 +678,7 @@
       // Turn bare objects into model references, and prevent invalid models
       // from being added.
       for (i = 0, l = models.length; i < l; i++) {
-        if (!(model = this._prepareModel(models[i], options))) continue;
+        if (!(model = this._prepareModel(models[i], options))) continue;                // 实例化model
 
         // If a duplicate is found, prevent it from being added and
         // optionally merge it into the existing model.
@@ -696,6 +698,7 @@
           // 触发集合中的model的所有事件都会执行_onModelEvent()方法
           // 例如model触发destroy事件，集合执行remove()方法
           model.on('all', this._onModelEvent, this);
+          // 把实例化的model添加到this._byId = {}
           this._byId[model.cid] = model;
           if (model.id != null) this._byId[model.id] = model;
         }
@@ -723,7 +726,7 @@
       // Silently sort the collection if appropriate.
       if (sort) this.sort({silent: true});
 
-      if (options.silent) return this;
+      if (options.silent) return this;                    // 如果是{silent: true}, 执行到此结束
 
       // Trigger `add` events.
       for (i = 0, l = toAdd.length; i < l; i++) {

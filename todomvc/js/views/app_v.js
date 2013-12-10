@@ -48,7 +48,7 @@ var AppView = Backbone.View.extend({
 			return;
 		}
 		// 发送POST请求，添加新模型到集合(触发add事件，渲染到视图)
-		// 如果失败怎么办？？
+		// 注意create与add的区别
 		this.collection.create({
 			title: $.trim($input.val()),
 			done: false,
