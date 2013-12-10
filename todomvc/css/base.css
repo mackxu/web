@@ -54,6 +54,11 @@ a{ text-decoration: none; }
 .hidden{ overflow: hidden; }
 /* 宽/高度 */
 .w { width: 100% }
+.w-90 { width: 90% }
+.w-80 { width: 80% }
+.w-70 { width: 70% }
+.w-60 { width: 60% }
+.w-50 { width: 50% }
 .w10 { width: 10px; }
 .w20 { width: 20px; }
 .w30 { width: 30px; }

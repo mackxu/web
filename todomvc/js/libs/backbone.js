@@ -562,6 +562,7 @@
     _validate: function(attrs, options) {
       if (!options.validate || !this.validate) return true;
       attrs = _.extend({}, this.attributes, attrs);
+      // 执行validate()方法, 并把错误信息保存在validationError
       var error = this.validationError = this.validate(attrs, options) || null;
       if (!error) return true;
       this.trigger('invalid', this, error, _.extend(options || {}, {validationError: error}));
@@ -872,9 +873,9 @@
       if (!(model = this._prepareModel(model, options))) return false;
       // 查看{ wait：true }，如果没设置，向集合中添加模型
       if (!options.wait) this.add(model, options);
-      var collection = this;
-      var success = options.success;
-      options.success = function(resp) {
+      var collection = this;                    // 保存this，在回调函数中使用
+      var success = options.success;            // 保存参数success函数，用于重写
+      options.success = function(resp) {        // 重写success函数
         // 如果设置了wait, 等待服务器响应后，再添加模型
         if (options.wait) collection.add(model, options);
         if (success) success(model, resp, options);
@@ -912,8 +913,9 @@
       }
       options || (options = {});
       options.collection = this;
-      // 构建时集合的model属性
+      // 实例化时需要用到集合的model属性
       var model = new this.model(attrs, options);
+      // 实例化model后，执行验证方法
       if (!model._validate(attrs, options)) {
         this.trigger('invalid', this, attrs, options);
         return false;

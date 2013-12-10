@@ -13,7 +13,7 @@ var TodoItem = Backbone.View.extend({
 		model || console.log('实例化时需要参数：model');
 
 		this.listenTo(model, 'change', this.render);
-		// 当model被销毁时, remove()会停止该视图监听和移除DOM结构
+		// 当model被销毁时, view的remove()会停止该视图监听和移除DOM结构
 		this.listenTo(model, 'destroy', this.remove);			
 	},
 	render: function() {
