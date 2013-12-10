@@ -15,7 +15,9 @@ var AppView = Backbone.View.extend({
 		collection || console.log('AppView实例化时集合参数');
 		this.listenTo(collection, 'add', this.addOne);
 		this.listenTo(collection, 'reset', this.addAll);
-		this.listenTo(collection, 'all', this.render);				// 无论集合发生任何事件，都会重新渲染该视图
+		// 无论集合发生任何事件，都会重新渲染该视图
+		// 记住，渲染的不是集合对应的列表，而是集合的统计视图
+		this.listenTo(collection, 'all', this.render);				
 
 		collection.fetch({ reset: true });							// 获取持久化数据，服务器或本地存储
 	},
