@@ -24,6 +24,7 @@ var TodoItem = Backbone.View.extend({
 	},
 	clear: function() {
 		// triggers a "destroy" event on the model
+		// 包含它的集合会执行remove()
 		this.model.destroy();				// delegating an HTTP DELETE request to Backbone.sync
 	}
 });
