@@ -1278,7 +1278,7 @@
     // routes can be defined at the bottom of the route map.
     _bindRoutes: function() {
       if (!this.routes) return;
-      this.routes = _.result(this, 'routes');
+      this.routes = _.result(this, 'routes');                 // 可以对应的是一个方法
       var route, routes = _.keys(this.routes);
       while ((route = routes.pop()) != null) {
         this.route(route, this.routes[route]);
@@ -1417,6 +1417,7 @@
       // but we're currently in a browser that doesn't support it...
       if (this._wantsHashChange && this._wantsPushState && !this._hasPushState && !atRoot) {
         this.fragment = this.getFragment(null, true);
+        // 直接重定向到新页面去
         this.location.replace(this.root + this.location.search + '#' + this.fragment);
         // Return immediately as browser will do redirect to new url
         return true;
@@ -1425,6 +1426,7 @@
       // in a browser where it could be `pushState`-based instead...
       } else if (this._wantsPushState && this._hasPushState && atRoot && loc.hash) {
         this.fragment = this.getHash().replace(routeStripper, '');
+        // history.replaceState()会触发popstate吗？？
         this.history.replaceState({}, document.title, this.root + this.fragment + loc.search);
       }
 
@@ -1464,7 +1466,7 @@
       var fragment = this.fragment = this.getFragment(fragmentOverride);
       var matched = _.any(this.handlers, function(handler) {
         if (handler.route.test(fragment)) {
-          handler.callback(fragment);
+          handler.callback(fragment);                       // 猜测此处执行了路由方法
           return true;
         }
       });
