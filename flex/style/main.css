@@ -1,0 +1,93 @@
+#content{
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+.flex-column{
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+.flexContainer{
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+
+.flexItem{
+	-webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
+	-moz-box-flex: 1;         /* OLD - Firefox 19- */
+	width: 80%;               /* For old syntax, otherwise collapses. */
+	-webkit-flex: 1;          /* Chrome */
+	-ms-flex: 1;              /* IE 10 */
+	flex: 1;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+.statusBar{}
+.statusBar-flex{}
+
+.statusBar-limit{}
+
+.box{ border: 1px dotted #333; margin: 4px;}
+.h100{ height: 60px; }
+.w50{ width: 50px; }
+
+.aa{ border: 1px dotted #333; }
+.dd{ display: inline-block; border: 1px dotted #333; margin: 4px; height: 60px; }
+.bb{ width: 75%; }
+.cc{ width: 15%; }
+
+
+
+ul.nav, ul.nav ul{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	border: 1px solid #486B02;
+	background-color: #8BD400;
+	overflow: hidden;
+}
+
+ul.nav li{
+	float: left;
+	width: 8em;
+	background-color: #8BD400;
+}
+
+ul.nav li ul {
+	width: 8em;
+	position: absolute;
+	1left: -999em;
+}
+
+.nav li:hover ul { 1left: auto; }
+
+ul.nav a {
+	display: block;
+	color: #2B3F00;
+	text-decoration: none;
+	padding: 0.3em 1em;
+	border-right: 1px solid #486B02;
+	border-left: 1px solid #E4FFD3;
+	font-size: 12px;
+}
+
+ul.nav li li a {
+	border-top: 1px solid #E4FFD3;
+	border-bottom: 1px solid #486B02;
+	border-left: none;
+	border-right: none;
+}
+
+ul.nav li:last-child a { border-right: 0; border-bottom: 0; }
+ul a:hover, 
+ul a:focus{ color: #E4FFD3; background-color: #6DA203; }
+
+.ab{ width: 200px; height: 100px; padding: 10px; 1position: relative; }
+.cd{ position: absolute; background-color: rgba(3,3,3,0.5);  float: left; width: 100px; height: 50px; left: auto; }
+
+
+
+
+
+
