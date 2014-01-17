@@ -449,7 +449,7 @@
         (attrs = {})[key] = val;
       }
 
-      options = _.extend({validate: true}, options);
+      options = _.extend({validate: true}, options);              // 默认执行验证函数validate()
 
       // If we're not waiting and attributes exist, save acts as
       // `set(attr).save(null, opts)` with validation. Otherwise, check if
@@ -869,13 +869,14 @@
     create: function(model, options) {
       options = options ? _.clone(options) : {};
       if (!(model = this._prepareModel(model, options))) return false;
-      if (!options.wait) this.add(model, options);
+      if (!options.wait) this.add(model, options);            // 如果未设置wait，直接添加到collection中
       var collection = this;
       var success = options.success;
       options.success = function(model, resp, options) {
         if (options.wait) collection.add(model, options);
         if (success) success(model, resp, options);
       };
+      // model.save(key, val, options)
       model.save(null, options);
       return model;
     },
@@ -908,10 +909,11 @@
       }
       options = options ? _.clone(options) : {};
       options.collection = this;
-      var model = new this.model(attrs, options);
-      if (!model.validationError) return model;
-      this.trigger('invalid', this, model.validationError, options);
-      return false;
+
+      var model = new this.model(attrs, options);             // 创建模型实例
+      if (!model.validationError) return model;               // 如果通过验证，直接返回模型实例
+      this.trigger('invalid', this, model.validationError, options);  // 否则触发验证失败事件
+      return false;           // 并返回false
     },
 
     // Internal method to sever a model's ties to a collection.
