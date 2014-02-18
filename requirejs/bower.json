@@ -4,9 +4,10 @@
     "dependencies": {
         "requirejs": "latest",
         "jquery": "latest",
-        "backbone-amd": "latest",
+        "backbone": "latest",
         "underscore-amd": "latest",
         "text": "latest",
-	"zepto-amd": "lastest"
+	    "zepto": "",
+	"jquery.cookie":""
     }
 }
