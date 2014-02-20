@@ -1,1 +1,6 @@
-<p>hello world hello world <%= aa %>---<%= bb %> <%= cc %></p>
+<p>hello world <%- aa %>---<%= bb %> <%= cc %></p>
+<ul>
+    <% _.each(friends, function(friend) { %>
+        <li><%= friend.nickname %></li>
+    <% }) %>
+</ul>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery Mobile Demos</title>
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.0.css">
+    <style>
+    .custom-size-flipswitch.ui-flipswitch .ui-btn.ui-flipswitch-on {
+        text-indent: -1.5em;
+    }
+    .custom-size-flipswitch.ui-flipswitch {
+        width: 4.875em;
+    }
+    .custom-size-flipswitch.ui-flipswitch.ui-flipswitch-active {
+        padding-left: 2em;
+        width: 1.875em;
+    }
+    .custom-size-flipswitch.ui-shadow-inset {
+        box-shadow: none;
+    }
+    </style>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mobile-1.4.0.js"></script>
+</head>
+<body>
+<div data-role="page">
+    <div data-role="header">
+        <a href="#" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">取消</a>
+        <h2>任务</h2>
+        <button class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">提交
+</button>
+    </div>
+    <div data-role="content">
+
+
+<ul data-role="listview" data-inset="true" class="ui-nodisc-icon ui-alt-icon">
+    <li><a href="#">Acura</a></li>
+    <li><a href="#">Audi</a></li>
+    <li><a href="#">BMW</a></li>
+    <li><a href="#">Cadillac</a></li>
+    <li><a href="#">Ferrari</a></li>
+</ul>
+
+
+
+
+        
+        <!-- 按钮 -->
+        <button data-role="none">button</button>
+        <!-- 默认button按钮: ui-btn ui-shadow ui-corner-all -->
+        <button>button</button>
+        <a href="#">anthor</a>
+        <!-- .ui-btn display:block-->
+        <a href="#" class="ui-btn">提交</a>
+        <!-- ui-corner-all -->
+        <a href="#" class="ui-btn ui-corner-all">提交</a>
+        <!-- ui-btn-inline -->
+        <a href="#" class="ui-btn ui-corner-all ui-btn-inline">提交</a>
+        <!-- ui-state-disabled -->
+        <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-state-disabled">提交</a>
+        <!-- ui-mini font-size: 12.5px-->
+        <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-mini">提交</a>
+        <!-- ui-btn-b 主题 -->
+        <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-btn-b">提交</a>
+        <!-- ui-shadow -->
+        <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-shadow">提交</a>
+        <!-- ui-btn-icon-notext  ui-icon-delete -->
+        <a href="#" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ">No text</a>
+        <!-- 
+            图标在文字的相对位置
+            ui-btn-icon-left
+            ui-btn-icon-right
+            ui-btn-icon-top
+            ui-btn-icon-bottom
+        -->
+        <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-icon-delete ui-btn-icon-left">删除</a>
+        <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-icon-delete ui-btn-icon-right">删除</a>
+        <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-icon-delete ui-btn-icon-top">删除</a>
+        <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-icon-delete ui-btn-icon-bottom">删除</a>
+
+        <br />
+        <form>
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>aaaaa</legend>
+                <label><input type="radio" name="chioce" value="1" checked="checked" />one</label>
+                <label><input type="radio" name="chioce" value="2" />two</label>
+                <label><input type="radio" name="chioce" value="3" />three</label>
+            </fieldset>
+        </form>
+
+        <input type="checkbox" name="flipswitch2" data-role="flipswitch" data-on-text="开" data-off-text="关" checked="checked" data-corners="false" data-wrapper-class="custom-size-flipswitch" />
+
+        <input type="date" name="date" id="date" value="">
+        <input type="search" name="password" id="search" value="" placeholder="Placeholder text...">
+
+        <input type="file" name="file" id="file" value="">
+
+        <label for="textinput-2">Text Input:</label>
+        <input type="text" name="textinput-2" id="textinput-2" placeholder="Text input" value="">
+        <div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset">
+            <input type="text" name="textinput-2" id="textinput-2" placeholder="Text input" value="">
+        </div>
+    </div>
+
+
+
+<!-- 
+.ui-btn {
+    font-size: 16px;
+    margin: .5em 0;
+    padding: .7em 1em;
+    display: block;
+    position: relative;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+-->
+
+    <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#" data-icon="grid">消息</a></li>
+                <li><a href="#" data-icon="star" class="ui-btn-active">任务</a></li>
+                <li><a href="#" data-icon="gear">设置</a></li>
+            </ul>
+        </div><!-- /navbar -->
+    </div>
+
+</div><!-- /page -->
+
+<div data-role="page" id="pagetwo">
+  <div data-role="header">
+    <h1>我是一个对话框！</h1>
+  </div>
+
+  <div data-role="content">
+    <p>对话框与普通页面不同，它显示在当前页面的顶端。它不会横跨整个页面宽度。对话框页眉中的图标 “X” 可关闭对话框。</p>
+    <a href="#pageone">转到页面一</a>
+  </div>
+
+  <div data-role="footer">
+  <h1>页脚文本</h1>
+  </div>
+</div> 
+
+</body>
+</html>
