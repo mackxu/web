@@ -2,7 +2,7 @@
   "name": "myGrunt",
   "version": "0.1.0",
   "dependencies": {
-      "grunt-lib-contrib": "~0.6.1"
+    "grunt-lib-contrib": "~0.6.1"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
@@ -10,6 +10,10 @@
     "grunt-contrib-nodeunit": "~0.2.2",
     "grunt-contrib-uglify": "~0.2.7",
     "grunt-contrib-jst": "",
-    "grunt-contrib-watch": "" 
+    "grunt-contrib-watch": "",
+    "grunt-includes": "~0.4.2",
+    "grunt-usemin": "~2.0.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-copy": "~0.5.0"
   }
 }

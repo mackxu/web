@@ -1,50 +1,51 @@
 module.exports = function(grunt) {
 
-  // Project configuration.
-  grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-      },
-      build: {
-        src: 'src/<%= pkg.name %>.js',
-        dest: 'build/<%= pkg.name %>.min.js'
-      }
-    },
-    jst: {
-      compile: {
-        options: {
-          amd: true,
-          prettify: true
-        },
-        files: [{
-          expand: true,         // Enable dynamic expansion.
-          cwd: 'tpl/',          // Src matches are relative to this path.
-          src: ['**/*.html'],   // Actual pattern(s) to match.
-          dest: 'dest/',        // Destination path prefix.
-          ext: '.js'            // Dest filepaths will have this extension.
-        },
-      ],
-      }
-    },
-    watch: {
-      script: {
-        files: ['tpl/**/*.html'],
-        tasks: ['jst'],
-        options: {
-          livereload: true
-        }
-      }
-    }
-  });
+    // Project configuration.
+    grunt.initConfig({
 
-  // Load the plugin that provides the "uglify" task.
+        useminPrepare: {
+            html: ['app/tpl/**/*.html'],
+            options: {
+                // 测试发现这里指定的dest，是usemin引入资源的相对路径的开始
+                // 在usemin中设置assetsDirs，不是指定的相对路径
+                // List of directories where we should start to look for revved version of the assets referenced in the currently looked at file
+                dest: 'build/tpl'               // string type                 
+            }
+        },
+        usemin: { 
+            html: ['build/tpl/**/*.html'],      // 注意此处是build/
+            options: {
+                assetsDirs: ['build/js']
+            }
+        },
+        copy: {
+            html: {
+                expand: true,                   // 需要该参数
+                cwd: 'app/',
+                src: ['tpl/**/*.html'],         // 会把tpl文件夹+文件复制过去
+                dest: 'build'
+            }
+        },
+        less: {
+            src: ['app/less/**'],
+            dest: 'build/script/app.css'
+        } 
+
+    });
+
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-jst');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-usemin');
 
-  // Default task(s).
-  grunt.registerTask('default', ['uglify', 'jst', 'watch']);
+  // 最后就是顺序了，没错concat,uglify在这里哦！
+  grunt.registerTask('default', [
+      'copy:html',
+      'useminPrepare',
+      'concat:generated',
+      'uglify:generated',
+      'usemin'
+  ]);
 
 };

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>测试页面 小试验</title>
+	<style type="text/css">
+	* {
+		-moz-box-sizing: border-box;  		/* Firefox */
+		-webkit-box-sizing: border-box;  	/* Safari */
+		box-sizing: border-box;
+	}
+	.clearfix:after {
+		content: "";
+		clear: both;
+		display: table;
+	}
+	#fader{position:relative; height:300px;width:500px; }
+	#fader .fader_item{position:absolute;left:0;top:0;}
+	ul, li, ol{list-style:none;margin:0;padding:0; }
+	.fader_item + .fader_item { display: none; }
+	img{ display:block; max-width: 100%; }
+
+	.dots { position: absolute; left: 0; bottom: -40px; }
+	.dot { float: left; width: 20px; height: 20px; border-radius: 50%; border: 1px solid #ccc; text-indent: -999em; cursor: pointer;  }
+	.dot.active { background-color: green; } 
+	.dot + .dot { margin-left: 10px; }
+	</style>
+</head>
+<body>
+
+<div id="fader">
+	<ul>
+		<li class="fader_item"><img src="http://images.cnblogs.com/cnblogs_com/hongru/264552/o_1.jpg" _mce_src="http://www.cnblogs.com/hongru/1.jpg" alt="我是图片一" /></li>
+		<li class="fader_item"><img src="http://images.cnblogs.com/cnblogs_com/hongru/264552/o_2.jpg" _mce_src="http://www.cnblogs.com/hongru/2.jpg" alt="哈哈，图片二" /></li>
+		<li class="fader_item"><img src="http://images.cnblogs.com/cnblogs_com/hongru/264552/o_3.jpg" _mce_src="http://www.cnblogs.com/hongru/3.jpg" alt="这是图片三" /></li>
+		<li class="fader_item"><img src="http://images.cnblogs.com/cnblogs_com/hongru/264552/o_4.jpg" _mce_src="http://www.cnblogs.com/hongru/4.jpg" alt="哈哈，图片四" /></li>
+		<li class="fader_item"><img src="http://images.cnblogs.com/cnblogs_com/hongru/264552/o_5.jpg" _mce_src="http://www.cnblogs.com/hongru/5.jpg" alt="图片五来咯" /></li>
+	</ul>
+</div>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+<script>
+(function($, f) {
+	var Slider = function() {
+		var _ = this;
+
+		// 设置一些属性
+		_.o = {
+			speed: 500,
+			delay: 3000,
+			init: 0,				// 初始化时的delay
+			pause: !f,      		// pause on hover (boolean)
+			dots: f,        		// display ••••o• pagination (boolean)
+			autoplay: true,
+			zIndex: 0,
+			items: '>ul',   		// slides container selector
+			item: '>li'		   		// slidable items selector
+		};
+
+		_.init = function(el, o) {
+			//  Check whether we're passing any options in to Unslider
+			_.o = $.extend(_.o, o);
+			// console.log(_.o);
+			_.el = el;
+			_.ul = el.find(_.o.items);
+			_.li = _.ul.find(_.o.item);
+
+			var o = _.o;
+				len = _.li.length;
+
+			// curren indeed
+			_.cur = 0;
+
+			// start slider
+			o.autoplay && setTimeout(function() {
+				if(o.delay | 0) {
+					_.play();
+
+					if (o.pause) {
+						el.bind('mouseover mouseout', function(e) {
+							_.stop();
+							e.type == 'mouseout' && _.play();
+						});
+					};
+				}
+
+			}, o.init | 0);
+
+			//  Dot pagination
+			o.dots && nav();
+
+			return _;
+
+		};
+
+		//  Move Unslider to a slide index
+		_.to = function(index, callback) {
+			if(_.t) {
+				_.stop().play();
+			}
+
+			// local var
+			var el = _.el;
+			var o = _.o;
+			var ul = _.ul;
+			var li = _.li;
+			var cur = _.cur;
+			var to = li.eq(index);
+
+			//  Check if it's out of bounds
+			if (!to.length) index = 0;				// 当index超出最大值时
+			if (index < 0) index = li.length - 1;	// 或小于0
+			to = li.eq(index);						// 重新获取
+			
+			// 执行动画
+			_.dot.eq(index).addClass('active').siblings().removeClass('active');
+			to.css('zIndex', ++o.zIndex).fadeIn(o.speed | 0, function() {
+				li.eq(cur).hide();
+
+				_.cur = index;
+			});
+
+			return _;
+		};
+		_.play = function() {
+			// 开启一个循环定时器
+			_.t = setInterval(function() {
+				_.to(_.cur + 1);
+			}, _.o.delay | 0); 
+		};
+		// 停止自动播放
+		_.stop = function() {
+			_.t = clearInterval(_.t);
+			return _;
+		};
+		_.next = function() {
+			return _.stop().to(_.cur + 1);
+		};
+		_.prev = function() {
+			return _.stop().to(_.cur - 1);
+		};
+
+		// 创建控件
+		function nav() {
+			var html = '<ol class="dots">';
+				$.each(_.li, function(index) {
+					html += '<li class="dot' + (index == _.cur ? ' active': '') + '">' + ++index + '</li>';
+				});
+			html += '</ol>';
+
+			_.el.append(html).find('.dots').delegate('.dot', 'click', function(e) {
+				var me = $(this);
+				me.hasClass('dot') && _.stop().to(me.index());
+			});
+
+			_.dot = _.el.find('.dot');
+		}
+	}
+
+	//  Create a jQuery plugin
+	$.fn.slider = function(o) {
+		return this.each(function(index) {
+			var me = $(this);
+			(new Slider).init(me, o);
+		});
+	}
+})(jQuery, false)
+
+$(function() {
+	$('#fader').slider({
+		speed: 1500,
+		dots: true
+	});
+})
+</script>
+</body>
+</html>
