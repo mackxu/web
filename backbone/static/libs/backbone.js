@@ -249,6 +249,7 @@
     if (options.collection) this.collection = options.collection;
     if (options.parse) attrs = this.parse(attrs, options) || {};
     attrs = _.defaults({}, attrs, _.result(this, 'defaults'));
+    // model.set()方法
     this.set(attrs, options);
     this.changed = {};
     this.initialize.apply(this, arguments);
@@ -343,6 +344,7 @@
         } else {
           delete this.changed[attr];
         }
+        // 把属性添加到current = this.attributes
         unset ? delete current[attr] : current[attr] = val;
       }
 
@@ -596,6 +598,7 @@
     if (options.comparator !== void 0) this.comparator = options.comparator;
     this._reset();
     this.initialize.apply(this, arguments);
+    // 执行的是collection.reset()方法
     if (models) this.reset(models, _.extend({silent: true}, options));
   };
 
@@ -658,10 +661,13 @@
     // already exist in the collection, as necessary. Similar to **Model#set**,
     // the core operation for updating the data contained by the collection.
     set: function(models, options) {
+      
       options = _.defaults({}, options, setOptions);
+      
       if (options.parse) models = this.parse(models, options);
       var singular = !_.isArray(models);
       models = singular ? (models ? [models] : []) : _.clone(models);
+
       var i, l, id, model, attrs, existing, sort;
       var at = options.at;
       var targetModel = this.model;
@@ -673,7 +679,7 @@
 
       // Turn bare objects into model references, and prevent invalid models
       // from being added.
-      for (i = 0, l = models.length; i < l; i++) {
+      for (i = 0, l = models.length; i < l; i++) {                // 把列表与集合关联
         attrs = models[i];
         if (attrs instanceof Model) {
           id = model = attrs;
@@ -695,15 +701,18 @@
 
         // If this is a new, valid model, push it to the `toAdd` list.
         } else if (add) {
+          // 预处理Model, 指定它的collection属性为this
           model = models[i] = this._prepareModel(attrs, options);
           if (!model) continue;
-          toAdd.push(model);
+          toAdd.push(model);            // 记录新的model
 
           // Listen to added models' events, and index models for lookup by
           // `id` and by `cid`.
           model.on('all', this._onModelEvent, this);
+          // 把每个modle关联到collection中
           this._byId[model.cid] = model;
           if (model.id != null) this._byId[model.id] = model;
+
         }
         if (order) order.push(existing || model);
       }
@@ -855,6 +864,7 @@
       var collection = this;
       options.success = function(resp) {
         var method = options.reset ? 'reset' : 'set';
+        // 执行collection.reset(resp, options)或collection.set(resp, options)
         collection[method](resp, options);
         if (success) success(collection, resp, options);
         collection.trigger('sync', collection, resp, options);
@@ -1153,8 +1163,10 @@
     if (options.emulateHTTP && (type === 'PUT' || type === 'DELETE' || type === 'PATCH')) {
       params.type = 'POST';
       if (options.emulateJSON) params.data._method = type;
+      // 惯用的改写回调函数方法
       var beforeSend = options.beforeSend;
       options.beforeSend = function(xhr) {
+        // 添加请求头
         xhr.setRequestHeader('X-HTTP-Method-Override', type);
         if (beforeSend) return beforeSend.apply(this, arguments);
       };

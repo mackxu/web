@@ -17,7 +17,7 @@ class Api extends CI_Controller {
 	}
 
 	public function index() {
-		// $this->load->view('api_list');				// 加载视图
+		$this->load->view('api_list');				// 加载视图
 	}
 	
 	public function images() {

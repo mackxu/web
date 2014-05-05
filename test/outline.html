@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>测试页面 小试验</title>
+	<style type="text/css">
+	* {
+		-moz-box-sizing: border-box;  		/* Firefox */
+		-webkit-box-sizing: border-box;  	/* Safari */
+		box-sizing: border-box;
+	}
+	.clearfix:after {
+		content: "";
+		clear: both;
+		display: table;
+	}
+	.list {
+		margin: 0; padding: 0;
+		list-style: none;
+	}
+	.list_item {
+		float: left;
+		margin-right: 10px;
+		margin-bottom: 10px;
+		width: 100px;
+		height: 100px;
+
+		background-color: #ccc;
+	}
+	.list_item img {
+		width: 96px;
+		height: 96px;
+		display: block;
+	}
+	.border .list_item:hover {
+		border: 22px solid green;
+	}
+	.outline .list_item:hover  {
+		border: 22px solid green;
+	}
+	</style>
+</head>
+<body>
+
+<ul class="list outline clearfix">
+	<li class="list_item"><img src="images/4601.jpg"></li>
+	<li class="list_item"><img src="images/4601.jpg"></li>
+	<li class="list_item"><img src="images/4601.jpg"></li>
+</ul>
+
+<ul class="list border clearfix">
+	<li class="list_item"><img src="images/4601.jpg" /></li>
+	<li class="list_item"><img src="images/4601.jpg" /></li>
+	<li class="list_item"><img src="images/4601.jpg" /></li>
+	<li class="list_item"><img src="images/4601.jpg" /></li>
+	<li class="list_item"><img src="images/4601.jpg" /></li>
+</ul>
+
+<ul class="list outline clearfix">
+	<li class="list_item"><img src="images/4601.jpg"></li>
+	<li class="list_item"><img src="images/4601.jpg"></li>
+	<li class="list_item"><img src="images/4601.jpg"></li>
+</ul>
+
+</body>
+</html>
