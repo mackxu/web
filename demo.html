@@ -4,38 +4,14 @@
 	<meta charset="utf-8" />
 	<title>测试页面 小试验</title>
 	<style type="text/css">
-	#div1 {
-		width: 200px; 
-		height: 100px; 
-		background-color: #FF0; 
-		position: absolute; 
-		top: 100px;
-	}
+		.b {  }
+		.c { float: left; }
 	</style>
 </head>
 <body>
-<div id="div1">
-<div>
-<script type="text/javascript">
-	// 实现简单动画
-	// 避免获取类似div1.style.left的值
-	// 且它的值带有单位px
-	var div1 = document.getElementById('div1');
-	var left = 0;					// 保存元素的x方向的坐标
-	// 让动画增加x坐标值，使其向右移动
-	var toRight = function() {
-		// 错误：每次执行时，无需通过div1.style.left获取left的值
-		// 已经用全局变量left记录了该信息
-		// left = div1.style.left;
-		// 当盒子到达指定目标后，停止动画
-		if (left < 500) {
-			left += 2;
-		}
-		// 为盒子设置的新坐标值
-		div1.style.left = left + 'px';
-		setTimeout(toRight, 25);
-	};
-	toRight();					// 开始动画
-</script>
+<div class="a">
+	<div class="b">bbbbbbbbbbbbbbbbbbb</div>
+	<div class="c fl">cccc</div>
+</div>
 </body>
 </html>

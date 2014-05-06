@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery Mobile Demos</title>
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.0.css">
+    
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mobile-1.4.0.js"></script>
+</head>
+<body>
+<!-- 
+    // message task ------------------------------------- -->
+<div data-role="page" id="message">
+  <div data-role="header">
+    <a href="#" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">取消</a>
+    <h1>个人中心</h1>
+    <button class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">设置
+</button>
+  </div>
+
+  <div role="main" class="ui-content">
+    <p>对话框与普通页面不同，它显示在当前页面的顶端。它不会横跨整个页面宽度。对话框页眉中的图标 “X” 可关闭对话框。</p>
+    <a href="#pageone">转到页面一</a>
+  </div>
+
+  <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="messages.html" data-icon="comment">消息</a></li>
+                <li><a href="index.html" data-icon="home" >任务</a></li>
+                <li><a href="profile.html" data-icon="user" class="ui-btn-active">设置</a></li>
+            </ul>
+        </div><!-- /navbar -->
+    </div>
+</div> <!-- /page message -->
+</body>
+</html>
