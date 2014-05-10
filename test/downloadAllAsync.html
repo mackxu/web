@@ -1,0 +1,85 @@
+<script>
+
+function downloadAllAsync(urls, onsuccess, onerror) {
+    var result = [],
+        len = urls.length;
+
+    if(len === 0) {                         // 如果请求路径为空, 不执行下面的程序
+        // 绝不要同步地调用异步的回调函数
+        setTimeout(onsuccess.bind(null, result), 0);
+        return;
+    }
+
+    urls.foreach(function(url) {
+        downloadAsync(url, function(r) {
+            if(result) {
+                result.push(r);             // race condition
+                // 根据提供的url, 所有文件数据被成功下载后，执行onsuccess程序
+                result.length === len && onsuccess(result);
+            }
+        }, function(e) {
+            if (result) {
+                result = null;              // 在错误的情况下, 确保onerror只执行一次
+                onerror(e);
+            }
+        })
+    })
+}
+
+// 存储在对应索引位置
+function downloadAllAsync(urls, onsuccess, onerror) {
+    var result = [],
+        len = urls.length;
+
+    if(len === 0) {
+        setTimeout(onsuccess.bind(null, result), 0);
+        return;
+    }
+
+    urls.foreach(function(url, index) {
+        downloadAsync(url, function(r) {
+            if(result) {
+                result[index] = r;          // store at fixed index
+
+                result.length === len && onsuccess(result);             // race condition
+            }
+        }, function(e) {
+            if (result) {
+                result = null;
+                onerror(e);
+            }
+        })
+    })
+}
+
+// 使用计数器来追踪正在进行的操作数量
+// 存储在对应索引位置
+function downloadAllAsync(urls, onsuccess, onerror) {
+    var result = [],
+        pending = urls.length;
+
+    if(pending === 0) {
+        setTimeout(onsuccess.bind(null, result), 0);
+        return;
+    }
+
+    urls.foreach(function(url, index) {
+        downloadAsync(url, function(r) {
+            if(result) {
+                result[index] = r;          // store at fixed index
+                // pending -= 1;               // register the success
+                // pending === 0 && onsuccess(result);             // race condition
+
+                --padding || onsuccess(result);
+            }
+        }, function(e) {
+            if (result) {
+                result = null;
+                onerror(e);
+            }
+        })
+    })
+}
+
+
+</script>
