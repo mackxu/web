@@ -3,8 +3,10 @@
 /*
     自古华山一条路
  */
-var changeNumbers, date, exports, fill, kids, mood, plus, sum, trigger,
-  __slice = [].slice;
+var Animal, Horse, Person, Snake, a, aStudents, b, changeNumbers, courses, date, dish, eat, eldest, evens, exports, fill, food, i, id, kids, list, menu, mood, name, numbers, opa, plus, sam, students, sum, tim, tom, trigger, x, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _ref3,
+  __slice = [].slice,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 fill = function(container, liquid) {
   if (liquid == null) {
@@ -83,4 +85,149 @@ trigger = function() {
 
 console.log(trigger(1, 2, 3, 4));
 
+console.log((function() {
+  return 'hello function';
+})());
 
+eat = function(food) {};
+
+list = function(food) {};
+
+menu = function(food) {};
+
+_ref = ['toast', 'cheese', 'wine'];
+for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+  food = _ref[_i];
+  eat(food);
+}
+
+courses = ['greens', 'caviar', 'truffles', 'roast', 'cake'];
+
+for (i = _j = 0, _len1 = courses.length; _j < _len1; i = ++_j) {
+  dish = courses[i];
+  menu(i + 1, dish);
+}
+
+_ref1 = ['toast', 'cheese', 'wine'];
+for (_k = 0, _len2 = _ref1.length; _k < _len2; _k++) {
+  food = _ref1[_k];
+  if (food !== 'cheese') {
+    eat(food);
+  }
+}
+
+evens = (function() {
+  var _l, _results;
+  _results = [];
+  for (x = _l = 0; _l <= 10; x = _l += 2) {
+    _results.push(x);
+  }
+  return _results;
+})();
+
+students = {
+  '001': 'zhangsan',
+  '002': 'lisi'
+};
+
+aStudents = (function() {
+  var _results;
+  _results = [];
+  for (id in students) {
+    if (!__hasProp.call(students, id)) continue;
+    name = students[id];
+    _results.push("" + id + ": " + name);
+  }
+  return _results;
+})();
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
+[].splice.apply(numbers, [3, 4].concat(_ref2 = [-3, -4, -5, -6])), _ref2;
+
+console.log(numbers);
+
+eldest = 27 > 25 ? 'zhangsan' : 'lisi';
+
+console.log(eldest);
+
+opa = {
+  add: function(a, b) {},
+  plus: function(a, b) {}
+};
+
+if (opa != null) {
+  if (typeof opa.add === "function") {
+    opa.add(1, 3);
+  }
+}
+
+Animal = (function() {
+  function Animal(name) {
+    this.name = name;
+  }
+
+  Animal.prototype.move = function(meters) {
+    return console.log(this.name + ("move " + meters + " m"));
+  };
+
+  return Animal;
+
+})();
+
+Snake = (function(_super) {
+  __extends(Snake, _super);
+
+  function Snake() {
+    return Snake.__super__.constructor.apply(this, arguments);
+  }
+
+  Snake.prototype.move = function() {
+    console.log('aaa');
+    return Snake.__super__.move.call(this, 5);
+  };
+
+  return Snake;
+
+})(Animal);
+
+Horse = (function(_super) {
+  __extends(Horse, _super);
+
+  function Horse() {
+    return Horse.__super__.constructor.apply(this, arguments);
+  }
+
+  Horse.prototype.move = function() {
+    console.log('bbb');
+    return Horse.__super__.move.call(this, 6);
+  };
+
+  return Horse;
+
+})(Animal);
+
+sam = new Snake('zhangsan');
+
+tom = new Horse('lisi');
+
+sam.move();
+
+tom.move();
+
+_ref3 = [1, 2], a = _ref3[0], b = _ref3[1];
+
+console.log(a, b);
+
+Person = (function() {
+  function Person(options) {
+    this.name = options.name, this.age = options.age, this.height = options.height;
+  }
+
+  return Person;
+
+})();
+
+tim = new Person({
+  age: 25
+});

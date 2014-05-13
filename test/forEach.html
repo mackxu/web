@@ -1,0 +1,20 @@
+<script>
+    
+    if(typeof Function.prototype.forEach !== 'function') {
+        Function.prototype.bind = function(context) {
+            return this.apply(context, [].slice.call(arguments, 1));
+        }
+    }
+
+    function t(a, b, c) {
+        console.log(a, b, c);
+    }
+
+    var a = {
+        b: 1,
+        c: function(d) { console.log(this.b, d) }
+    }
+
+    setTimeout(a.c.bind(a, 3), 0);
+    
+</script>
