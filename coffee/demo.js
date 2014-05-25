@@ -3,7 +3,7 @@
 /*
     自古华山一条路
  */
-var Animal, Horse, Person, Snake, a, aStudents, b, changeNumbers, clearArray, courses, date, dish, eat, eldest, evens, exports, fill, food, hi, i, id, kids, list, menu, mood, name, numbers, opa, plus, sam, showA, students, sum, tim, tom, trigger, x, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _ref3,
+var Animal, Dog, Horse, Person, Pet, Snake, Tribble, a, aStudents, b, changeNumbers, clearArray, courses, date, dish, eat, eldest, evens, exports, fill, food, hi, i, id, kids, list, menu, mood, name, numbers, opa, plus, sam, showA, students, sum, t1, t2, tim, tom, trigger, x, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _ref3,
   __slice = [].slice,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -14,8 +14,6 @@ fill = function(container, liquid) {
   }
   return "Filling the " + container + " width " + liquid;
 };
-
-console.log(fill('div'));
 
 kids = {
   brother: {
@@ -34,8 +32,6 @@ changeNumbers = function() {
   return outer = 10 + inner;
 };
 
-console.log(changeNumbers());
-
 exports = exports != null ? exports : this;
 
 if (true) {
@@ -43,14 +39,12 @@ if (true) {
 }
 
 if (mood === 3 && true) {
-  console.log(mood);
+
 } else {
   console.log('good work');
 }
 
 date = mood > 2 ? 2 : 4;
-
-console.log(date);
 
 plus = function(a, b) {
   if (a == null) {
@@ -62,8 +56,6 @@ plus = function(a, b) {
   return a + b;
 };
 
-console.log(plus());
-
 sum = function() {
   var nums, result;
   nums = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
@@ -74,8 +66,6 @@ sum = function() {
   return result;
 };
 
-console.log(sum(1, 4, 8));
-
 trigger = function() {
   var events;
   events = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
@@ -83,7 +73,102 @@ trigger = function() {
   return events;
 };
 
-console.log(trigger(1, 2, 3, 4));
+fill = function(container, liquid) {
+  if (liquid == null) {
+    liquid = 'conffee';
+  }
+  return console.log('Filling the ' + container + ' width ' + liquid);
+};
+
+fill('zhangsan');
+
+Tribble = (function() {
+  function Tribble() {
+    this.isAlive = true;
+    Tribble.count++;
+  }
+
+  Tribble.prototype.breed = function() {
+    if (this.isAlive) {
+      return new Tribble;
+    }
+  };
+
+  Tribble.prototype.die = function() {
+    if (this.isAlive) {
+      Tribble.count--;
+    }
+    return this.isAlive = false;
+  };
+
+  Tribble.count = 0;
+
+  Tribble.makeTrouble = function() {
+    var i;
+    return console.log(((function() {
+      var _i, _ref, _results;
+      _results = [];
+      for (i = _i = 0, _ref = this.count; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+        _results.push('Trouble!');
+      }
+      return _results;
+    }).call(this)).join(' '));
+  };
+
+  return Tribble;
+
+})();
+
+t1 = new Tribble();
+
+t2 = new Tribble();
+
+Tribble.makeTrouble();
+
+t1.die();
+
+Tribble.makeTrouble();
+
+t2.breed().breed().breed();
+
+Tribble.makeTrouble();
+
+Pet = (function() {
+  function Pet(sex) {
+    this.sex = sex;
+    this.isHungry = true;
+  }
+
+  Pet.prototype.eat = function() {
+    return this.isHungry = false;
+  };
+
+  return Pet;
+
+})();
+
+Dog = (function(_super) {
+  __extends(Dog, _super);
+
+  function Dog(sex, age) {
+    this.age = age;
+    Dog.__super__.constructor.apply(this, arguments);
+    console.log('constructor');
+  }
+
+  Dog.prototype.eat = function() {
+    console.log('*crunch crunch*');
+    return Dog.__super__.eat.call(this);
+  };
+
+  Dog.prototype.fetch = function() {
+    console.log('Yip Yip');
+    return this.isHungry = true;
+  };
+
+  return Dog;
+
+})(Pet);
 
 console.log((function() {
   return 'hello function';
@@ -262,7 +347,3 @@ showA = function(x) {
 };
 
 showA();
-
-doAndUntil(user.name, function() {
-  return user.sayName;
-});
