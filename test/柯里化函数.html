@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>柯里化函数</title>
+</head>
+<body>
+    
+<script>
+    var toString = {}.toString;
+    // 1
+    var isString = function(obj) {
+        return toString.call(obj) === '[object String]';
+    };
+
+    var isFunction = function(obj) {
+        return toString.call(obj) === '[object Function]';
+    };
+    
+    // 2
+    var isType = function(type, obj) {
+        return toString.call(obj) === '[object ' + type + ']';
+    };
+
+
+    // 3
+    var isType = function(type) {
+        return function(obj) {
+            return toString.call(obj) === '[object ' + type + ']';
+        };
+    };
+
+    var isString = isType('String');
+    var isFunction = isType('Function');
+</script>
+</body>
+</html>

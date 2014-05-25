@@ -3,7 +3,7 @@
 /*
     自古华山一条路
  */
-var Animal, Horse, Person, Snake, a, aStudents, b, changeNumbers, courses, date, dish, eat, eldest, evens, exports, fill, food, i, id, kids, list, menu, mood, name, numbers, opa, plus, sam, students, sum, tim, tom, trigger, x, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _ref3,
+var Animal, Horse, Person, Snake, a, aStudents, b, changeNumbers, clearArray, courses, date, dish, eat, eldest, evens, exports, fill, food, hi, i, id, kids, list, menu, mood, name, numbers, opa, plus, sam, showA, students, sum, tim, tom, trigger, x, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _ref3,
   __slice = [].slice,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -230,4 +230,39 @@ Person = (function() {
 
 tim = new Person({
   age: 25
+});
+
+(function() {
+  return 'good work';
+});
+
+(function() {
+  return 'good work';
+})();
+
+hi = function() {
+  return 'hello world';
+};
+
+clearArray = function(arr) {
+  arr.splice(0, arr.length);
+};
+
+console.log('test' + 5);
+
+clearArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+x = true;
+
+showA = function(x) {
+  if (x == null) {
+    x = x;
+  }
+  console.log(x ? 'good work' : 'nope');
+};
+
+showA();
+
+doAndUntil(user.name, function() {
+  return user.sayName;
 });

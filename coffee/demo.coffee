@@ -126,6 +126,42 @@
 
     tim = new Person(age: 25)
 
+    # $('h1').click -> $(this).html($(this).html() + '!')
+
+    # $('#logo')
+    #     .css(fontSize: 16)
+    #     .hover(-> $(this).css(fontWeight: 'bold', color: 'red'))
+    #     .click(-> console.log 'good work')
+
+    # $.ajax '/',
+    #     type: 'GET'
+    #     dataType: 'html'
+    #     error: (jqXHR, textStatus, errorThrown) ->
+    #         $('body').append "AJAX Error: #{textStatus}"
+    #     success: (data, textStatus, jqXHR) ->
+    #         $('body').append "Successful AJAX call: #{data}"
+
+    -> 'good work'
+    do -> 'good work'       # 立即执行函数
+    hi = -> 'hello world'
+
+    clearArray = (arr) ->
+        arr.splice 0, arr.length
+        return;
+    console.log 'test' +5
+    clearArray ([1..10])
+
+    x = true
+    showA = (x = x) ->
+        console.log if x then 'good work' else 'nope'
+        return
+    showA();
+
+    doAndUntil user.name, -> user.sayName
+    
+
+        
+
 
 
 

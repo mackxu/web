@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>多异步之间的协作方案</title>
+</head>
+<body>
+    
+<script>
+    fs.readFile(template_path, 'utf8', function(err, template) {
+        db.query(sql, function(err, data) {
+            l10n.get(function(err, resourse) {
+                // TODO
+            });
+        });
+    });
+
+    var count = 0;
+    var result = {};                    // 存放查询结果
+    var done = function(key, value) {
+        result[key] = value;
+        count++;
+        count === 3 && render(result);
+    };
+
+    fs.readFile(template_path, 'utf8', function(err, template) {
+        done('template', template);
+    });
+    db.query(sql, function(err, data) {
+        done('data', data);
+    });
+    l10n.get(function(err, resourse) {
+        done('resourse', resourse);
+    });
+
+
+</script>
+</body>
+</html> 
