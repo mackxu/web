@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>测试页面 小试验</title>
+    <style type="text/css">
+    body { margin: 0; padding: 0; }
+    .ios7 { position: relative; width: 460px; height: 460px; }
+    .ios7-f, .ios7-b { 1display: none; }
+    .ios7-b { 
+        position: absolute; top: 0; left: 0; 
+        -webkit-filter: blur(8px) contrast(0.4) brightness(1.4);
+                filter: blur(8px) contrast(0.4) brightness(1.4);
+        clip: rect(380px 460px 460px 0); 
+    }
+    .ios7-i { position: absolute; left: 0; right: 0; bottom: 0; background-color: #fff\9; height: 83px; }
+    </style>
+</head>
+<body>
+    
+    <div class="ios7">
+        <div class="ios7-f">
+            <img src="images/4601.jpg" alt="" width="460" height="460">
+        </div>
+        <div class="ios7-b">
+            <img src="images/4601.jpg" alt="" width="460" height="460">
+        </div>
+        <div class="ios7-i">blur</div>
+    </div>
+</body>
+</html>

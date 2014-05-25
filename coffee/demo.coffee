@@ -95,6 +95,83 @@
             console.log 'Yip Yip'
             @isHungry = true
 
+    console.log do -> 'hello function'
+
+    eat = (food) -> 
+    list = (food) -> 
+    menu = (food) -> 
+
+    eat food for food in ['toast', 'cheese', 'wine']
+
+    courses = ['greens', 'caviar', 'truffles', 'roast', 'cake'];
+    menu i+1, dish for dish, i in courses
+
+    eat food for food in ['toast', 'cheese', 'wine'] when food isnt 'cheese'
+
+
+    # 增量为2
+    evens = (x for x in [0..10] by 2)
+    # 遍历对象
+    students = 
+        '001': 'zhangsan'
+        '002': 'lisi'
+    aStudents = for own id, name of students
+        "#{id}: #{name}"
+
+    # for filename in list
+    #     do (filename) -> 
+    #         fs.readFile filename, (err, result) ->
+    #             compile filename, result.toString()
+
+    # splice
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+    numbers[3..6] = [-3, -4, -5, -6]
+
+    console.log numbers
+
+    eldest = if 27 > 25 then 'zhangsan' else 'lisi'
+    console.log eldest
+
+    opa = 
+        add: (a, b)->
+        plus: (a, b) ->
+
+    #调用对象的方法
+    opa?.add?(1, 3)
+
+    class Animal
+        constructor: (@name) ->
+        move: (meters) ->
+            console.log @name + "move #{meters} m"
+
+    # inhert
+    class Snake extends Animal
+        move: ->
+            console.log 'aaa'
+            super 5
+    # inhert
+    class Horse extends Animal
+        move: ->
+            console.log 'bbb'
+            super 6
+
+    sam = new Snake('zhangsan')
+    tom = new Horse('lisi')
+    sam.move()
+    tom.move()
+
+    # 交换数组中的两个值
+    # [a, b] = [b, a]
+    # 多个变量赋值
+    [a, b] = [1, 2]
+    console.log a, b
+
+    class Person
+        constructor: (options) ->
+            { @name, @age, @height } = options
+
+    tim = new Person(age: 25)
+
 
 
 
