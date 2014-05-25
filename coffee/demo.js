@@ -3,84 +3,173 @@
 /*
     自古华山一条路
  */
-var changeNumbers, date, exports, fill, kids, mood, plus, sum, trigger,
-  __slice = [].slice;
 
-fill = function(container, liquid) {
-  if (liquid == null) {
-    liquid = 'coffee';
+(function() {
+  var Dog, Pet, Tribble, changeNumbers, date, exports, fill, kids, mood, plus, sum, t1, t2, trigger,
+    __slice = [].slice,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  fill = function(container, liquid) {
+    if (liquid == null) {
+      liquid = 'coffee';
+    }
+    return "Filling the " + container + " width " + liquid;
+  };
+
+  kids = {
+    brother: {
+      name: 'Max',
+      age: 11
+    },
+    sister: {
+      name: 'Ida',
+      age: 9
+    }
+  };
+
+  changeNumbers = function() {
+    var inner, outer;
+    inner = -1;
+    return outer = 10 + inner;
+  };
+
+  exports = exports != null ? exports : this;
+
+  if (true) {
+    mood = 3;
   }
-  return "Filling the " + container + " width " + liquid;
-};
 
-console.log(fill('div'));
+  if (mood === 3 && true) {
 
-kids = {
-  brother: {
-    name: 'Max',
-    age: 11
-  },
-  sister: {
-    name: 'Ida',
-    age: 9
+  } else {
+    console.log('good work');
   }
-};
 
-changeNumbers = function() {
-  var inner, outer;
-  inner = -1;
-  return outer = 10 + inner;
-};
+  date = mood > 2 ? 2 : 4;
 
-console.log(changeNumbers());
+  plus = function(a, b) {
+    if (a == null) {
+      a = 2;
+    }
+    if (b == null) {
+      b = 3;
+    }
+    return a + b;
+  };
 
-exports = exports != null ? exports : this;
+  sum = function() {
+    var nums, result;
+    nums = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+    result = 0;
+    nums.forEach(function(num) {
+      return result += num;
+    });
+    return result;
+  };
 
-if (true) {
-  mood = 3;
-}
+  trigger = function() {
+    var events;
+    events = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+    events.splice(2, 0, 'a');
+    return events;
+  };
 
-if (mood === 3 && true) {
-  console.log(mood);
-} else {
-  console.log('good work');
-}
+  fill = function(container, liquid) {
+    if (liquid == null) {
+      liquid = 'conffee';
+    }
+    return console.log('Filling the ' + container + ' width ' + liquid);
+  };
 
-date = mood > 2 ? 2 : 4;
+  fill('zhangsan');
 
-console.log(date);
+  Tribble = (function() {
+    function Tribble() {
+      this.isAlive = true;
+      Tribble.count++;
+    }
 
-plus = function(a, b) {
-  if (a == null) {
-    a = 2;
-  }
-  if (b == null) {
-    b = 3;
-  }
-  return a + b;
-};
+    Tribble.prototype.breed = function() {
+      if (this.isAlive) {
+        return new Tribble;
+      }
+    };
 
-console.log(plus());
+    Tribble.prototype.die = function() {
+      if (this.isAlive) {
+        Tribble.count--;
+      }
+      return this.isAlive = false;
+    };
 
-sum = function() {
-  var nums, result;
-  nums = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-  result = 0;
-  nums.forEach(function(num) {
-    return result += num;
-  });
-  return result;
-};
+    Tribble.count = 0;
 
-console.log(sum(1, 4, 8));
+    Tribble.makeTrouble = function() {
+      var i;
+      return console.log(((function() {
+        var _i, _ref, _results;
+        _results = [];
+        for (i = _i = 0, _ref = this.count; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+          _results.push('Trouble!');
+        }
+        return _results;
+      }).call(this)).join(' '));
+    };
 
-trigger = function() {
-  var events;
-  events = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-  events.splice(2, 0, 'a');
-  return events;
-};
+    return Tribble;
 
-console.log(trigger(1, 2, 3, 4));
+  })();
 
+  t1 = new Tribble();
 
+  t2 = new Tribble();
+
+  Tribble.makeTrouble();
+
+  t1.die();
+
+  Tribble.makeTrouble();
+
+  t2.breed().breed().breed();
+
+  Tribble.makeTrouble();
+
+  Pet = (function() {
+    function Pet(sex) {
+      this.sex = sex;
+      this.isHungry = true;
+    }
+
+    Pet.prototype.eat = function() {
+      return this.isHungry = false;
+    };
+
+    return Pet;
+
+  })();
+
+  Dog = (function(_super) {
+    __extends(Dog, _super);
+
+    function Dog(sex, age) {
+      this.age = age;
+      Dog.__super__.constructor.apply(this, arguments);
+      console.log('constructor');
+    }
+
+    Dog.prototype.eat = function() {
+      console.log('*crunch crunch*');
+      return Dog.__super__.eat.call(this);
+    };
+
+    Dog.prototype.fetch = function() {
+      console.log('Yip Yip');
+      return this.isHungry = true;
+    };
+
+    return Dog;
+
+  })(Pet);
+
+}).call(this);
