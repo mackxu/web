@@ -179,7 +179,7 @@
     }
 
     Craps.prototype.output = function() {
-      if (!this.prevThrow) {
+      if (this.prevThrow === false) {
         switch (this.sum) {
           case 7:
           case 11:

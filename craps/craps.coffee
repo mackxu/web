@@ -90,10 +90,10 @@
 			@point = $('#point')
 			@outCome = $('#outCome')
 			
-			# 从数据库中查出余额，并显示给用户
-			# 假设存款为100
+			# 从数据库中查出余额，并显示给用户。假设存款为100
 			@money = 100
 			@bank = $('#bank').text(@money)
+			# 两个骰子的位置
 			pos1 = [10, 10]
 			pos2 = [130, 10]
 			ch = 0
@@ -112,16 +112,16 @@
 				return
 			)
 		output: ->
-			if !@prevThrow 			# 本局第一次投掷
+			if @prevThrow == false 							# 本局第一次投掷
 				switch @sum
-					when 7, 11 then @finish(true, 1)
-					when 2, 3, 12 then @finish(true, 0)
-					else @finish(false, 2)			
+					when 7, 11 then @finish(true, 1)		# win
+					when 2, 3, 12 then @finish(true, 0)		# fail
+					else @finish(false, 2)					# next			
 			else
 				switch @sum
-					when @prevThrow then @finish(true, 1)
-					when 7 then @finish(true, 0)
-					else @finish(false, 2)
+					when @prevThrow then @finish(true, 1)	# win
+					when 7 then @finish(true, 0)			# fail
+					else @finish(false, 2)					# next
 			
 		finish: (stage, outcome)->
 			outcome_html = ''
@@ -141,7 +141,7 @@
 			@point.text(@sum)	
 			@outCome.text(outcome_html)
 			@bank.text(@money)
-
+		# 类方法与原型方法的区别
 		@getRandom: ->
 			1 + Math.random() * 6 | 0
 
