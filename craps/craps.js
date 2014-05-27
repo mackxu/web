@@ -67,7 +67,7 @@
   root.Dice1 = (function(_super) {
     __extends(Dice1, _super);
 
-    function Dice1() {
+    function Dice1(ctx, diceX, diceY) {
       Dice1.__super__.constructor.apply(this, arguments);
       this.dots = [[this.diceX + 0.5 * this.diceW, this.diceY + 0.5 * this.diceH]];
     }
@@ -79,7 +79,7 @@
   root.Dice2 = (function(_super) {
     __extends(Dice2, _super);
 
-    function Dice2() {
+    function Dice2(ctx, diceX, diceY) {
       Dice2.__super__.constructor.apply(this, arguments);
       this.dots = [[this.diceX + this.dotp, this.diceY + this.dotp], [this.diceX + this.diceW - this.dotp, this.diceY + this.diceH - this.dotp]];
     }
@@ -91,10 +91,10 @@
   root.Dice3 = (function(_super) {
     __extends(Dice3, _super);
 
-    function Dice3() {
+    function Dice3(ctx, diceX, diceY) {
       Dice3.__super__.constructor.apply(this, arguments);
-      this.dice1 = new root.Dice1(this.ctx, this.diceX, this.diceY);
-      this.dice2 = new root.Dice2(this.ctx, this.diceX, this.diceY);
+      this.dice1 = new root.Dice1(ctx, diceX, diceY);
+      this.dice2 = new root.Dice2(ctx, diceX, diceY);
       this.dots = this.dice1.getDots().concat(this.dice2.getDots());
     }
 
@@ -105,7 +105,7 @@
   root.Dice4 = (function(_super) {
     __extends(Dice4, _super);
 
-    function Dice4() {
+    function Dice4(ctx, diceX, diceY) {
       Dice4.__super__.constructor.apply(this, arguments);
       this.dots = [[this.diceX + this.dotp, this.diceY + this.dotp], [this.diceX - this.dotp + this.diceW, this.diceY + this.dotp], [this.diceX + this.dotp, this.diceY - this.dotp + this.diceH], [this.diceX - this.dotp + this.diceW, this.diceY - this.dotp + this.diceH]];
     }
@@ -117,10 +117,10 @@
   root.Dice5 = (function(_super) {
     __extends(Dice5, _super);
 
-    function Dice5() {
+    function Dice5(ctx, diceX, diceY) {
       Dice5.__super__.constructor.apply(this, arguments);
-      this.dice1 = new root.Dice1(this.ctx, this.diceX, this.diceY);
-      this.dice4 = new root.Dice4(this.ctx, this.diceX, this.diceY);
+      this.dice1 = new root.Dice1(ctx, diceX, diceY);
+      this.dice4 = new root.Dice4(ctx, diceX, diceY);
       this.dots = this.dice1.getDots().concat(this.dice4.getDots());
     }
 
@@ -131,9 +131,9 @@
   root.Dice6 = (function(_super) {
     __extends(Dice6, _super);
 
-    function Dice6() {
+    function Dice6(ctx, diceX, diceY) {
       Dice6.__super__.constructor.apply(this, arguments);
-      this.dice4 = new root.Dice4(this.ctx, this.diceX, this.diceY);
+      this.dice4 = new root.Dice4(ctx, diceX, diceY);
       this.dots = [[this.diceX + this.dotp, this.diceY + 0.5 * this.diceH], [this.diceX - this.dotp + this.diceW, this.diceY + 0.5 * this.diceH]].concat(this.dice4.getDots());
     }
 

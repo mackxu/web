@@ -13,7 +13,11 @@
 			new Dot(ctx, pos, dotR).render() for pos in aPos
 
 	class Dice
-		constructor: (@ctx, @diceX, @diceY) ->
+		constructor: (ctx, diceX, diceY) ->
+			@ctx = ctx
+			@diceX = diceX
+			@diceY = diceY
+
 			@diceW = 100
 			@diceH = 100
 			@dotR = 6
@@ -32,26 +36,27 @@
 			@dots
 
 	class root.Dice1 extends Dice
-		constructor: ->
+		# 重载了基类的构造函数
+		constructor: (ctx, diceX, diceY) ->
 			super
 			@dots = [[@diceX + 0.5 * @diceW, @diceY + 0.5 * @diceH]]
 
 	class root.Dice2 extends Dice
-		constructor: ->
+		constructor: (ctx, diceX, diceY) ->
 			super
 			@dots = [
 				[@diceX + @dotp, @diceY + @dotp],
 				[@diceX + @diceW - @dotp, @diceY + @diceH - @dotp]
 			]
 	class root.Dice3 extends Dice
-		constructor: ->
+		constructor: (ctx, diceX, diceY) ->
 			super
-			@dice1 = new root.Dice1(@ctx, @diceX, @diceY)
-			@dice2 = new root.Dice2(@ctx, @diceX, @diceY)
+			@dice1 = new root.Dice1(ctx, diceX, diceY)
+			@dice2 = new root.Dice2(ctx, diceX, diceY)
 			@dots = @dice1.getDots().concat(@dice2.getDots())
 
 	class root.Dice4 extends Dice
-		constructor: ->
+		constructor: (ctx, diceX, diceY) ->
 			super
 			@dots = [
 				[@diceX + @dotp, @diceY + @dotp],
@@ -60,16 +65,16 @@
 				[@diceX - @dotp + @diceW, @diceY - @dotp + @diceH]
 			]
 	class root.Dice5 extends Dice
-		constructor: ->
+		constructor: (ctx, diceX, diceY) ->
 			super
-			@dice1 = new root.Dice1(@ctx, @diceX, @diceY)
-			@dice4 = new root.Dice4(@ctx, @diceX, @diceY)
+			@dice1 = new root.Dice1(ctx, diceX, diceY)
+			@dice4 = new root.Dice4(ctx, diceX, diceY)
 			@dots = @dice1.getDots().concat(@dice4.getDots())
 	
 	class root.Dice6 extends Dice
-		constructor: ->
+		constructor: (ctx, diceX, diceY) ->
 			super
-			@dice4 = new root.Dice4(@ctx, @diceX, @diceY)
+			@dice4 = new root.Dice4(ctx, diceX, diceY)
 			@dots = [
 				[@diceX + @dotp, @diceY + 0.5 * @diceH],
 				[@diceX - @dotp + @diceW, @diceY + 0.5 * @diceH]
