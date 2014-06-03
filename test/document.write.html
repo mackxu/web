@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>document.write</title>
+    <style>
+        p { color: #f00; }
+    </style>
+</head>
+<body>
+    <p>结论是: document.write会阻塞渲染，但不会阻塞下载</p>
+    <img src="http://img1.yetang.com/Public/images/uploads/sale/20140505/5367050744e53-496.jpg" alt="">
+
+    <textarea style="display:none">
+        <script src="http://libs.baidu.com/dojo/1.8.0/dojo.js"></script>
+    </textarea>
+
+    <script src="http://libs.baidu.com/jquery/1.8.0/jquery.js"></script>
+    <script>
+        // DOM树完成, 渲染结束后
+        // IE 提前执行了
+        $(function() {
+            $('p').eq(0).after('<p>$: good luck</p>');
+        })
+    </script>
+    <script>
+        
+        // 会被其他正常引用的js阻塞下载
+        document.write('<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.js">'+'</sc'+'ript>');
+        
+        // 渲染过程中
+        document.write('<script src="http://10.5.3.100/sleep.php">'+'</sc'+'ript>');
+        
+        // 阻塞JS执行
+        document.write('hehe\n<br />');
+        
+    </script>
+    <!-- 火狐会被阻塞 -->
+    <img src="http://img1.yetang.com/Public/images/uploads/sale/20140329/5336dbf2925e2-496.jpg" alt="">
+    <img src="http://img1.yetang.com/Public/images/uploads/sale/20140528/53855e450ce11-496.jpg" alt="">
+    <p>good work</p>
+    <!-- 验证会不会阻塞下载: 不会 -->
+    <script src="http://libs.baidu.com/dojo/1.8.0/dojo.js"></script>
+    
+
+</body>
+</html>
