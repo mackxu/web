@@ -1,0 +1,65 @@
+<!doctype html public>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<title>animation</title>
+	<meta name="viewport" content="width=device-width">
+	<style type="text/css">
+		p:hover {
+			animation: 1s rainbow;
+		}
+		@keyframes rainbow {
+			0% { background-color: #c00; }
+			50% { background-color: orange; }
+			100% { background-color: yellowgreen; }
+		}
+
+		.hover {
+			position: absolute;
+			left: 100px;
+			top: 50px;
+
+			width: 218px;
+			height: 218px;
+			border-radius: 50%;
+
+			transition: transform 2s;
+			-webkit-transition: transform 2s;
+
+
+		}
+		.hover:hover {
+			transform: rotate(360deg);
+			-webkit-transform: rotate(360deg);
+		}
+
+		.animation {
+			position: absolute;
+			left: 400px;
+			top: 50px;
+
+			width: 218px;
+			height: 218px;
+			border-radius: 50%;
+
+			animation: rotate 4s linear infinite;
+		}
+		@keyframes rotate {
+			to { transform: rotate(360deg);  }
+		}
+		@-webkit-keyframes rotate {
+			to { -webkit-transform: rotate(360deg); }
+		}
+	</style>
+</head>
+<body>
+
+	<p>animation</p>
+	<img class="hover" src="images/rotate.jpg">
+	<img class="animation" src="images/rotate.jpg">
+
+</body>
+</html>
