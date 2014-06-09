@@ -1,0 +1,34 @@
+<!doctype html>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>清除没有父边框的浮动</title>
+    <meta name="viewport" content="width=device-width">
+    <style>
+        .clearfix:after {
+            content: ".";
+            display: block;
+            height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+        body { width: 200px; margin: 0 auto; }
+        img { width: 50px; float: left; margin: 0 10px 10px 0 }
+        p { margin: 0; }
+    </style>
+</head>
+<body>
+    <img src="images/4601.jpg" alt="">
+    <p class="clearfix">aaa aa aaaa aaa aaa aaa</p>
+    <img src="images/4601.jpg" alt="">
+    <p class="clearfix">b b bbb bbb bb bb bbb bb bb bb bb bbb bbbb bbb bb bbbb b bbb bbb bb bb bbb bb bb bb bb bbb bbbb bbb bb bbb</p>
+    <img src="images/4601.jpg" alt="">
+    <p class="clearfix">cc ccc ccc ccc cc ccc ccc ccc cc ccc ccc ccccc ccc ccc ccc</p>
+    <script>
+    
+    </script>
+</body>
+</html>
