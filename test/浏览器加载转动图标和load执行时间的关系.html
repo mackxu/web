@@ -1,0 +1,28 @@
+<!doctype html>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>浏览器加载图标滚动和load事件的回调函数执行时间有关系吗</title>
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+    
+    <script>
+        window.onload = function() {
+            setTimeout(function() {
+                // for(i=10000; i--; ) {
+                //     console.log(i)
+                // }
+            }, 0);
+            
+            // 有迟钝反应
+            for(i=10000; i--; ) {
+                console.log(i)
+            }
+        }
+    </script>
+</body>
+</html>

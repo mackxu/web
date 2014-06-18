@@ -1,0 +1,27 @@
+<!doctype html>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>ready执行时间vs没有事件的代码</title>
+    <meta name="viewport" content="width=device-width">
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+    
+    <script>
+    /**
+     * 这可以说明什么呢？
+     * 事件触发时间在程序空闲时
+     */
+
+    $(function() {
+        console.log(a, 'ready');    // 2 "ready" 后输出
+    })
+    var a = 2;
+    console.log(2);                 // 2, 先输出
+    </script>
+</body>
+</html>
