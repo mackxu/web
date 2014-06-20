@@ -5,31 +5,22 @@
 <!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>ready执行时间vs没有事件的代码</title>
+    <title>当前事件目标和事件目标</title>
     <meta name="viewport" content="width=device-width">
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
 <body>
-    
+    <div id="container"><button id="1">点击俺！</button><button id="2">点击俺！</button></div>
     <script>
-    /**
-     * 这可以说明什么呢？
-     * 事件触发时间在程序空闲时
-     */
-
     $(function() {
-        console.log(a, 'ready');    // 2 "ready" 后输出
+        $('#container').on('click', function(e) {
+            console.log(
+                e.target,               // 目标元素(在该元素上发生事件) 
+                e.currentTarget,        // 绑定事件的元素(捕获到事件的元素)
+                this                    // 绑定事件的元素
+            );
+        })
     })
-    var a = 2;
-    console.log(2);                 // 2, 先输出
-
-    var b = '%d天%h时%m分'.replace(/%(\w)/g, function(match, $1) {
-        console.log(arguments);
-        return '<span>' + $1 + '</span>';
-    });
-    console.log(b)
-
-
     </script>
 </body>
 </html>
