@@ -5632,22 +5632,25 @@ jQuery.fn.extend({
 				selector = undefined;
 			}
 		}
+		// 为事件函数传递false
 		if ( fn === false ) {
 			fn = returnFalse;
 		} else if ( !fn ) {
 			return this;
 		}
-
+		// 处理函数在每个元素上每种事件类型最多执行一次
+		// 兼容one()事件
 		if ( one === 1 ) {
-			origFn = fn;
+			origFn = fn;							// 待重新封装事件处理函数
 			fn = function( event ) {
 				// Can use an empty set, since event contains the info
-				jQuery().off( event );
+				jQuery().off( event );				// 用的是jQuery().off()而不是$(this).off()
 				return origFn.apply( this, arguments );
 			};
 			// Use same guid so caller can remove using origFn
 			fn.guid = origFn.guid || ( origFn.guid = jQuery.guid++ );
 		}
+		// 为元素集合迭代地添加事件监听函数
 		return this.each( function() {
 			jQuery.event.add( this, types, fn, data, selector );
 		});
@@ -5660,7 +5663,11 @@ jQuery.fn.extend({
 		if ( types && types.preventDefault && types.handleObj ) {
 			// ( event )  dispatched jQuery.Event
 			handleObj = types.handleObj;
+			
+			// 对于委派事件处理程序而言，由于事件是直接绑定在元素上的，
+			// 也就是event.delegateTarget 总是等价于event.currentTarget
 			jQuery( types.delegateTarget ).off(
+				// event.namespace 当事件被触发时此属性包含指定的命名空间。
 				handleObj.namespace ? handleObj.origType + "." + handleObj.namespace : handleObj.origType,
 				handleObj.selector,
 				handleObj.handler
