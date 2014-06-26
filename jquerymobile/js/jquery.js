@@ -4764,7 +4764,7 @@ jQuery.event = {
 				// Discard the second event of a jQuery.event.trigger() and
 				// when an event is called after a page has unloaded
 				return typeof jQuery !== core_strundefined && (!e || jQuery.event.triggered !== e.type) ?
-					// arguments把add接收的参数传给dispatch()
+					// 方法中没有传递回调对象，是因为回调的句柄被关联到了elemData，也就是内部数据缓存中了
 					jQuery.event.dispatch.apply( eventHandle.elem, arguments ) :
 					undefined;
 			};
@@ -4782,6 +4782,7 @@ jQuery.event = {
 			// 取出事件类型
 			type = origType = tmp[1];
 			// 取出事件的命名空间，分割成数组
+			// 事件的命名空间是不分层次的
 			namespaces = ( tmp[2] || "" ).split( "." ).sort();
 
 			// There *must* be a type, no attaching namespace-only handlers
@@ -4789,6 +4790,7 @@ jQuery.event = {
 				continue;
 			}
 
+			// 什么时候要用到自定义函数？有些浏览器并不兼容某类型的事件，如IE6～8不支持hashchange事件
 			// If event changes its type, use the special event handlers for the changed type
 			// 如果事件改变了当前状态，则使用特殊事件
 			special = jQuery.event.special[ type ] || {};
@@ -4840,6 +4842,7 @@ jQuery.event = {
 
 			// Add to the element's handler list, delegates in front
 			if ( selector ) {
+				// 冒泡标记
 				handlers.splice( handlers.delegateCount++, 0, handleObj );
 			} else {
 				handlers.push( handleObj );
