@@ -10,7 +10,9 @@
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
 <body>
-    
+    <div>
+        <button>click me</button>
+    </div>
     <script>
     /**
      * 这可以说明什么呢？
@@ -18,17 +20,25 @@
      */
 
     $(function() {
-        console.log(a, 'ready');    // 2 "ready" 后输出
+        console.log(a, ' ready');    // 2 "ready" 后输出
+        console.log(ND.isReady(), ' ready')
     })
     var a = 2;
     console.log(2);                 // 2, 先输出
+    var ND = ND || {};
+    ND.num = 3;
+    ND.isReady = function() { return 'ok' }
+    console.log(ND.isReady());
 
-    var b = '%d天%h时%m分'.replace(/%(\w)/g, function(match, $1) {
-        console.log(arguments);
-        return '<span>' + $1 + '</span>';
-    });
-    console.log(b)
-
+    // 元素本身有事件，元素还需要委派事件，内部委派的元素还有自己的事件
+    // 假设绑定事件元素本身是A，委派元素B.C
+    // 先执行B,C自己本身的事件，然后处理B,C委派的事件，最后处理A事件
+    $(function() {
+        // button/delegate/div
+        $('div').on('click', function() { console.log('div') });
+        $('div').on('click', 'button', function() { console.log('delegate') });
+        $('button').on('click', function() { console.log('button') })
+    })
 
     </script>
 </body>

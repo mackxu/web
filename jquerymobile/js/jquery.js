@@ -96,6 +96,7 @@ var
 	},
 
 	// The ready event handler
+	// Ready事件处理函数
 	completed = function( event ) {
 
 		// readyState === "complete" is good enough for us to call the dom ready in oldIE
