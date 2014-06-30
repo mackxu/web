@@ -12,9 +12,13 @@
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
 <body>
-    <img src="images/iphone-overlay.jpg" alt="">
+    <div><button>aaaaa</button><button>bbbb</button></div>
     <script>
-    alert('ipad(' + $(window).width()+ ', ' +$(window).height()+')')
+        $('div').on('click', function(e) {
+            console.log(this);
+            console.log(e.target);
+            console.log(e.currentTarget);
+        })
     </script>
 </body>
 </html>
