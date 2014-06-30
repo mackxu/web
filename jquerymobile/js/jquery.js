@@ -96,6 +96,7 @@ var
 	},
 
 	// The ready event handler
+	// Ready事件处理函数
 	completed = function( event ) {
 
 		// readyState === "complete" is good enough for us to call the dom ready in oldIE
@@ -4764,6 +4765,7 @@ jQuery.event = {
 				// Discard the second event of a jQuery.event.trigger() and
 				// when an event is called after a page has unloaded
 				return typeof jQuery !== core_strundefined && (!e || jQuery.event.triggered !== e.type) ?
+					// 方法中没有传递回调对象，是因为回调的句柄被关联到了elemData，也就是内部数据缓存中了
 					jQuery.event.dispatch.apply( eventHandle.elem, arguments ) :
 					undefined;
 			};
@@ -4772,11 +4774,16 @@ jQuery.event = {
 		}
 
 		// Handle multiple events separated by a space
+		// 多事件通过空格符分割，所以把它变成字符串数组
 		types = ( types || "" ).match( core_rnotwhite ) || [""];
 		t = types.length;
 		while ( t-- ) {
+			// 尝试取出事件的命名空间。如 'click.bb.aa'
 			tmp = rtypenamespace.exec( types[t] ) || [];
+			// 取出事件类型
 			type = origType = tmp[1];
+			// 取出事件的命名空间，分割成数组
+			// 事件的命名空间是不分层次的
 			namespaces = ( tmp[2] || "" ).split( "." ).sort();
 
 			// There *must* be a type, no attaching namespace-only handlers
@@ -4784,13 +4791,16 @@ jQuery.event = {
 				continue;
 			}
 
+			// 什么时候要用到自定义函数？有些浏览器并不兼容某类型的事件，如IE6～8不支持hashchange事件
 			// If event changes its type, use the special event handlers for the changed type
+			// 如果事件改变了当前状态，则使用特殊事件
 			special = jQuery.event.special[ type ] || {};
 
 			// If selector defined, determine special event api type, otherwise given type
 			type = ( selector ? special.delegateType : special.bindType ) || type;
 
 			// Update special based on newly reset type
+			// type改变了，重新定义special
 			special = jQuery.event.special[ type ] || {};
 
 			// handleObj is passed to all event handlers
@@ -4806,6 +4816,7 @@ jQuery.event = {
 			}, handleObjIn );
 
 			// Init the event handler queue if we're the first
+			// 第一次使用时，初始化事件处理队列
 			if ( !(handlers = events[ type ]) ) {
 				handlers = events[ type ] = [];
 				handlers.delegateCount = 0;
@@ -4832,16 +4843,19 @@ jQuery.event = {
 
 			// Add to the element's handler list, delegates in front
 			if ( selector ) {
+				// 冒泡标记
 				handlers.splice( handlers.delegateCount++, 0, handleObj );
 			} else {
 				handlers.push( handleObj );
 			}
 
 			// Keep track of which events have ever been used, for event optimization
+			// 表示事件曾经使用过，用于事件优化
 			jQuery.event.global[ type ] = true;
 		}
 
 		// Nullify elem to prevent memory leaks in IE
+		// 设置为null避免IE中循环引用导致的内存泄露
 		elem = null;
 	},
 
@@ -5632,22 +5646,25 @@ jQuery.fn.extend({
 				selector = undefined;
 			}
 		}
+		// 为事件函数传递false
 		if ( fn === false ) {
 			fn = returnFalse;
 		} else if ( !fn ) {
 			return this;
 		}
-
+		// 处理函数在每个元素上每种事件类型最多执行一次
+		// 兼容one()事件
 		if ( one === 1 ) {
-			origFn = fn;
+			origFn = fn;							// 待重新封装事件处理函数
 			fn = function( event ) {
 				// Can use an empty set, since event contains the info
-				jQuery().off( event );
+				jQuery().off( event );				// 用的是jQuery().off()而不是$(this).off()
 				return origFn.apply( this, arguments );
 			};
 			// Use same guid so caller can remove using origFn
 			fn.guid = origFn.guid || ( origFn.guid = jQuery.guid++ );
 		}
+		// 为元素集合迭代地添加事件监听函数
 		return this.each( function() {
 			jQuery.event.add( this, types, fn, data, selector );
 		});
@@ -5657,16 +5674,22 @@ jQuery.fn.extend({
 	},
 	off: function( types, selector, fn ) {
 		var handleObj, type;
+		
 		if ( types && types.preventDefault && types.handleObj ) {
 			// ( event )  dispatched jQuery.Event
 			handleObj = types.handleObj;
+			
+			// 对于委派事件处理程序而言，由于事件是直接绑定在元素上的，
+			// 也就是event.delegateTarget 总是等价于event.currentTarget
 			jQuery( types.delegateTarget ).off(
+				// event.namespace 当事件被触发时此属性包含指定的命名空间。
 				handleObj.namespace ? handleObj.origType + "." + handleObj.namespace : handleObj.origType,
 				handleObj.selector,
 				handleObj.handler
 			);
 			return this;
 		}
+		
 		if ( typeof types === "object" ) {
 			// ( types-object [, selector] )
 			for ( type in types ) {
@@ -5674,14 +5697,17 @@ jQuery.fn.extend({
 			}
 			return this;
 		}
+		
 		if ( selector === false || typeof selector === "function" ) {
 			// ( types [, fn] )
 			fn = selector;
 			selector = undefined;
 		}
+		
 		if ( fn === false ) {
 			fn = returnFalse;
 		}
+		
 		return this.each(function() {
 			jQuery.event.remove( this, types, fn, selector );
 		});
