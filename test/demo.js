@@ -4,4 +4,5 @@
             console.log(i)
         };
     }
-    testFunc();
+
+    
