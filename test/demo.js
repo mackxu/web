@@ -1,7 +1,13 @@
-    // 先执行循环后, 页面解析完成
-    var testFunc = function () {
-        for (var i = 0; i < 50000; i++) {
-            console.log(i)
-        };
-    }
-    testFunc();
+	$(function() {
+        // button/delegate/div
+        $('div').on('click', function() { console.log('div') });
+        $('div').on('click', 'button', function() { console.log('delegate') });
+        $('button').on('click', function() { console.log('button') });
+
+        console.log(G.ok());
+
+    })
+
+
+    var G = {};
+    G.ok = function() { return 'ok' }

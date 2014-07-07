@@ -29,23 +29,37 @@ module.exports = function(grunt) {
         less: {
             src: ['app/less/**'],
             dest: 'build/script/app.css'
+        },
+        jshint: {
+            options: {
+                curly: true,
+                undef: true,
+                browser: true,
+                unused: true,
+                strict: true,
+                node: true,
+                devel: true,
+                jquery: true            // 不要写成jQuery了吆
+            },
+            src: ['app/js/**/*.js']
         } 
 
     });
 
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-less');
-  grunt.loadNpmTasks('grunt-usemin');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-usemin');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
-  // 最后就是顺序了，没错concat,uglify在这里哦！
-  grunt.registerTask('default', [
-      'copy:html',
-      'useminPrepare',
-      'concat:generated',
-      'uglify:generated',
-      'usemin'
-  ]);
+    // 最后就是顺序了，没错concat,uglify在这里哦！
+    grunt.registerTask('default', [
+        'copy:html',
+        'useminPrepare',
+        'concat:generated',
+        'uglify:generated',
+        'usemin'
+    ]);
 
 };
