@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>动态加载与script加载的比较</title>
+    <meta name="viewport" content="width=device-width">
+    <script async="async" src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+
+</head>
+<body>
+    <!-- 用两种方式加载demo.js -->
+    <img src="images/4601.jpg" alt="">
+    <p>good work</p>
+    <!--  async 不会阻塞DOMReady,但会阻塞loaded -->  
+    <script async="async" src="demo.js"></script>
+    
+    
+    <!-- 在DOMReady前执行，但不会阻塞loaded -->
+    <script>
+    $.getScript('demo.js', function(data) {
+        console.log(data);
+    });    
+    </script>
+</body>
+</html>

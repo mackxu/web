@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
@@ -14,32 +14,31 @@
         <button>click me</button>
     </div>
     <script>
-    /**
-     * 这可以说明什么呢？
-     * 事件触发时间在程序空闲时
-     */
+        /**
+         * 比较尾部和ready的请求时间是否相同
+         *
+         * 比较load和DOMReady
+         * 
+         */
+        var getScript = function(url) {
+            var s = document.createElement('script');
+            s.anync = true;
+            s.type = 'text/javascript';
+            s.src = url;
+            (document.head || document.body).appendChild(s);
+        }
+        var n = 50000;
+        // 请求js文件
+        // $.getScript('demo.js');
+        
+        $(function() {
+            // $.getScript('sleep.php');
+        });
 
-    $(function() {
-        console.log(a, ' ready');    // 2 "ready" 后输出
-        console.log(ND.isReady(), ' ready')
-    })
-    var a = 2;
-    console.log(2);                 // 2, 先输出
-    var ND = ND || {};
-    ND.num = 3;
-    ND.isReady = function() { return 'ok' }
-    console.log(ND.isReady());
-
-    // 元素本身有事件，元素还需要委派事件，内部委派的元素还有自己的事件
-    // 假设绑定事件元素本身是A，委派元素B.C
-    // 先执行B,C自己本身的事件，然后处理B,C委派的事件，最后处理A事件
-    $(function() {
-        // button/delegate/div
-        $('div').on('click', function() { console.log('div') });
-        $('div').on('click', 'button', function() { console.log('delegate') });
-        $('button').on('click', function() { console.log('button') })
-    })
-
+        $(window).on('load', function() {
+            while(n--) { console.log(n) }
+            $.getScript('sleep.php');
+        });
     </script>
 </body>
 </html>
