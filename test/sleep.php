@@ -1,3 +1,3 @@
 <?php
-    sleep(5);
-    echo 'aa';
+    sleep(3);
+    // echo 'aa';
