@@ -7,38 +7,42 @@
     <meta charset="utf-8">
     <title>ready执行时间vs没有事件的代码</title>
     <meta name="viewport" content="width=device-width">
-    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
 <body>
     <div>
         <button>click me</button>
     </div>
+    <!-- 
+        1. 下载会阻塞DOMReady
+        2. 执行会阻塞DOMReady
+    -->
+    <!-- <script src="demo.js"></script> -->
+    <!-- <script src="sleep.php"></script> -->
+    
+    <!--  
+        async: Firefox 3.6+, IE 10+, Chrome 2+, Safari 5+, iOS 5+, Android 3+.
+        (IE10 下表现的并不好)
+        1. 异步下载。不阻塞DOMReady, 会阻塞load事件
+        2. 执行。不阻塞DOMReady, 阻塞load事件
+    -->
+    <!-- <script src="demo.js" async></script> -->
+    <!--  
+    <script src="sleep.php" async></script>
+    <script src="demo.js"></script>
+    -->
     <script>
-        /**
-         * 比较尾部和ready的请求时间是否相同
-         *
-         * 比较load和DOMReady
-         * 
-         */
-        var getScript = function(url) {
+        var loadScript = function(url) {
             var s = document.createElement('script');
-            s.anync = true;
             s.type = 'text/javascript';
+            s.async = true;
             s.src = url;
-            (document.head || document.body).appendChild(s);
+            document.getElementsByTagName('head')[0].appendChild(s);    
         }
-        var n = 50000;
-        // 请求js文件
-        // $.getScript('demo.js');
-        
-        $(function() {
-            // $.getScript('sleep.php');
-        });
-
-        $(window).on('load', function() {
-            while(n--) { console.log(n) }
-            $.getScript('sleep.php');
-        });
+        // 下载。不阻塞DOMReady, 会阻塞load事件。
+        // 兼容性良好
+        // loadScript('sleep.php');
+        // 执行。不阻塞DOMReady, 会阻塞load事件。
+        loadScript('demo.js'); 
     </script>
 </body>
 </html>
