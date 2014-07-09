@@ -39,8 +39,8 @@
             document.getElementsByTagName('head')[0].appendChild(s);    
         }
         // 下载。不阻塞DOMReady, 会阻塞load事件。
-        // 兼容性良好
-        // loadScript('sleep.php');
+        // 兼容性良好, ie9- 不阻塞DOMReady, 也不阻塞load事件
+        loadScript('sleep.php');
         // 执行。不阻塞DOMReady, 会阻塞load事件。
         loadScript('demo.js'); 
     </script>

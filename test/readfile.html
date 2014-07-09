@@ -54,34 +54,56 @@
 				reader.readAsText(files[i]);
 			}
 		};
-		var dropBox;
-		document.addEventListener('DOMContentLoaded', function() {
-			dropBox = document.getElementById('dropbox');
-			dropbox.addEventListener('dragenter', ignoreDrag, false);
-			dropbox.addEventListener('dragover', ignoreDrag, false);
-			dropbox.addEventListener('drop', drop, false);
-		}, false)
+
+		// 对异步循环使用递归
 		var processFiles = function(files) {
-			var file = files[0];
-			var reader = new FileReader();
-			reader.onload = function(e) {
-				dropBox.style.backgroundImage = 'url(' + e.target.result + ')';
+			var filesLen = files.length
+			, reader = null
+			, fileContents = []
+			, readFile = function(i) {
+				if(i === filesLen) {				// 递归的结束条件
+					output.textContent = fileContents.join('\n\n\n');
+					return;
+				}
+				reader = new FileReader();
+				reader.onload = function(e) {
+					fileContents.push(e.target.result);
+					readFile(i+1);					// 保证输出顺序
+				};
+				reader.readAsText(files[i]);
 			};
-
-			// 读取图片
-			reader.readAsDataURL(file);
+			
+			if(!filesLen) return;
+			readFile(0);							// 开始递归
 		};
-		var ignoreDrag = function(e) {  
-			e.stopPropagation();
-			e.preventDefault();
-		};
-		var drop = function(e) {
-			ignoreDrag(e);
+		var dropBox;
+		// document.addEventListener('DOMContentLoaded', function() {
+		// 	dropBox = document.getElementById('dropbox');
+		// 	dropbox.addEventListener('dragenter', ignoreDrag, false);
+		// 	dropbox.addEventListener('dragover', ignoreDrag, false);
+		// 	dropbox.addEventListener('drop', drop, false);
+		// }, false)
+		// var processFiles = function(files) {
+		// 	var file = files[0];
+		// 	var reader = new FileReader();
+		// 	reader.onload = function(e) {
+		// 		dropBox.style.backgroundImage = 'url(' + e.target.result + ')';
+		// 	};
 
-			var data = e.dataTransfer;
-			var files = data.files;
-			processFiles(files);
-		} 
+		// 	// 读取图片
+		// 	reader.readAsDataURL(file);
+		// };
+		// var ignoreDrag = function(e) {  
+		// 	e.stopPropagation();
+		// 	e.preventDefault();
+		// };
+		// var drop = function(e) {
+		// 	ignoreDrag(e);
+
+		// 	var data = e.dataTransfer;
+		// 	var files = data.files;
+		// 	processFiles(files);
+		// } 
 
 	</script>
 </body>
