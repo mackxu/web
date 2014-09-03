@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>触摸事件流</title>
+</head>
+<body>
+  <button>点这里</button>
+<script>
+  // 事件的传播 touchstart -> touchend -> click
+  document.addEventListener('touchstart', function(e) {
+  	console.log('touchstart');
+  }, false);
+  document.addEventListener('touchmove', function(e) {
+  	e.preventDefault();
+  	console.log('touchmove');
+  }, false);
+  document.addEventListener('touchend', function(e) {
+  	// e.preventDefault();
+  	console.log('touchend');
+  }, false);
+  document.addEventListener('click', function(e) {
+  	e.preventDefault();
+  	console.log('click');
+  }, false);
+
+  // 确保只在最近一次点击后的200ms后执行定时器的回调
+  var timer = null;
+  document.addEventListener('click', function() {
+  	clearTimeout(timer);			      // 清除上一次的定时器
+  	timer = setTimeout(function() {	// 开启新的定时器
+  		console.log('timer');
+  	}, 200);
+  }, false);
+</script>
+</body>
+</html>

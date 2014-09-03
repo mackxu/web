@@ -1,0 +1,40 @@
+<!doctype html public>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>未知宽度 水平居中</title>
+
+  <meta name="viewport" content="width=device-width">
+  <style type="text/css">
+  	body, ul, li { margin: 0; padding: 0 }
+  	ul { list-style: none; }
+  	.items-a {  }
+  	.items-a:after { content: " "; clear: both; display: table; }
+  	.items-a li { width: 20%; float: left; height: 100px; background-color: #eee; }
+  	.items-a li + li { margin-left: 1%; }
+
+  	dl, dd { display: inline-block; }
+  	dd { width: 20%; }
+  </style>
+</head>
+<body>
+
+  <!-- 实现水平展示的菜单 -->
+  <ul class="items-a">
+  	<li></li>
+  	<li></li>
+  	<li></li>
+  </ul>
+
+  <!-- 目前表现是 inline-block 内不能使用百分号 -->
+  <dl>
+  	<dd>1</dd>
+  	<dd>2</dd>
+  	<dd>3</dd>
+  </dl>
+</body>
+</html>
