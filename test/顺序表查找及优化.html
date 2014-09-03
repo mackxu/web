@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>顺序表查找算法及优化</title>
+    <meta name="viewport" content="width=device-width">
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+    
+<script>
+    var arr = [5, 2, 4, 3, 1]
+        , sequentialSearch = function(arr, val) {
+            var i = 0
+                , len = arr.length;
+            for ( ; i < len; i++) {             // 比较一次
+                if (arr[i] === val) {           // 比较二次
+                    return i;
+                }
+            }
+            return i;                           // 返回len,则说明查找失败
+        }
+        , sequentialSearchOpt = function(arr, val) {
+            var i = 0
+                , arr = arr.slice(0);           // 保证函数内操作不影响外部的arr数组 
+                , len = arr.length;
+
+            arr[len] = val;                     // 设置arr[len]为关键字值作为哨兵
+            // arr.push(val);
+            while (arr[i] !== val) {            // 比较一次
+                i++;
+            }
+            return i;                           // 返回len,则说明查找失败
+        };
+
+</script>
+</body>
+</html>
