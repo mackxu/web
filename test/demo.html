@@ -1,28 +1,47 @@
-<!doctype html public>
+<!DOCTYPE html>
 <!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-
-  <title>测试</title>
-
+  <title></title>
   <meta name="viewport" content="width=device-width">
-  <style type="text/css">
-  	body, ul { padding: 0; margin: 0; }
-  	ul { display: inline-block; width: 100%; margin: 10px auto; padding: 5%; background-color: #888; }
-  	ul:after { display: table; content: ""; clear: both; }
-  	li { float: left; width: 20%; height: 20%; margin: 5%; background-color: #ccc; }
+  <style>
+  .opacity-black { width: 460px; height: 460px; background-color: #000; }
+  .opacity-black a { transition: opacity .5s; opacity: 1; }
+  .opacity-black a:hover { opacity: 0.4; }
+
+  /* 利用标签i实现背景半透明遮罩, 兼容性不好 */
+  .opacity-black-position { width: 460px; height: 460px; position: relative; }
+  .opacity-black-position i { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background-color: rgba(0, 0, 0, 0); transition: background-color .5s;  }
+  .opacity-black-position a:hover i { background-color: rgba(0, 0, 0, .6); }
   </style>
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
 <body>
-
-  <ul>
-  	<li></li>
-  	<li></li>
-  	<li></li>
-  </ul>
-
+  <a href="http://xu.nuandao.com/shop/1">http://xu.nuandao.com/shop/1</a>
+  <p class="opacity-black"><a href="#"><img src="http://qnimg.qiniudn.com/0827%2F4601.jpg" alt=""></a></p>
+  <p class="opacity-black-position"><a href="#"><img src="http://qnimg.qiniudn.com/0827%2F4601.jpg" alt=""><i></i></a></p>
+  <script>
+  // a, m 作为形参，确保下面的执行不会修改外部的同名变量
+  (function(win, doc, o, g, ga, a , m){
+      
+      win['GoogleAnalyticsObject'] = ga;
+      // 确保只执行一次analytics.js的插入
+      win[ga] = win[ga] || function() {
+          
+          // 不知道哪里需要q和l属性???
+          (win[ga].q = win[ga].q || []).push(arguments)},
+          win[ga].l = 1 * new Date();         // 把时间格式转换成数字型
+          
+          // 动态加载analytics.js
+          a = doc.createElement(o),
+          m = doc.getElementsByTagName(o)[0]; // script
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m);
+  })(window, document, 'script','//www.google-analytics.com/analytics.js','ga');
+  </script>
 </body>
 </html>
