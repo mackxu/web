@@ -1,0 +1,40 @@
+<!doctype html public>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>mouse-event的冒泡测试</title>
+  <meta name="viewport" content="width=device-width">
+  <style type="text/css">
+  body, ul, li { margin: 0; padding: 0 }
+  .mouse-event { list-style: none; border: 1px solid #000; padding: 20px; width: 800px; margin: 10px auto; }
+  .mouse-event li { height: 100px; border: 1px solid #f00; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <!-- 
+  	mouseover事件类型冒泡。可能导致引起的很多头痛的问题。
+  	例如，在这个例子中当鼠标指针移出Inner元素，mouseover事件将被发送到Inner元素，然后冒泡到Outer元素 。这可能会不合时宜的触发绑定的mouseover处理函数。这可以用一个替代方法mouseenter()
+
+  	mouseenter: Similar to mouseover, it differs in that it doesn't bubble and that it isn't sent when the pointer is moved from one of its descendants' physical space to its own physical space. 
+  -->
+  <ul class="mouse-event" id="J_mouseover">
+  	<li></li>
+  	<li></li>
+  </ul>
+  <ul class="mouse-event" id="J_mouseenter">
+  	<li></li>
+  	<li></li>
+  </ul>
+  <script type="text/javascript">
+  document.getElementById('J_mouseover').onmouseover = function(e) {
+  	console.log(e.target);
+  };
+  document.getElementById('J_mouseenter').onmouseenter = function(e) {
+  	console.log(e.target);
+  };
+  </script>
+</body>
+</html>
