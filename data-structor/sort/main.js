@@ -12,11 +12,11 @@ require(['bubbleSort', 'selectSort', 'insertSort', 'quickSort', 'shellSort', 'me
 
     // selectSort.handle();
     // insertSort.handle();
-    // shellSort.exec();
-    console.log(mergeSort.exec());
+    shellSort.exec();
+    // console.log(mergeSort.exec());
     // quickSort.qSortRecursion();
     // quickSort.qSortNoRecursion();
     // console.log(quickSort.returnNewArr());
     // bubbleSort.fake();
-    // console.log(arr);
+    console.log(arr);
 });

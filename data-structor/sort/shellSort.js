@@ -8,9 +8,10 @@ define(function() {
 		exec: function() {
 			var arr = this.arr
 				, len = this.len
+                , maxGap = 1 + (len - 1) / 3 | 0
 				, gap = 0
 				;
-			while (gap <= len) {						// 计算出第一次步长
+			while (gap <= maxGap) {						// 计算出第一次步长
 				gap = gap * 3 + 1;
 			}
 			while (gap > 0) {
@@ -21,7 +22,7 @@ define(function() {
 					}
 					arr[j + gap] = temp;				// 找到有序位置插入
 				}
-				gap = (gap - 1) / 3 | 0;				// 计算下一个步长
+				gap = (gap - 1) / 3;				    // 计算下一个步长
 			}
 		}
 	};
