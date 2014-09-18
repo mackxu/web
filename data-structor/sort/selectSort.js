@@ -4,7 +4,7 @@ define(['sortHelper'], function(helper) {
         this.arr = arr;
         this.len = arr.length;
     }
-    SelectSort.prototype.handle = function() {
+    SelectSort.prototype.exec = function() {
         for (var i = 0; i < this.len - 1; i++) {
             var min = i;                                // 假定最小值下标为i
             for (var j = i + 1; j < this.len; j++) {

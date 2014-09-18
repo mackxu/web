@@ -8,7 +8,7 @@ define(function() {
 		exec: function() {
 			var arr = this.arr
 				, len = this.len
-                , maxGap = 1 + (len - 1) / 3 | 0
+                , maxGap = 1 + (len - 1) / 3 | 0        // gap大小于该值
 				, gap = 0
 				;
 			while (gap <= maxGap) {						// 计算出第一次步长

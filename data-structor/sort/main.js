@@ -10,7 +10,7 @@ require(['bubbleSort', 'selectSort', 'insertSort', 'quickSort', 'shellSort', 'me
         , mergeSort = new MergeSort(arr)
         ;
 
-    // selectSort.handle();
+    // selectSort.exec();
     // insertSort.handle();
     shellSort.exec();
     // console.log(mergeSort.exec());
