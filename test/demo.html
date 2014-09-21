@@ -8,11 +8,22 @@
   <title></title>
   <meta name="viewport" content="width=device-width">
   <style>
+  @-webkit-keyframes rotate {
+  	from { transform: rotate(0); }
+  	to { transform: rotate(360deg); }
+  }
+  img { 
+  	width: 200px; height: 200px; border-radius: 50%; 
+  	-webkit-animation: rotate 10s linear infinite;
+  	animation: rotate 10s linear infinite;
+  }
   </style>
   <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
 <body>
-  <div id="btn" style="left: -600px"></div>
+  
+  <img src="images/4601.jpg">
+
   <script>
   </script>
 </body>
