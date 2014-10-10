@@ -75,13 +75,14 @@
   // Delegates to **ECMAScript 5**'s native `forEach` if available.
   var each = _.each = _.forEach = function(obj, iterator, context) {
     if (obj == null) return;
+    // 数组的forEach()
     if (nativeForEach && obj.forEach === nativeForEach) {
       obj.forEach(iterator, context);
     } else if (obj.length === +obj.length) {
       for (var i = 0, length = obj.length; i < length; i++) {
         if (iterator.call(context, obj[i], i, obj) === breaker) return;
       }
-    } else {
+    } else {      // 关联数组的遍历
       var keys = _.keys(obj);
       for (var i = 0, length = keys.length; i < length; i++) {
         if (iterator.call(context, obj[keys[i]], keys[i], obj) === breaker) return;

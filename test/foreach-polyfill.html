@@ -1,0 +1,50 @@
+<!doctype html public>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>forEach polyfill</title>
+  <meta name="viewport" content="width=device-width">
+  <script type="text/javascript">
+  	if(!Array.prototype.forEach) {
+  		Array.prototype.forEach = function(callback, thisArg) {
+  			var context, k = 0;
+  			// 没有找到this等于null的时候
+  			if(this == null) {
+  				throw new TypeError('this is null or not defined');
+  			}
+  			var o = Object(this);
+  			// Let len be ToUint32(lenValue)
+  			var len = o.length >>> 0;
+  			if(typeof callback !== 'function') {
+  				throw new TypeError(callback + 'is not a function');
+  			}
+  			if(arguments.length > 1) {
+  				context = thisArg
+  			}
+  			while(k < len) {
+  				if(k in o) {
+  					callback.call(context, o[k], k, o);
+  				}
+  				k++;
+  			}
+  		};
+  	}
+
+  	// [1, 2, 3, 4].forEach(function(value, index, arr) {
+  	// 	console.log(value);
+  	// });
+		var arr = '12345';
+		// var arr = [1, 2, 3, 4];
+		var arr = null;
+		[].forEach.call(arr, function(value){ console.log(value) });
+  </script>
+</head>
+<body>
+
+  
+
+</body>
+</html>
