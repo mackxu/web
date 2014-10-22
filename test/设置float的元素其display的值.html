@@ -1,0 +1,30 @@
+<!doctype html public>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>把元素设置为float后，display变成为block</title>
+
+  <meta name="viewport" content="width=device-width">
+  <style>
+  #float { float: left; }
+  </style>
+</head>
+<body>
+
+<input type="text" id="float">
+<input type="text" id="no-float">
+<script>
+  var inputFloat = document.getElementById('float')
+    , inputNoFloat = document.getElementById('no-float')
+    ;
+  console.log(inputFloat.currentStyle ? inputFloat.currentStyle.display : window.getComputedStyle(inputFloat, null).display);
+  console.log(inputNoFloat.currentStyle ? inputNoFloat.currentStyle.display : window.getComputedStyle(inputNoFloat, null).display);
+
+</script>
+
+</body>
+</html>
