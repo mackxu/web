@@ -1,0 +1,55 @@
+<!doctype html public>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>几个函数节流实现</title>
+
+  <meta name="viewport" content="width=device-width">
+</head>
+<body>
+<script>
+  /**
+   函数节流让一个函数只有在你不断触发后停下来歇会才开始执行，中间你操作得太快它直接无视你。这样做就有点太绝了。resize一般还好，但假如你写一个拖拽元素位置的程序，然后直接使用函数节流，那恭喜你，你会发现你拖动时元素是不动的，你拖完了，它直接闪到终点去。
+   */
+  var throttle = function(fn, delay) {
+    var timer = null;
+    delay = delay || 100;
+    return function() {
+      var context = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function() {
+        fn.apply(context, args);
+      }, delay);
+    };
+  };
+
+  /**
+   * 其实函数节流的出发点，就是让一个函数不要执行得太频繁，减少一些过快的调用来节流
+   */
+  var throttleV2 = function(fn, delay, mustRunDelay) {
+    var timerID = null, t_start;
+    return function() {
+      var context = this
+        , args = arguments
+        , t_curr = +new Date()
+        ;
+      clearTimeout(timerID);
+      if(t_start === undefined) t_start = t_curr;
+      if(t_curr - t_start >= mustRunDelay) {
+        fn.apply(context, args);
+        t_start = t_curr;
+      }else {
+        timerID = setTimeout(function(){
+          fn.apply(context, args);
+        }, delay)
+      }
+    }
+  };
+
+</script>
+</body>
+</html>

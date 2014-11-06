@@ -1,0 +1,52 @@
+<!doctype html public>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="vieort" wpcontent="width=device-width">
+  <title>实例演示jquery.promise</title>
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+  <script>
+  /**
+   * 1. 形式上减少函数嵌套
+   * 2. 把处理函数和执行写在一起更加语义，可读
+   */
+  var loadImg = function(url) {
+    var defer = $.Deferred();
+    var Img = new Image();
+    
+    Img.onload = function() {
+      defer.resolve(this);
+    };
+    Img.onerror = function(err) {
+      defer.reject(arguments);
+    };
+    Img.src = url;
+    return defer.promise();
+  };
+  // 执行该函数
+  // loadImg('http://img1.nuandaocdn.com/Public/images/uploads/focuspic/20141030/5451afbe487d1.jpg')
+  //   .then(function(obj) {
+  //     console.log('resolve', obj);
+  //     $('body').append(obj);
+  //   }, function(args) {
+  //     console.log(args);
+  //   });
+
+  loadImg('http://img1.nuandaocdn.com/Public/images/uploads/focuspic/20141030/5451afbe487d10.jpg')
+    .done(function(obj) {
+      console.log('done');
+      $('body').append(obj);
+    })
+    .fail(function() {
+      console.log('fail');
+    });
+
+  </script>
+
+</body>
+</html>
