@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>touch的一些测试</title>
+  <meta name="viewport" content="width=device-width">
+  <style>
+  	body { margin: 0; padding: 0; }
+		.page { position: absolute; width: 100%; height: 100%; background-color: #ccc; }
+		.square { 
+      position: absolute; 
+      width: 50px; height: 50px; 
+      border-radius: 50%; box-shadow: 0 0 10px #FFF;
+      transition: background-color 1s; 
+    }
+    .on { background-color: red; }
+  </style>
+</head>
+<body>
+
+  <div class="page" id="J_page"></div>
+  <script>
+  var page = document.querySelector('#J_page')
+    , startX = 0
+    , startY = 0
+    , square = null
+    ;
+  page.addEventListener('touchstart', function(ev) {
+    ev.preventDefault();
+
+    if(square || !ev.touches.length) return;
+    var touch = ev.touches[0];
+
+    // 记录手指位置，渲染方块
+    startX = touch.pageX;
+    startY = touch.pageY;
+
+    square = document.createElement('div');
+    square.className = 'square';
+    // 由于以左上角为中心，减去25把手指放到图片中心
+    square.style.left = startX - 25 + 'px';
+    square.style.top = startY - 25 + 'px';
+
+    page.appendChild(square);
+    setTimeout(function() { square.classList.add('on'); }, 20);
+
+  }, false);
+
+  page.addEventListener('touchmove', function(ev) {
+    ev.preventDefault();
+    if( !square || !ev.touches.length) return;
+    var touch = ev.touches[0]
+      , x = touch.pageX - startX
+      , y = touch.pageY - startY
+      ;
+    square.style.transform = 'translate3d(' + x + 'px, ' + y + 'px, 0)';
+  }, false);
+
+  page.addEventListener('touchend', function(ev) {
+    ev.preventDefault();
+
+    if(!square) return;
+    // 元素的隐藏对transitionend事件有影响，当元素变为none时，不会触发事件
+    square.addEventListener('transitionend', function() {
+      page.removeChild(square);
+      square = null;
+    }, false);
+    square.classList.remove('on');
+    
+  }, false);
+  
+  </script>
+
+</body>
+</html>
