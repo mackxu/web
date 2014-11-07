@@ -1,0 +1,59 @@
+<!doctype html public>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>bind</title>
+  <!-- <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script> -->
+</head>
+<body>
+
+<script>
+Function.prototype.bind = function (oThis) {
+  if (typeof this !== "function") {
+    // closest thing possible to the ECMAScript 5
+    // internal IsCallable function
+    throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+  }
+
+  var aArgs = Array.prototype.slice.call(arguments, 1), 
+      fToBind = this, 
+      fNOP = function () {},
+      fBound = function () {
+        return fToBind.apply(this instanceof fNOP && oThis ? this : oThis, aArgs.concat(Array.prototype.slice.call(arguments)));
+      };
+
+  fNOP.prototype = this.prototype;
+  fBound.prototype = new fNOP();
+
+  return fBound;
+};
+Function.prototype.bind = function (oThis) {
+  var self = this
+    , args = [].slice.call(arguments, 1)
+    ;
+  return function() {
+    return self.apply(oThis, args.concat([].slice.call(arguments)));
+  };
+};
+var o = { 
+  uname: 'zhangsan',
+  getName: function(a, b) { console.log(this.uname, a, b); } 
+};
+
+o.getName.bind(o, 1)(2);
+
+// new (function bb() {
+//   console.log(this);
+//   var cc = function() {  };
+//   cc();
+//   o.getName.bind(o, 1)(2);
+// });
+
+</script>
+
+</body>
+</html>
