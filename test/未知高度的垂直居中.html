@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>未知高度的垂直居中的几种方法</title>
+  <meta name="viewport" content="width=device-width">
+	<style>
+
+	.container { width: 600px; height: 600px; margin: 0 auto; border: 1px solid #ccc; }
+	/* table-cell + css 表达式法 */
+	/* table-cell 支持IE8及现代浏览器 */
+	.container1 { display: table-cell; vertical-align: middle; text-align: center; }
+	.container1 .center { 
+		margin: 0 auto; 1display: block;
+		/* IE7,6,5 */
+		margin-top: expression((600 - this.height) / 2);			  
+	}
+	/* table-cell + 绝对定位法 */
+	.container2 { 
+		position: relative; 
+		display: table-cell; 
+		vertical-align: middle; text-align: center;  
+	}
+
+	.container2 .helper { +position: absolute; top: 50%; }
+	.container2 .center { +position: relative; top: -50%; }
+
+	/* button 容器法 */
+	.container3 { background: none; padding: 0; }
+	
+	</style>
+</head>
+<body>
+
+  <div class="container container1">
+  	<img class="center" src="images/4601.jpg" alt="">
+  </div>
+
+	<div class="container container2">
+  	<div class="helper"><img class="center" src="images/4601.jpg" alt=""></div>
+  </div>
+
+  <button class="container container3">
+  	<img class="center" src="images/4601.jpg" alt=""></div>
+  </button>
+</body>
+</html>
