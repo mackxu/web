@@ -1,0 +1,80 @@
+<!doctype html public>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>响应式图片&背景图片</title>
+  <style>
+  body { padding: 0; margin: 0; }
+  /* 保持原比例,按比例高度显示图片 */
+  .container { 
+    max-width: 500px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+    background-color: #eee;
+  }
+  /* 如果宽度小于400px, 保持原比例, 按宽高4: 1显示; */
+  @media (max-width: 400px) {
+    .container { 
+      height: 0;              /* 使容器塌陷 */ 
+      padding-bottom: 25%;    /* 下内边距的大小是宽度的百分比 */  
+      overflow: hidden; 
+    }
+  }
+
+  img { max-width: 100%; }
+
+
+  .col { width: 48%; max-width: 500px; display: inline-block; }
+  .figure { 
+    padding-top: 50%; 
+    background-image: url(images/500x250.jpg); background-size: cover; 
+    background-position: center;
+  }
+
+  .col-img { width: 48%; max-width: 500px; }
+
+  .fluid-col { max-width: 1000px; }
+  .fluid-figure {
+    height: 66.6px;
+    padding-top: 33.33%;
+    background-image: url(images/1000x400.jpg); background-size: cover; 
+    background-position: center;
+  }
+
+  .fixed-figure {
+    width: 100%;
+    padding-top: 40%;
+    background-image: url(images/1000x400.jpg); background-size: cover; 
+    background-position: center;
+  }
+  </style>
+</head>
+<body>
+
+  <div class="fluid-col">
+    <div class="fluid-figure"></div>
+  </div>
+
+  <div class="fixed-figure"></div>
+
+  <!-- <div class="container">
+    <img src="images/500x250.jpg" alt="">
+  </div>
+
+  <div class="container">
+    <img src="images/500x250.jpg" alt="">
+  </div>
+
+  <div class="col"> <div class="figure"></div> </div>
+  <div class="col"> <div class="figure"></div> </div>
+  <img src="images/500x250.jpg" alt="" class="col-img">
+  <img src="images/500x250.jpg" alt="" class="col-img"> -->
+
+  
+
+</body>
+</html>
