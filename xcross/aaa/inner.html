@@ -1,0 +1,22 @@
+<!doctype html public>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title></title>
+</head>
+<body>
+<h3>此页面来自<span id="host"></span></h3>
+<script>
+  document.querySelector('#host').textContent = document.domain;
+  document.domain = 'xu.com';
+
+  subTest = function() {
+    console.log('subIframe');
+  }
+  // 访问父窗口的函数［全局函数］
+  parent.pTest();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!doctype html public>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>domain+iframe</title>
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+
+<div>子域名之间的跨域需求：想从aaa.xu.com向bbb.xu.com发送ajax请求</div>
+<div>本页面的domain：<span id="domain"></span></div>
+<iframe id="xcross" src="http://aaa.xu.com/inner.html" frameborder="0" 1style="display: none"></iframe>
+<script>
+  document.domain = 'xu.com';
+  var pTest = function() { console.log('parent'); }
+  document.querySelector('#domain').textContent = document.domain;
+  
+  var xcrossWin = document.getElementById('xcross').contentWindow;
+  // console.log(subTest in xcrossWin);
+</script>  
+
+</body>
+</html>

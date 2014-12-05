@@ -1,30 +1,44 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<html lang="en-us">
 <head>
   <meta charset="utf-8">
   <title></title>
   <meta name="viewport" content="width=device-width">
   <style>
-  @-webkit-keyframes rotate {
-  	from { transform: rotate(0); }
-  	to { transform: rotate(360deg); }
+  @-webkit-keyframes rotate2 {
+  	from { -webkit-transform: rotate(0); }
+  	to { -webkit-transform: rotate(360deg); }
+  }
+  @keyframes rotate2 {
+    from { transform: rotate(0); }
+    to { transform: rotate(360deg); }
   }
   img { 
   	width: 200px; height: 200px; border-radius: 50%; 
-  	-webkit-animation: rotate 10s linear infinite;
-  	animation: rotate 10s linear infinite;
+    -webkit-animation: rotate2 10s linear infinite;
+  	animation: rotate2 10s linear infinite;
   }
+
+  .box { width: 400px; height: 100px; background-color: #333; transition: transform 1s; }
+  .transform { transform: translate(-350px, 0); }
   </style>
   <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
 <body>
   
   <img src="images/4601.jpg">
-
+  <div id="test" class="box transform"></div>
+  <form action="#" method="post">
+    <input type="hidden" value="1" name="uname">
+    <input type="hidden" value="1" name="upasswd" disabled>
+    <button type="submit">Submit</button>
+  </form>
   <script>
+  setTimeout(function() {
+    document.querySelector('#test').classList.remove('transform');
+  }, 500);
+  var img = new Image();
+  img.src="images/fullwidth.jpg";
+  // document.querySelector('body').appendChild(img);
   </script>
 </body>
 </html>
