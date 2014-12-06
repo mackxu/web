@@ -1,8 +1,5 @@
 <!doctype html public>
-<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<html lang="en-us">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
@@ -13,14 +10,51 @@
 
 <div>子域名之间的跨域需求：想从aaa.xu.com向bbb.xu.com发送ajax请求</div>
 <div>本页面的domain：<span id="domain"></span></div>
-<iframe id="xcross" src="http://aaa.xu.com/inner.html" frameborder="0" 1style="display: none"></iframe>
+<button onclick="post()">发送跨域post请求</button>
+<button onclick="get()">发送跨域get请求</button>
+<iframe id="xcross" name="xcross" src="http://bbb.xu.com:8000/proxy.html" frameborder="0" 1style="display: none"></iframe>
 <script>
-  document.domain = 'xu.com';
-  var pTest = function() { console.log('parent'); }
   document.querySelector('#domain').textContent = document.domain;
+  // 子域名之间的通信
+  document.domain = 'xu.com';
+  var reqUrl = 'http://bbb.xu.com:8000/index.php'
+  	, xcrossWin = null
+  	, xmlHttp = null
+  	;
+
+  // POST和GET跨域请求
+  var stateChangeHandler = function(xhr) {
+  	if (xhr.readyState === 4) {
+  		var status = +xhr.status;
+  		if (status >= 200 && status < 300 || status === 304) {
+  			alert(xhr.responseText);
+  		}
+  	}
+  };
+  var post = function() {
+  	var xmlHttp = xcrossWin.xmlHttp();
+  	xmlHttp.open('POST', reqUrl, true);
+  	xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  	xmlHttp.onreadystatechange = function() {
+  		stateChangeHandler(xmlHttp);
+  	};
+  	xmlHttp.send('uname=qqqq');
+  };
+  var get = function() {
+  	var xmlHttp = xcrossWin.xmlHttp();
+  	xmlHttp.open('GET', reqUrl+'?upass=' + (+new Date()), true);
+  	xmlHttp.onreadystatechange = function() {
+  		stateChangeHandler(xmlHttp);
+  	};
+  	xmlHttp.send('uname=qqqq');
+  };
+  var xcross = document.getElementById('xcross');
+  // 等待iframe加载完后，获取其window对象
+  xcross.onload = function() {
+  	xcrossWin = xcross.contentWindow;	
+  	console.log(xcrossWin.xmlHttp());
+  }
   
-  var xcrossWin = document.getElementById('xcross').contentWindow;
-  // console.log(subTest in xcrossWin);
 </script>  
 
 </body>

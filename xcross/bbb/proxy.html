@@ -4,14 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title></title>
-  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
 <body>
-
+<h3>此页面来自<span id="host"></span></h3>
 <script>
-  subTest = function() {
-    console.log('subIframe');
-  }
+  document.querySelector('#host').textContent = document.domain;
+  document.domain = 'xu.com';
+
+  var xmlHttp = (function() {
+  	var f = null;
+  	if (window.ActiveXObject) {
+  		f = function() { return new ActiveXObject('Microsoft.XMLHTTP') }
+  	}else if (window.XMLHttpRequest) {
+  		f = function() { return new XMLHttpRequest() };
+  	}else {
+  		f = function() { return; }
+  	}
+  	return f;
+  }());
 </script>
 
 </body>
