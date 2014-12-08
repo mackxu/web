@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width">
+</head>
+<body>
+<!-- 代理文件中，引入同域文件 -->
+<iframe id="parent-domain" src="http://www.xu.com/hash-proxy-local.html" frameborder="0" 1style="display: none"></iframe> 
+<script>
+  /* 
+   * 获取更新的hash数据、发送本域的ajax请求、更新指定域的hash值
+   */
+  var parentDomain = document.getElementById('parent-domain')
+    , updateUrl = "http://www.xu.com/hash-proxy-local.html#data="
+    , xmlHttp = new XMLHttpRequest()
+    ;
+  var stateChangeHandler = function(xhr) {
+    if (xhr.readyState === 4) {
+      var status = +xhr.status;
+      if (status >= 200 && status < 300 || status === 304) {
+        // 处理请求回来的数据
+        parentDomain.src = updateUrl + xhr.responseText;
+      }else {
+        alert('fail');
+      }
+    }
+  };
+  // 监听url的hash值变化
+  window.onhashchange = function() {
+    // 获取向服务器发送的数据
+    var msg = JSON.parse(location.hash.substring(6));
+    xmlHttp.open(msg.type, msg.url, true);
+    xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xmlHttp.onreadystatechange = function() {
+      stateChangeHandler(xmlHttp);
+    };
+    xmlHttp.send(msg.data);
+  }
+
+
+
+</script>
+  
+
+</body>
+</html>

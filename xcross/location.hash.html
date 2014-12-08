@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>location.hash + iframe</title>
+</head>
+<body>
+
+<!-- 
+  hash指url中#之后的部分，跨域时
+  通过iframe.src设置
+  子窗口通过location.hash获取.
+
+  反之，相同
+-->
+<div>本页面的domain：<span id="domain"></span></div>
+<button onclick="post()">发送跨域post请求</button>
+<button onclick="get()">发送跨域get请求</button>
+<iframe id="xcross" name="xcross" src="http://www.ccc.com/proxy-hash.html" frameborder="0" 1style="display: none"></iframe>  
+<script>
+  document.getElementById('domain').textContent = document.domain;
+  var xcross = document.getElementById('xcross')
+    , reqUrl = 'http://www.ccc.com/proxy-hash.html#data='
+    ;
+
+  xcross.onload = function() {
+    // 更新跨域iframe的hash值
+    // xcross.src = 'http://www.ccc.com/proxy-hash.html#uname=zhangzhang';
+  };
+
+  var post = function() {
+    xcross.src = reqUrl + JSON.stringify({
+      type: 'POST',
+      url: 'http://www.ccc.com/index.php',
+      data: 'uname=zhangzhang2'
+    });
+  };
+  var get = function() {
+    xcross.src = reqUrl + JSON.stringify({
+      type: 'GET',
+      url: 'http://www.ccc.com/index.php?upass=' + (+new Date()),
+      data: null
+    });
+  };
+  // 处理
+  var hashhandler = function(res) {
+    alert(res);
+  };
+
+
+</script>
+
+</body>
+</html>
