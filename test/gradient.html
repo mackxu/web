@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width">
   <title>背景颜色的渐变演示</title>
   <style>
-  .linear, .radial { height: 60px; 1border: 1px solid #000; margin-bottom: 10px; }
+  .linear { height: 60px; 1border: 1px solid #000; margin-bottom: 10px; }
+  .radial { width: 100px; height: 100px; border: 1px solid #000; margin-bottom: 10px; }
   .tobottom { background: linear-gradient(to bottom, #320, #FFF); }
   .toright { background: linear-gradient(to right, #320, #FFF); }
   .torb { background: linear-gradient(to right bottom, #FF0, #F00); }
@@ -24,6 +25,9 @@
 
   .transparencyGradients { width: 500px; height: 250px; background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)), url(images/500x250.jpg); }
   .transparencyGradients { width: 500px; height: 250px; background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(images/500x250.jpg); }
+
+
+  .radial-repeating { background: repeating-radial-gradient(black, black 5px, white 5px, white 10px); } 
   </style>
 </head>
 <body>
@@ -42,6 +46,9 @@
   <!-- repeat -->
   <div class="repeating linear"></div>
 
+  <div class="radial radial-repeating"></div>
+  
   <div class="transparencyGradients"></div>
+
 </body>
 </html>
