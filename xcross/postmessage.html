@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>通过postMessage＋iframe实现跨域问题</title>
+  <meta name="viewport" content="width=device-width">
+</head>
+<body>
+<div>本页面的domain：<span id="domain"></span></div>
+<button onclick="post()">发送跨域post请求</button>
+<button onclick="get()">发送跨域get请求</button>
+<iframe id="xcross" name="xcross" src="http://www.ccc.com:8000/proxy.html" frameborder="0" 1style="display: none"></iframe>  
+<script>
+	document.getElementById('domain').textContent = document.domain;
+	var xcross = document.getElementById('xcross');
+	var xcrossWin = null;
+	xcross.onload = function() {
+		xcrossWin = xcross.contentWindow;
+		// 向跨域的iframe通信
+		// xcrossWin.postMessage({ uname: 'zhangsan' }, '*');
+	};
+
+	var post = function() {
+		xcrossWin.postMessage({
+			type: 'POST',
+			url: 'http://www.ccc.com:8000/index.php',
+			data: 'uname=wangwu'
+		}, '*');
+	};
+	var get = function() {
+		xcrossWin.postMessage({
+			type: 'GET',
+			url: 'http://www.ccc.com:8000/index.php?upass=' + (+new Date()),
+			data: null
+		}, '*');
+	};
+
+
+	// 接受内嵌iframe的通信
+	window.onmessage = function(e) {
+		var data = e.data;
+		if (data.xcross) {
+			alert(data.res);
+		}
+	}
+
+
+</script>
+</body>
+</html>
