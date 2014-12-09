@@ -24,11 +24,6 @@
     , reqUrl = 'http://www.ccc.com/proxy-hash.html#data='
     ;
 
-  xcross.onload = function() {
-    // 更新跨域iframe的hash值
-    // xcross.src = 'http://www.ccc.com/proxy-hash.html#uname=zhangzhang';
-  };
-
   var post = function() {
     xcross.src = reqUrl + JSON.stringify({
       type: 'POST',

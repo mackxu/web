@@ -12,7 +12,6 @@
   var sameWin = parent.parent;
 
   window.onhashchange = function() {
-    console.log(location.hash)
     sameWin.hashhandler(location.hash.substring(6));
   };
 </script>
