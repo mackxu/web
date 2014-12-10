@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>演示background-size的可能取值</title>
+  <style>
+  .container { height: 300px; border: 1px solid #CCC; background: url(images/500x250.jpg) no-repeat; margin-bottom: 10px; }
+  .w400 { width: 400px; height: 250px; }
+  .contain { background-size: contain; }
+  .cover { background-size: cover; }
+  .length { background-size: 900px auto; }
+  /* 百分比是相对于容器的宽高的值 */
+  .percentage { background-size: 20% 15%; }
+  </style>
+</head>
+<body>
+
+  <div class="container"></div>
+  <div class="container contain"></div>
+  <div class="container w400 contain"></div>
+  <div class="container cover"></div>
+  <div class="container length"></div>
+  <div class="container percentage"></div>
+
+</body>
+</html>
