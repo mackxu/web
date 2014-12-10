@@ -13,10 +13,17 @@
   /* 百分比是相对于容器的宽高的值 */
   .percentage { background-size: 20%; }
   .percentage-h100 { background-size: auto 100%; }
+
+  .pd20 { padding: 20px; width: 200px; }
+  /* 决定背景图从哪里开始 */
+  .origin { background-origin: content-box; }
+  /* 设置背景图在一个盒子里显示的区域 */
+  .clip { background-clip: content-box; }
   </style>
 </head>
 <body>
-
+  <div class="container pd20 origin"></div>
+  <div class="container pd20 clip"></div>
   <div class="container"></div>
   <div class="container contain"></div>
   <div class="container percentage-h100"></div>
@@ -24,6 +31,7 @@
   <div class="container cover"></div>
   <div class="container length"></div>
   <div class="container percentage"></div>
+  
   
 </body>
 </html>
