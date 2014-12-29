@@ -31,7 +31,7 @@ App.memberView = Marionette.ItemView.extend({
 		'click': 'onPrintInfo'
 	},
 	onShowMember: function() {
-		this.trigger('member:show', this.model);
+		// this.trigger('member:show', this.model);
 	},
 	onDeleteMember: function() {
 		// 从集合中删除model，视图也会被删除
@@ -75,49 +75,85 @@ App.membersView = Marionette.CompositeView.extend({
 // - - - - - - - - - - - - - - - - - - - -
 
 App.memberShow = Marionette.ItemView.extend({
-	tagName: 'h1',
+	className: 'member-info',
 	template: '#member-show'
 });
 
+// - - - - - - - - - - - - - - - - - - - -
+// Router
+// - - - - - - - - - - - - - - - - - - - -
+App.Router = Marionette.AppRouter.extend({
+	appRoutes: {
+		'members': 'membersList',
+		'members/:id': 'memberShow'
+	}
+});
+
+App.navigate = function(route, options) {
+	options = options || {};
+	Backbone.history.navigate(route, options);
+};
+App.getCurrentRoute = function() {
+	return Backbone.history.fragment;
+};
+
+// 创建一个集合对象
+var cMembers = new App.cMembers([
+	{id:1, firstName: 333, lastName: 'aaa'}, 
+	{id:3, firstName:222, lastName: 'eee'},
+	{id:5, firstName:222, lastName: 'bbb'},
+	{id:8, firstName:222, lastName: 'aaa'}
+]);
+
+// 可以把API当作控制器
+var API = {
+	membersList: function() {
+		// 集合与视图结合
+		var membersView = new App.membersView({
+			// 视图可以有一些参数 如model、collection、Events and Callback Methods
+			collection: cMembers
+		});
+
+		membersView.on('itemview:member:delete', function(childView, member) {
+			cMembers.remove(member);
+		});
+
+		// 绘制members结构
+		App.membersRegion.show(membersView);
+	},
+	memberShow: function(id) {
+		// 根据id获取model
+		var member = cMembers.get(id);
+		// view and data
+		var memberShow = new App.memberShow({ model: member });
+		// diaplay
+		App.membersRegion.show(memberShow);
+	}
+};
+
+App.addInitializer(function() {
+	// 实例化路由
+	new App.Router({
+		controller: API
+	});
+});
+
+App.on('members:list', function() {
+	this.navigate('members');
+	API.membersList();
+});
+
+App.on('member:show', function() {});
+
 // 触发start事件有同样的效果
 App.on('initialize:after', function() {
-	// 模型
-	var mMember = new App.mMember({
-		lastName: 'Zhang'
-	});
-	// 创建一个集合实例
-	var cMembers = new App.cMembers([
-		{firstName: 333, lastName: 'aaa'}, 
-		{firstName:222, lastName: 'eee'},
-		{firstName:222, lastName: 'bbb'},
-		{firstName:222, lastName: 'aaa'}
-	]);
+	Backbone.history.start();
 
-	// 集合与视图结合
-	var membersView = new App.membersView({
-		// 视图可以有一些参数 如model、collection、Events and Callback Methods
-		collection: cMembers
-		// model: mMember
-	});
-
-	membersView.on('itemview:member:show', function(childView, member) {
-		// 通过router调用详情页控制器
-		console.log('show: ', member);
-
-		// 获取视图对象并显示
-		var memberShow = new App.memberShow({
-			model: member
-		});
-		App.membersRegion.show(memberShow);
-	});
-
-	membersView.on('itemview:member:delete', function(childView, member) {
-		cMembers.remove(member);
-	});
-
-	// 绘制members结构
-	App.membersRegion.show(membersView);
-
+	// 设置默认route: #members
+	if (this.getCurrentRoute() === '') {
+		this.trigger('members:list');
+	}
 });
+
 // app start:
 App.start();
