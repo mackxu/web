@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>反馈iframe</title>
+</head>
+<body>
+<form id="j-form-fd" method="post" action="http://feedback.iqiyi.com/f/b/s.html">
+	<textarea name="content" id="fdcontent" cols="30" rows="10"></textarea>
+	<input type="hidden" name="player_version" value="1.0.0">
+	<input type="hidden" name="fb_class" value="其他意见">
+	<input type="hidden" name="entry_class" value="user_feedback">
+	<button type="submit" id="j-btn-fd">提交</button>
+</form>
+ 
+<script>
+	var $$ = function(id) { return document.getElementById(id.replace('#', '')); }
+		, btnFd = $$('#j-btn-fd')
+		, formFd = $$('#j-form-fd')
+		;
+	formFd.onsubmit = function(e) {
+		// e.preventDefault();
+		// e.stopPropagation();
+		// console.log(e);
+		// alert(11);
+		// return false;
+	}
+	btnFd.addEventListener('click', function() {
+		formFd.submit();
+	}, false);
+</script>
+</body>
+</html>
