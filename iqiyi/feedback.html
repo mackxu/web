@@ -17,10 +17,10 @@
 	@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3){
 	    html{font-size: 129.375px;}
 	}
-  body, button, textarea, h1, .dialog-fd { margin: 0; -webkit-box-sizing: border-box; box-sizing: border-box; }
+  body, button, textarea, h1, .dialog-fb { margin: 0; -webkit-box-sizing: border-box; box-sizing: border-box; }
   body { padding: 0; background-color: #f7f7f7; }
 	.gutter { padding: 0 0.1rem; }
-  .fd-content { 
+  .fb-content { 
   	display: block; 
   	width: 100%; height: 2rem; 
   	overflow: auto; 
@@ -44,14 +44,14 @@
 		-webkit-user-select: none;
 
 	}
-	.btn-fd {  
+	.btn-fb {  
 		width: 100%; line-height: 2;
 		font-size: 0.18rem; font-weight: bold;
 		color: #9c9c9c; border: 2px solid currentColor;
 		text-decoration: none;
 	}
 	/* 消息提示框 */
-	.dialog-fd { 
+	.dialog-fb { 
 		position: absolute; bottom: 20%; left: 10%; 
 		width: 80%; 
 		background-color: rgba(90,172,22,0.4); color: #333;
@@ -62,17 +62,17 @@
   </style>
 </head>
 <body>
-<div class="header header-fd">
+<div class="header header-fb">
 	<h1 class="header-title">用户反馈</h1>
 </div>
-<form id="j-form-fd" target="myFrame" method="post" action="http://feedback.iqiyi.com/f/b/s.html" class="form-fd gutter">
-	<textarea name="content" id="js-fd-content" class="fd-content" placeholder="请留下您的宝贵意见" maxlength＝"150" autofocus></textarea>
+<form id="j-form-fb" target="myFrame" method="post" action="http://feedback.iqiyi.com/f/b/s.html" class="form-fb gutter">
+	<textarea name="content" id="js-fb-content" class="fb-content" placeholder="请留下您的宝贵意见" maxlength＝"150" autofocus></textarea>
 	<input type="hidden" name="player_version" value="1.1.0">
-	<input type="hidden" name="fb_class" value="其他意见">
+	<input type="hidden" name="fb_class" value="" id="j-fb-class">
 	<input type="hidden" name="entry_class" value="tv_assistant">
-	<input type="hidden" name="ticket" value="" id="js-ticket-fd">
-
-	<a target="myFrame" id="j-btn-fd" class="btn btn-fd" data-href="http://feedback.iqiyi.com/f/b/g.html" data-enable="0" href="javascript:;">提交</a>
+	<input type="hidden" name="ticket" value="" id="js-ticket-fb">
+	
+	<a target="myFrame" id="j-btn-fb" class="btn btn-fb" data-href="http://feedback.iqiyi.com/f/b/g.html" data-enable="0" href="javascript:;">提交</a>
 </form>
 <script type="text/javascript">
 	// 保证子域名之间的跨域
@@ -80,17 +80,17 @@
 	var $$ = function(id) { 
 			return document.getElementById(id.replace('#', '')); 
 		}
-		, fdContent = $$('#js-fd-content')
-		, fdBtn = $$('#j-btn-fd')
-		, btnFdColorOk = '#5caf19' 				// 按钮可发送
-		, btnFdColorNot = '#9c9c9c' 			// 按钮不可用
-		, fdContentMaxLen = 150						// 反馈的最多字数
+		, fbContent = $$('#js-fb-content')
+		, fbBtn = $$('#j-btn-fb')
+		, btnFbColorOk = '#5caf19' 				// 按钮可发送
+		, btnFbColorNot = '#9c9c9c' 			// 按钮不可用
+		, fbContentMaxLen = 150						// 反馈的最多字数
 		, removeNode = function(node) {
 			node.parentNode.removeChild(node);
 		}
 		, dialogShow = function(data) {
 			var dialog = document.createElement('div');
-			dialog.className = 'dialog-fd';
+			dialog.className = 'dialog-fb';
 			dialog.textContent = data;
 			setTimeout(function() {
 				removeNode(dialog);
@@ -138,28 +138,28 @@
 			options.before && options.before();
 		}
 		, setBtnState = function(enable, color) {
-			fdBtn.setAttribute('data-enable', enable);
-			fdBtn.style.color = color;
+			fbBtn.setAttribute('data-enable', enable);
+			fbBtn.style.color = color;
 		}
 	;
 	// 添加键盘keyup事件处理函数
-	fdContent.addEventListener('keyup', function(e) {
-		var fdLen = fdContent.value.replace(/\s+/g, '').length;
-		var btnEnable = +fdBtn.getAttribute('data-enable');
-		if (fdLen === 0) {
+	fbContent.addEventListener('keyup', function(e) {
+		var fbLen = fbContent.value.replace(/\s+/g, '').length;
+		var btnEnable = +fbBtn.getAttribute('data-enable');
+		if (fbLen === 0) {
 			if (btnEnable === 0) return;
-			setBtnState(0, btnFdColorNot);
+			setBtnState(0, btnFbColorNot);
 		}else {
 			if (btnEnable === 1) return;
-			setBtnState(1, btnFdColorOk);
+			setBtnState(1, btnFbColorOk);
 		}
 	}, false);
 	// 当用户满足提交时, 用来手动提交表单的
-	fdBtn.addEventListener('click', function() {
+	fbBtn.addEventListener('click', function() {
 		// 检测提交按钮是否可用
-		if (!fdBtn.getAttribute('data-enable')) return false;
+		if (!!fbBtn.getAttribute('data-enable')) return false;
 		// 检查文本框字数
-		if(fdContent.value.replace(/\s+/g, '').length >= fdContentMaxLen) {
+		if(fbContent.value.replace(/\s+/g, '').length >= fbContentMaxLen) {
 			dialogShow('提交失败:请简短您的描述!');
 			return false;
 		}
@@ -169,26 +169,28 @@
 		getIframeData({
 			done: function(res, frameElem) {
 				// 获取ticket
-				$$('js-ticket-fd').value = res.data;
+				$$('js-ticket-fb').value = res.data;
 				frameElem.parentNode.removeChild(frameElem);
 				
 				getIframeData({
 					done: function(res, frameElem) {
 						// 清空输入框，提交按钮置灰，显示成功提示框
-						fdContent.value = '';
-						setBtnState(0, btnFdColorNot);
+						fbContent.value = '';
+						setBtnState(0, btnFbColorNot);
 						dialogShow('反馈已收到，紧急处理中…');
 						// 清除创建的iframe
 						frameElem.parentNode.removeChild(frameElem);
 					},
 					before: function() {
 						// 创建完成iframe后，提交表单
-						$$('#j-form-fd').submit();
+						$$('#j-form-fb').submit();
 					}
 				});
 			}
 		});
 	}, false);
+	// 获取设备信息
+
 </script>
 </body>
 </html>
