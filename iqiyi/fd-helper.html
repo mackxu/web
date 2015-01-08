@@ -2,32 +2,95 @@
 <html lang="en-us">
 <head>
   <meta charset="utf-8">
-  <title>反馈iframe</title>
+  <title>使用帮助</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  /*320px布局*/
+	html{font-size: 100px;}
+	body{font-size: 0.14rem /*实际相当于14px*/}
+	 
+	/* iphone 6 */
+	@media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2){
+	    html{font-size: 117.1875px;}
+	}
+	/* iphone6 plus */
+	@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3){
+	    html{font-size: 129.375px;}
+	}
+  body, button, textarea, h1, ul, li, p { 
+  	margin: 0; 
+  	-webkit-box-sizing: border-box; box-sizing: border-box; 
+  }
+  body { padding: 0; }
+  .gutter { padding: 0 0.1rem; }
+	.header { 
+		position: relative;
+		background-color: #5caf19; 
+		padding: 0.3rem 0 0.12rem; margin-bottom: 0.18rem; 
+	}
+	.header-title { color: #FFF; text-align: center; font-weight: normal; font-size: 0.2rem; }
+	.fd-link-helper { 
+		position: absolute; right: 0.1rem; bottom: 0.1rem; 
+		color: #FFF; font-size: 0.14rem; 
+		padding: 3px 5px;
+		border: 1px solid currentColor;
+		border-radius: 2px; 
+		text-decoration: none;
+	}
+	.content-helper {
+		list-style: none;
+		padding-left: 0;
+	}
+	.helper-item { padding-left: 0.24rem; position: relative; }
+	.helper-item + .helper-item { border-top: 1px dashed #dfdfdf; padding-top: 0.14rem; }
+	.helper-item-t { color: #333; margin-bottom: 0.1rem; }
+	.helper-item-c { color: #999; font-size: 0.12rem; padding-bottom: 0.1rem; line-height: 1.4;}
+	.helper-item-q { position: absolute; left: 0; }
+  </style>
 </head>
 <body>
-<form id="j-form-fd" method="post" action="http://feedback.iqiyi.com/f/b/s.html">
-	<textarea name="content" id="fdcontent" cols="30" rows="10"></textarea>
-	<input type="hidden" name="player_version" value="1.0.0">
-	<input type="hidden" name="fb_class" value="其他意见">
-	<input type="hidden" name="entry_class" value="user_feedback">
-	<button type="submit" id="j-btn-fd">提交</button>
-</form>
- 
+<div class="header header-fd">
+	<h1 class="header-title">使用帮助</h1>
+	<a href="#" class="fd-link-helper">用户反馈</a>
+</div>
+<div class="main gutter">
+	<ul class="content-helper" id="j-helper-list"></ul>
+</div>
+<script type="text/template" id="j-helper-item">
+	<li class="helper-item">
+		<strong class="helper-item-q">Q:</strong>
+		<p class="helper-item-t"><% q %></p>
+		<p class="helper-item-c"><% a %></p>
+	</li>
+</script>
 <script>
-	var $$ = function(id) { return document.getElementById(id.replace('#', '')); }
-		, btnFd = $$('#j-btn-fd')
-		, formFd = $$('#j-form-fd')
+	var helpers = [
+		{
+			q: '为什么我的手机连不上电视？',
+			a: 'REM是CSS3新增的一种单位，并且移动端的支持度很高，android2.x+，ios5+ 都支持。REM是相对于dom结构的根元素来设置大小，也就是html这个元素。相较于em单位，rem使用上更容易理解及运用。'
+		},
+		{
+			q: '为什么我的手机连不上电视？',
+			a: 'REM是CSS3新增的一种单位，并且移动端的支持度很高，android2.x+，ios5+ 都支持。REM是相对于dom结构的根元素来设置大小，也就是html这个元素。相较于em单位，rem使用上更容易理解及运用。'
+		},
+		{
+			q: '为什么我的手机连不上电视？',
+			a: 'REM是CSS3新增的一种单位，并且移动端的支持度很高，android2.x+，ios5+ 都支持。REM是相对于dom结构的根元素来设置大小，也就是html这个元素。相较于em单位，'
+		}
+	];
+
+	var helperHtml = ''
+		, tmpl = document.getElementById('j-helper-item').innerHTML
+		, toHtml = function(tmpl, obj) {
+			return tmpl.replace(/<%\s*(.*?)\s*%>/g, function(match, $1) {
+				return obj[$1]? obj[$1] : match;
+			});
+		}
 		;
-	formFd.onsubmit = function(e) {
-		// e.preventDefault();
-		// e.stopPropagation();
-		// console.log(e);
-		// alert(11);
-		// return false;
-	}
-	btnFd.addEventListener('click', function() {
-		formFd.submit();
-	}, false);
+	helpers.forEach(function(item) {
+		helperHtml += toHtml(tmpl, item);
+	});
+	document.getElementById('j-helper-list').innerHTML = helperHtml;
 </script>
 </body>
 </html>
