@@ -62,7 +62,7 @@
 		background-color: rgba(90,172,22,0.4); color: #333;
 		text-align: center; line-height: 1.4;
 		padding: 0.1rem 0.2rem;
-		border-radius: 6%/50%;
+		border-radius: 14px/50%;
 	}
   </style>
 </head>
@@ -80,6 +80,7 @@
 		
 		<a target="frame-data" id="j-btn-fb" class="btn btn-fb" data-enable="0" href="javascript:;" data-href="http://feedback.iqiyi.com/f/b/g.html">提交</a>
 </form>
+<div class="dialog-fb">反馈已收到，紧急处理中…</div>
 </div>
 <script type="text/javascript">
 	// 保证子域名之间的跨域
@@ -203,11 +204,6 @@
 		fbClass = 'Android-general';
 	}
 	$$('#j-fb-class').value = fbClass;
-	var content = '';
-	for(var i=0; i< 15; i++ ) {
-		content += '请留下您的宝贵意见。'
-	}
-	fbContent.value = content;
 </script>
 </body>
 </html>
