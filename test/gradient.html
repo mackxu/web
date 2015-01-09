@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>背景颜色的渐变演示</title>
+  <style>
+  .linear { height: 60px; 1border: 1px solid #000; margin-bottom: 10px; }
+  .radial { width: 100px; height: 100px; border: 1px solid #000; margin-bottom: 10px; }
+  .tobottom { background: linear-gradient(to bottom, #320, #FFF); }
+  .toright { background: linear-gradient(to right, #320, #FFF); }
+  .torb { background: linear-gradient(to right bottom, #FF0, #F00); }
+  .tort { background: linear-gradient(to right top, #FF0, #F00); }
+
+  /* 小测试 结果 起点颜色和结束颜色交换  */
+  .tolb { background: linear-gradient(to bottom left, #FF0, #F00); }
+  .tolt { background: linear-gradient(to top left, #FF0, #F00); }
+
+  .angle { background: linear-gradient(90deg, #FF0, #F00); }
+  .angle-more { background: linear-gradient(120deg, #FF0, #000, #F00); }
+
+  .repeating { background: repeating-linear-gradient(90deg, red, red 5px, white 5px, white 10px); }
+  .repeating { background: repeating-linear-gradient(45deg, red, blue); }
+  .repeating { background-image: repeating-linear-gradient(90deg, rgb(26,198,204),  #FFF 200px); }
+
+  .transparencyGradients { width: 500px; height: 250px; background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)), url(images/500x250.jpg); }
+  .transparencyGradients { width: 500px; height: 250px; background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(images/500x250.jpg); }
+
+
+  .radial-repeating { background: repeating-radial-gradient(black, black 5px, white 5px, white 10px); } 
+  </style>
+</head>
+<body>
+
+  <div class="linear tobottom"></div>
+  <div class="linear toright"></div>
+  <div class="linear torb"></div>
+  <div class="linear tolt"></div>
+  <div class="linear tort"></div>
+  <div class="linear tolb"></div>
+
+  <!--  使用度数  -->
+  <div class="linear angle"></div>
+  <div class="linear angle-more"></div>
+
+  <!-- repeat -->
+  <div class="repeating linear"></div>
+
+  <div class="radial radial-repeating"></div>
+  
+  <div class="transparencyGradients"></div>
+
+</body>
+</html>

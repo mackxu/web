@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>通过给a元素赋值url，并根据a的属性解析该值</title>
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+
+<script>
+  var link = document.createElement('a');
+  link.href = 'http://www.baidu.com:8080/xxx/xx/x/index.php?uname=zhangsan&upass=123456#hash'
+  console.log(link.host, link.hostname, link.protocol, link.pathname, link.hash);
+
+  // 解析parseURL
+  var parseURL = function(url) {
+    var link = document.createElement('a');
+    link.href = url;
+    // 返回解析后的键值对
+    return {
+      source: url,
+      protocol: link.protocol.replace(':', ''),
+      host: link.hostname,
+      port: link.port,
+      query: link.search,
+      params: (function() {
+        var res = {}
+          , seg = link.search.substring(1).split('&')
+          ;
+        for (var i = 0, len = seg.length; i < len; i++) {
+          if (!seg[i]) continue;
+          var s = seg[i].split('=');
+          res[s[0]] = s[1];
+        }
+        return res;
+      }()),
+      file: (link.pathname.match(/\/([^\/?#]+)$/i) || [, ''])[1],
+      hash: link.hash.substring(1),
+      path: link.pathname
+    };
+  };
+
+  console.dir(parseURL('http://www.baidu.com:8080/xxx/xx/x/index.php?uname=zhangsan&upass=123456#hash'))
+</script>
+
+</body>
+</html>

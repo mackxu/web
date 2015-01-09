@@ -2,7 +2,6 @@
 <head>
   <meta charset="utf-8">
   <title></title>
-  <meta name="viewport" content="width=device-width">
   <style>
   @-webkit-keyframes rotate2 {
   	from { -webkit-transform: rotate(0); }
@@ -12,7 +11,7 @@
     from { transform: rotate(0); }
     to { transform: rotate(360deg); }
   }
-  img { 
+  .rotate { 
   	width: 200px; height: 200px; border-radius: 50%; 
     -webkit-animation: rotate2 10s linear infinite;
   	animation: rotate2 10s linear infinite;
@@ -20,25 +19,20 @@
 
   .box { width: 400px; height: 100px; background-color: #333; transition: transform 1s; }
   .transform { transform: translate(-350px, 0); }
+
+  .img-container { border: 1px solid #000; font-size:50px; }
+  /* 高度的产生 */
+  .test1{font-size:20px; line-height:0; border:1px solid #cccccc; background:#eeeeee; margin: 10px;}
+  .test2{font-size:1px; line-height:20px; border:1px solid #cccccc; background:#eeeeee;}
   </style>
   <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
 <body>
   
-  <img src="images/4601.jpg">
+  <img class="rotate" src="images/4601.jpg">
   <div id="test" class="box transform"></div>
-  <form action="#" method="post">
-    <input type="hidden" value="1" name="uname">
-    <input type="hidden" value="1" name="upasswd" disabled>
-    <button type="submit">Submit</button>
-  </form>
-  <script>
-  setTimeout(function() {
-    document.querySelector('#test').classList.remove('transform');
-  }, 500);
-  var img = new Image();
-  img.src="images/fullwidth.jpg";
-  // document.querySelector('body').appendChild(img);
-  </script>
+
+  <div class="test1">测试</div>
+  <div class="test2">测试</div>
 </body>
 </html>

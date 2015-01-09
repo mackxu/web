@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>相同域的iframe</title>
+  <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<!-- 与相同域通信，会产生历史纪录？ -->
+<script>
+  var sameWin = parent.parent;
+
+  window.onhashchange = function() {
+    sameWin.hashhandler(location.hash.substring(6));
+  };
+</script>
+
+</body>
+</html>

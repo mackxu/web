@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Canvas 文本</title>
+  <style>
+  body { background-color: #DDD; }
+  .myCanvas { margin: 20px; padding: 10px; background-color: #FFF; border: 1px solid #AAA; }
+  .myCanvas2 { margin: 20px; padding: 10px; background-color: #FFF; border: 1px solid #AAA; width: 600px; height: 300px; }
+  </style>
+</head>
+<body>
+
+<canvas class="myCanvas" id="J_canvas" width="600" height="300"></canvas>
+<canvas class="myCanvas2" id="J_canvas2"></canvas>
+<script>
+  var canvas = document.getElementById('J_canvas')
+    , context = canvas.getContext("2d")
+    ;
+  context.font = '38pt Arial';
+  context.fillStyle = 'red';
+  context.strokeStyle = 'blue';
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  context.fillText('Hello Canvas', canvas.width / 2, canvas.height / 2);
+  context.strokeText('Hello Canvas', canvas.width / 2, canvas.height / 2);
+
+  var canvas = document.getElementById('J_canvas2')
+    , context = canvas.getContext("2d")
+    ;
+  context.font = '38pt Arial';
+  context.fillStyle = 'red';
+  context.strokeStyle = 'blue';
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  context.fillText('Hello Canvas', canvas.width / 2, canvas.height / 2);
+  context.strokeText('Hello Canvas', canvas.width / 2, canvas.height / 2);
+</script>
+
+</body>
+</html>

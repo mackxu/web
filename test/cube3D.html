@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>CSS3实现立方体</title>
+  <style>
+  .display { -webkit-perspective: 400; -webkit-perspective-origin: 50% 50%; }
+  .cube { position: relative; margin: 100px auto; width: 200px; height: 200px; 
+    -webkit-transform-style: preserve-3d; -webkit-animation: scroll 6s linear infinite;  }
+  .face { position: absolute; width: 160px; height: 160px; border: 1px solid #333; padding: 20px; background-color: rgba(50, 50, 50, 0.7); color: #FFF; font-size: 30px; font-weight: bold; text-align: center; line-height: 160px; }
+  .face:nth-child(1) {-webkit-transform: translateZ(100px); }
+  .face:nth-child(2) {-webkit-transform: rotateY(90deg) translateZ(100px);}
+  .face:nth-child(3) {-webkit-transform: rotateY(180deg) translateZ(100px);}
+  .face:nth-child(4) {-webkit-transform: rotateY(270deg) translateZ(100px);}
+  .face:nth-child(5) {-webkit-transform: rotateX(90deg) translateZ(100px);}
+  .face:nth-child(6) {-webkit-transform: rotateX(270deg) translateZ(100px);}
+
+  @-webkit-keyframes scroll {
+    0% { -webkit-transform: rotateZ(0deg); }
+    12.5% { -webkit-transform: rotateZ(45deg); }
+    25% { -webkit-transform: rotateZ(90deg); }
+    37.5% { -webkit-transform: rotateZ(135deg); }
+    50% { -webkit-transform: rotateZ(180deg); }
+    62.5% { -webkit-transform: rotateZ(225deg); }
+    75% { -webkit-transform: rotateZ(270deg); }
+    87.5% { -webkit-transform: rotateZ(315deg); }
+    100% { -webkit-transform: rotateZ(360deg); }
+  }
+  </style>
+</head>
+<body>
+
+  <div class="display">
+    <div class="cube">
+      <div class="face">1</div>
+      <div class="face">2</div>
+      <div class="face">3</div>
+      <div class="face">4</div>
+      <div class="face">5</div>
+      <div class="face">6</div>
+    </div>
+  </div>
+
+</body>
+</html>
