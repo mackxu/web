@@ -62,7 +62,7 @@
 		background-color: rgba(90,172,22,0.4); color: #333;
 		text-align: center; line-height: 1.4;
 		padding: 0.1rem 0.2rem;
-		border-radius: 6%/50%;
+		border-radius: 14px/50%;
 	}
   </style>
 </head>
@@ -91,7 +91,7 @@
 		, fbBtn = $$('#j-btn-fb')
 		, btnFbColorOk = '#5caf19' 				// 按钮可发送
 		, btnFbColorNot = '#9c9c9c' 			// 按钮不可用
-		, fbContentMaxLen = 150						// 反馈的最多字数
+		, fbContentMaxLen = 140						// 反馈的最多字数
 		, userAgent = navigator.userAgent	// 识别设备
 		, fbClass = '其他意见'
 		, removeNode = function(node) {
@@ -203,11 +203,6 @@
 		fbClass = 'Android-general';
 	}
 	$$('#j-fb-class').value = fbClass;
-	var content = '';
-	for(var i=0; i< 15; i++ ) {
-		content += '请留下您的宝贵意见。'
-	}
-	fbContent.value = content;
 </script>
 </body>
 </html>
