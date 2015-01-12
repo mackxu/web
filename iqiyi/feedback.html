@@ -57,7 +57,9 @@
 	}
 	/* 消息提示框 */
 	.dialog-fb { 
-		position: absolute; bottom: 20%; left: 10%; 
+		position: absolute; bottom: 50%; left: 10%;
+		-webkit-transform: translateY(-50%);
+		transform: translateY(-50%);
 		width: 80%; 
 		background-color: rgba(90,172,22,0.4); color: #333;
 		text-align: center; line-height: 1.4;
@@ -92,6 +94,7 @@
 		, btnFbColorOk = '#5caf19' 				// 按钮可发送
 		, btnFbColorNot = '#9c9c9c' 			// 按钮不可用
 		, fbContentMaxLen = 140						// 反馈的最多字数
+		, fbContentMaxLen = 4						// 反馈的最多字数
 		, userAgent = navigator.userAgent	// 识别设备
 		, fbClass = '其他意见'
 		, removeNode = function(node) {
@@ -150,28 +153,35 @@
 			fbBtn.setAttribute('data-enable', enable);
 			fbBtn.style.color = color;
 		}
+		, getFbLen = function() {
+			return fbContent.value.replace(/\s+/g, '').length;
+		}
 	;
 	// 添加键盘keyup事件处理函数
 	fbContent.addEventListener('keyup', function(e) {
-		var fbLen = fbContent.value.replace(/\s+/g, '').length;
+		var fbLen = getFbLen();
 		var btnEnable = +fbBtn.getAttribute('data-enable');
 		if (fbLen === 0) {
-			if (btnEnable === 0) return;
-			setBtnState(0, btnFbColorNot);
+			if (btnEnable === 0) return; 					
+			setBtnState(0, btnFbColorNot);					// 设置按钮为不可提交状态
 		}else {
 			if (btnEnable === 1) return;
-			setBtnState(1, btnFbColorOk);
+			setBtnState(1, btnFbColorOk);						// 可提交状态
 		}
 	}, false);
+
+	fbContent.addEventListener('keydown', function(e) {
+		if(getFbLen() >= fbContentMaxLen && e.keyCode !== 8 && e.keyCode !== 13) {
+			// 禁止再输入, 并弹出提示框
+			e.preventDefault();
+			dialogShow('谢谢您的支持，但简短的描述对我们来说更为宝贵');
+		}
+	}, false);
+
 	// 当用户满足提交时, 用来手动提交表单的
 	fbBtn.addEventListener('click', function() {
 		// 检测提交按钮是否可用
 		if (+fbBtn.getAttribute('data-enable') === 0) return false;
-		// 检查文本框字数
-		if(fbContent.value.replace(/\s+/g, '').length > fbContentMaxLen) {
-			dialogShow('谢谢您的支持，但简短的描述对我们来说更为宝贵');
-			return false;
-		}
 		fbBtn.href = fbBtn.getAttribute('data-href');
 		getIframeData({
 			done: function(res, frameElem) {
