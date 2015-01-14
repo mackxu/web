@@ -5,22 +5,20 @@ App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
 		template: '#member-template',
 
 		events: {
-			'click .js-show': 'onShowMember',
-			'click .js-delete': 'onDeleteMember',
+			'click .js-show': 'showContact',
+			'click .js-delete': 'deleteContact',
 			'click': 'onPrintInfo'
 		},
-		onShowMember: function() {
-			// this.trigger('member:show', this.model);
+		showContact: function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			this.trigger('contact:show', this.model);
 		},
-		onDeleteMember: function() {
+		deleteContact: function() {
 			// 从集合中删除model，视图也会被删除
 			// this.model.collection.remove(this.model);
-			// 视图只用来显示，不应该担任删除数据的角色，应在Controller中处理
-			this.trigger('member:delete', this.model);
-		},
-		onPrintInfo: function() {
-			// 由于该事件只用来显示，所以无需在控制器内执行
-			// console.log('clicked: ', this.model);
+			// 视图只用来显示，不应该担任处理数据的角色，应在Controller中处理
+			this.trigger('contact:delete', this.model);
 		},
 		remove: function() {
 			// 覆盖默认remove
@@ -46,6 +44,10 @@ App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
 		highlightName: function(e) {
 			// 注意与e.target的区别
 			$(e.currentTarget).toggleClass('warning');
+		},
+		onItemviewContactDelete: function(childView, model) {
+			// 可用于监听child view事件
+			console.log(childView, model);
 		}
 	});
 });

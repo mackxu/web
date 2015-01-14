@@ -13,8 +13,12 @@ App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
 				collection: contacts
 			});
 
-			contactsView.on('itemview:member:delete', function(childView, member) {
-				contacts.remove(member);
+			contactsView.on('itemview:contact:delete', function(childView, contact) {
+				contacts.remove(contact);
+			});
+
+			contactsView.on('itemview:contact:show', function(childView, contact) {
+				App.trigger('contact:show', contact.get('id'));
 			});
 
 			// 绘制members结构

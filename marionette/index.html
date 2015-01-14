@@ -30,9 +30,9 @@
 	</td>
 </script>
 
-<script type="text/template" id="member-show">
+<script type="text/template" id="contact-show">
 	<h1><%= firstName %>, <%= lastName %></h1>
-	<p><a href="#members" class="link">返回列表</a></p>
+	<p><a href="#contacts" class="link">返回列表</a></p>
 </script>
   
 <script src="scripts/libs/jquery.js"></script>
@@ -40,10 +40,17 @@
 <script src="scripts/libs/underscore.js"></script>
 <script src="scripts/libs/backbone.js"></script>
 <script src="scripts/libs/backbone.marionette.js"></script>
+
 <script src="scripts/app.js"></script>
 <script src="scripts/entities/contact.js"></script>
+
+<script src="scripts/apps/contacts/contacts_app.js"></script>
 <script src="scripts/apps/contacts/list/list_view.js"></script>
 <script src="scripts/apps/contacts/list/list_controller.js"></script>
-<script src="scripts/demo.js"></script>
+<script src="scripts/apps/contacts/show/show_view.js"></script>
+<script src="scripts/apps/contacts/show/show_controller.js"></script>
+<script>
+	App.start();
+</script>
 </body>
 </html>
