@@ -15,11 +15,12 @@ App.getCurrentRouter = function() {
 
 // 触发start事件有同样的效果
 App.on('initialize:after', function() {
-	console.log('initialize: End');
+	
 	Backbone.history.start();
 
 	// 设置默认route: #contacts
 	if (this.getCurrentRouter() === '') {
 		this.trigger('contacts:list');
 	}
+	console.log('App initialize: End');
 });

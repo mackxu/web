@@ -32,7 +32,7 @@ App.module('ContactsApp', function(ContactsApp, App, Backbone, Marionette, $, _)
 		new ContactsApp.Router({
 			controller: API
 		});
-		console.log('ContactsApp Router: start');
+		console.log('ContactsApp Router: Init');
 	});
 
 });
