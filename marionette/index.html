@@ -32,11 +32,15 @@
 
 <script type="text/template" id="contact-show">
 	<h1><%= firstName %>, <%= lastName %></h1>
-	<p><a href="#contacts" class="link">返回列表</a></p>
+	<p><a href="#contacts" class="link" id="j-contacts-list">返回列表</a></p>
 </script>
+
+<script type="text/template" id="missing-contact-show">
+	<div class="alert alert-danger">This contact doesn‘t exist ! </div>
+</script>
+
   
 <script src="scripts/libs/jquery.js"></script>
-<script src="scripts/libs/json2.js"></script>
 <script src="scripts/libs/underscore.js"></script>
 <script src="scripts/libs/backbone.js"></script>
 <script src="scripts/libs/backbone.marionette.js"></script>

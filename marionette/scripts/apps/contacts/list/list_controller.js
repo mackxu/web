@@ -5,6 +5,7 @@ App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
 	
 	List.Controller = {
 		listContacts: function() {
+			console.log('list controller exec: ');
 			// 发起对contact:entities的请求
 			var contacts = App.request('contact:entities');
 			// 用数据填充视图
@@ -23,9 +24,6 @@ App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
 
 			// 绘制members结构
 			App.membersRegion.show(contactsView);
-		},
-		showContact: function() {
-
 		}
 	};
 });
