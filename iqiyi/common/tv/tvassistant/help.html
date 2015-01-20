@@ -17,9 +17,13 @@
 	@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3){
 	    html{font-size: 129.375px;}
 	}
+	@media (device-width : 360px) and (-webkit-min-device-pixel-ratio : 2){
+	    html{font-size: 110px;}
+	}
   body, button, textarea, h1, ul, li, p { 
   	margin: 0; 
-  	-webkit-box-sizing: border-box; box-sizing: border-box; 
+  	-webkit-box-sizing: border-box; 
+  	box-sizing: border-box; 
   }
   body { padding: 0; background-color: #f7f7f7; }
   .gutter { padding: 0 0.1rem; }
@@ -42,10 +46,10 @@
 		list-style: none;
 		padding-left: 0;
 	}
-	.helper-item { padding-left: 0.24rem; position: relative; }
-	.helper-item + .helper-item { border-top: 1px dashed #dfdfdf; padding-top: 0.14rem; }
+	.helper-item { padding-left: 0.24rem; position: relative; border-bottom: 1px dashed #dfdfdf; font-size: 0.16rem; }
+	.helper-item + .helper-item {  padding-top: 0.14rem; }
 	.helper-item-t { color: #333; margin-bottom: 0.1rem; }
-	.helper-item-c { color: #999; font-size: 0.12rem; padding-bottom: 0.1rem; line-height: 1.4;}
+	.helper-item-c { color: #999; font-size: 0.14rem; padding-bottom: 0.1rem; line-height: 1.4;}
 	.helper-item-q { position: absolute; left: 0; }
   </style>
 </head>
