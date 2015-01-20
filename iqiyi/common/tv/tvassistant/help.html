@@ -14,14 +14,14 @@
 	    html{font-size: 117.1875px;}
 	}
 	/* iphone6 plus */
-	@media (-webkit-min-device-pixel-ratio : 3){
+	@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3){
 	    html{font-size: 129.375px;}
 	}
   body, button, textarea, h1, ul, li, p { 
   	margin: 0; 
   	-webkit-box-sizing: border-box; box-sizing: border-box; 
   }
-  body { padding: 0; }
+  body { padding: 0; background-color: #f7f7f7; }
   .gutter { padding: 0 0.1rem; }
 	.header { 
 		position: relative;
@@ -68,7 +68,7 @@
 	var helpers = [
 		{
 			q: '为什么我的手机连不上电视？',
-			a: 'REM是CSS3新增的一种单位，并且移动端的支持度很高，android2.x+，ios5+ 都支持。REM是相对于dom结构的根元素来设置大小，也就是html这个元素。相较于em单位，rem使用上更容易理解及运用。'
+			a: 'REM是CSS3新增的一种单位，并且移动端的支持度很高，android2.x+，ios5+ 都支持。REM是相对于dom结构的根元素来设置大小，也就是html这个元素。相较于em单位，rem使用上更容易理解及运。'
 		},
 		{
 			q: '为什么我的手机连不上电视？',

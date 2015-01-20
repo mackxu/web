@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>会呼吸的信封</title>
+  <meta name="viewport" content="width=device-width">
+	<style>
+	body { margin: 0; background-color: #ccc;}
+	.container {
+		position: relative;
+		overflow: hidden;
+		margin: 20px auto;
+		width: 800px; height: 500px;
+		
+	}
+	.h, .v { position: absolute; border-color: transparent; border-style: solid; }
+	.h { border-width: 250px 320px; }
+	.v { border-width: 320px 400px; }
+	.ha { border-left-color: #FF0; }
+	.hb { border-right-color: #FF0; right: 0; }
+	.va { border-top-color: #FFF; }
+	.vb { bottom: 0; border-bottom-color: #F00; }
+	.vaa { border-width: 300px 400px; border-top-color: #F0F; }
+
+	/* 为信封添加动画样式 */
+	.vaa {
+		-webkit-transform-style: preserve-3d;
+		-webkit-perspective: 1500;
+		-webkit-transform-origin: 0 0;
+		-webkit-animation: breach 1.2s ease infinite alternate;
+	}
+	@-webkit-keyframes breach {
+		100% { -webkit-transform: rotateX(30deg); }
+	}
+
+	/* 演示border成三角的大小 */
+	/*
+		border-width: vertical horizontal;
+		border-width: top horizontal bottom;
+		border-width: top right bottom left;
+	*/
+	.box {
+		width: 0; 
+		border-width: 200px 100px;
+		border-color: #a11 #F66 #333 #FF0;
+		border-style: solid; 
+	}
+	</style>
+</head>
+<body>
+
+  <div class="container">
+  	<div class="h ha"></div>
+  	<div class="h hb"></div>
+		<div class="v vb"></div>
+		<div class="v va"></div>
+		<div class="v vaa"></div>
+  </div>
+
+
+	<div class="box"></div>
+</body>
+</html>
