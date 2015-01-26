@@ -33,6 +33,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 	var API = {
 		getContactsEntities: function() {
 			var defer = $.Deferred();
+
 			var contacts = new Entities.contactCollection();
 			contacts.fetch({
 				success: function(collection, responce, options) {
@@ -53,7 +54,10 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 		},
 		getContactEntity: function(contactid) {
 			var defer = $.Deferred();
-			var contact = new Entities.contact({id: contactid});
+
+			var contact = new Entities.contact({		// 创建一个指定id的model
+				id: contactid
+			});
 			setTimeout(function() {
 				contact.fetch({
 					success: function(data) {

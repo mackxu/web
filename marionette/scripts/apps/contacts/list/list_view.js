@@ -14,7 +14,9 @@ App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
 			e.stopPropagation();
 			this.trigger('contact:show', this.model);
 		},
-		deleteContact: function() {
+		deleteContact: function(e) {
+			e.preventDefault();
+			e.stopPropagation();
 			// 从集合中删除model，视图也会被删除
 			// this.model.collection.remove(this.model);
 			// 视图只用来显示，不应该担任处理数据的角色，应在Controller中处理
@@ -35,8 +37,8 @@ App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
 		tagName: 'table',
 		className: 'table table-hover',
 		template: '#member-list',
-		itemViewContainer: 'tbody', 			// #1
-		itemView: List.Contact, 				// #2
+		childViewContainer: 'tbody', 			// #1
+		childView: List.Contact, 				// #2
 
 		events: {
 			'click tr': 'highlightName'
