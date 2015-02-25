@@ -15,7 +15,8 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 		}
 	});
 
-	// 初始化数据在这里
+	// 初始化数据直接在这里, 不行。
+	// 
 	var initializeHeaders = function() {
 		Entities.headers = new Entities.HeaderCollection([
 			{ id: 1, name: 'Contacts', url: 'contacts' },

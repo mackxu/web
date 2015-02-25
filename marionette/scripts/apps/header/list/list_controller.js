@@ -3,9 +3,7 @@ App.module('HeaderApp.List', function(List, App, Backbone, Marionette, $, _) {
 		listHeader: function() {
 			var links = App.request('header:entities');
 
-			var headers = new List.Headers({
-				collection: links
-			});
+			var headers = new List.Headers({ collection: links });
 
 			App.headerRegion.show(headers);
 		},

@@ -1,7 +1,24 @@
 App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 	
 	Entities.contact = Backbone.Model.extend({
-		urlRoot: 'contacts'
+		urlRoot: 'contacts',
+		validate: function(attrs, options) {
+			var errors = {};
+			
+			attrs.firstName || ( errors.firstName = "can't be blank" );
+
+			if( !attrs.lastName ) {
+				errors.lastName = "can't be blank";
+			}else {
+				if (attrs.lastName.length < 2) {
+					errors.lastName = 'is too short';
+				} 
+			}
+
+			if(!_.isEmpty(errors)) {
+				return errors;
+			}
+		}
 	});
 
 	Entities.contactCollection = Backbone.Collection.extend({
@@ -17,10 +34,10 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
 	var initContactsData = function() {
 		var contacts = new Entities.contactCollection([
-			{id:1, firstName: 333, lastName: 'aaa'}, 
-			{id:3, firstName:222, lastName: 'eee'},
-			{id:5, firstName:222, lastName: 'bbb'},
-			{id:8, firstName:222, lastName: 'aaa'}
+			{id:1, firstName: 333, lastName: 'aaa', phoneNumber: '5555555'}, 
+			{id:3, firstName:222, lastName: 'eee', phoneNumber: '5555555'},
+			{id:5, firstName:222, lastName: 'bbb', phoneNumber: '5555555'},
+			{id:8, firstName:222, lastName: 'aaa', phoneNumber: '5555555'}
 		]);
 
 		contacts.forEach(function(contact, index) {

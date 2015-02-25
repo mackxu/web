@@ -2,12 +2,9 @@ App.module('ContactsApp.Show', function(Show, App, Backbone, Marionette, $, _) {
 	// 详情页视图
 	Show.Contact = Marionette.ItemView.extend({
 		template: '#contact-show',
-		events: {
-			'click #j-contacts-list': 'listContacts'
-		},
-		listContacts: function(e) {
-			e.preventDefault();
-			App.trigger('contacts:list');
+		triggers: {
+			'click .j-contacts-list': 'contacts:list',
+			'click .j-edit': 'contact:edit'
 		}
 	});
 

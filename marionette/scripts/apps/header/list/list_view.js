@@ -1,4 +1,5 @@
 App.module('HeaderApp.List', function(List, App, Backbone, Marionette, $, _) {
+	
 	List.Header = Marionette.ItemView.extend({
 		template: '#header-link',
 		tagName: 'li',
@@ -12,8 +13,9 @@ App.module('HeaderApp.List', function(List, App, Backbone, Marionette, $, _) {
 	List.Headers = Marionette.CompositeView.extend({
 		template: '#header-template',
 		tagName: 'nav',
-		className: "navbar navbar-inverse 1navbar-fixed-top",
+		className: "navbar navbar-inverse navbar-fixed-top",
 		childView: List.Header,
 		childViewContainer: 'ul'
 	});
+	
 });
