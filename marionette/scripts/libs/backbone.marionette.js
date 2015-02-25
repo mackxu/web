@@ -1841,7 +1841,7 @@
     // 'click:foo'
     _buildViewTrigger: function(triggerDef) {
       var hasOptions = _.isObject(triggerDef);
-  
+      // 事件默认取消默认行为和停止事件传播
       var options = _.defaults({}, (hasOptions ? triggerDef : {}), {
         preventDefault: true,
         stopPropagation: true
@@ -1859,7 +1859,7 @@
             e.stopPropagation();
           }
         }
-  
+        // 默认传递trigger的处理函数的参数: view / model / collection
         var args = {
           view: this,
           model: this.model,

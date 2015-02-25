@@ -21,8 +21,7 @@ App.on('start', function() {
 
 	// 设置默认route: #contacts
 	if (this.getCurrentRouter() === '') {
-		// this.trigger('contacts:list');
-		this.trigger('layoutsManager');
+		this.trigger('contacts:list');
 	}
 	console.log('App initialize: End');
 });
