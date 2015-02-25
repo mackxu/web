@@ -1,0 +1,55 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>爱信App下载</title>
+	<style type="text/css">
+		html { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+		body { margin: 0; padding: 0; background-color: #71be35;  }
+		.container { 
+			position: relative; margin: 0 auto;
+			background: url(http://pic5.qiyipic.com/common/20150204/download-bg.jpg) no-repeat; background-size: cover; 
+		}
+		.btn { position: absolute; left: 5.56%; width: 89%; height: 7.3%; text-indent: -999em; }
+		.btn-android { bottom: 18%; }
+		.btn-ios { bottom: 8.7%; }
+	</style>
+</head>
+<body>
+<div class="container" id="j-container">
+	<a class="btn btn-android" href="javascript:;" onClick="downloadAndriod()">android版</a>
+	<a class="btn btn-ios" href="javascript:;" onClick="downloadIos()">IOS版</a>
+</div>
+<script>
+	// 获取设备高度，计算container宽度，样式居中
+	// 确保图片不发生扭曲，并能定位图中的按钮
+	var container = document.getElementById('j-container');
+	var h = document.documentElement.clientHeight;
+	var w = h * 108 / 192 + 'px';
+	container.style.width = w;
+	container.style.height = h + 'px';
+
+	// 判断链接
+	var ua = navigator.userAgent;
+	// var isIOS = /(iPhone|iPad|iPod|iOS)/i.test(ua);
+	// var isAndriod = /Android/i.test(ua);
+	var isWx = /MicroMessenger/i.test(ua);
+
+	var iosUrl = 'http://itunes.apple.com/cn/app/hai-dao-qi-bing-boom-beach/id672150402';
+	var andriodUrl = 'http://pic9.qiyipic.com/tvpic/update/55_463_211_1422585911356.apk';
+	var andriodWxUrl = 'http://ti.3g.qq.com/open/s?aid=clientjump&url=http://url.cn/WT5D5S';
+
+	function downloadAndriod() {
+		// if (!isAndriod) return false;			// 如果不是andriod, 取消点击事件
+		if (isWx) andriodUrl = andriodWxUrl;
+		window.location = andriodUrl;
+	}
+
+	function downloadIos() {
+		// if(!isIOS) return false;
+		window.location = iosUrl;
+	}
+	
+</script>
+</body>
+</html>
