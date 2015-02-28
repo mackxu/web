@@ -5,6 +5,8 @@
   <title>Marionette demo</title>
   <meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/application.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
 </head>
 <body>
 <div id="header-region"></div>
@@ -14,6 +16,7 @@
 </div>
 
 <div class="members" id="J_members"></div>
+<div id="j-dialog-region" class="dialog-region"></div>
 
 <script type="text/template" id="header-template"> 
 <div class="navbar-inner">
@@ -35,16 +38,21 @@
 	</thead>
 	<tbody></tbody>
 </script>
+<!-- 用户列表的Composite View -->
 
 <script type="text/template" id="member-template"> 
 	<td><%= firstName %></td><td><%= lastName %></td>
 	<td> 
-		<a href="#members/<%= id %>" class="btn btn-primary btn-xs js-show">
-			<i class="glyphicon glyphicon-eye-open"></i> Show</a>
+		<a href="#contacts/<%= id %>" class="btn btn-primary btn-xs js-show">
+			<i class="icon-eye-open"></i> Show</a>
+		<a href="#contacts/<%= id %>/edit" class="btn btn-primary btn-xs js-edit">
+			<i class="icon-pencil"></i> Edit</a>
 		<button class="btn btn-danger btn-xs js-delete">
-			<i class="glyphicon glyphicon-remove"></i> Delete</button> 
+			<i class="icon-remove"></i> Delete</button> 
 	</td>
 </script>
+
+<!-- // 用户列表中的Itemview -->
 
 <script type="text/template" id="contact-show">
 	<h1><%= firstName %>, <%= lastName %></h1>
@@ -89,6 +97,7 @@ accompany you during your learning.</p> <p>Hopefully, it has served you well !</
 </script>
   
 <script src="scripts/libs/jquery.js"></script>
+<script src="scripts/libs/jquery-ui.js"></script>
 <script src="scripts/libs/underscore.js"></script>
 <script src="scripts/libs/backbone.js"></script>
 <script src="scripts/libs/backbone.syphon.js"></script>

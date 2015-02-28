@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>实现ajax的JSONP请求实例</title>
+  <meta name="viewport" content="width=device-width">
+  <style>
+  </style>
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+
+<script>
+// $.ajax({
+// 	url: 'http://www.aaa.com/index.html',
+// 	jsonp: 'callback2',
+// 	dataType: 'jsonp'
+// }).complete(function() {
+// 	console.log(22);
+// });
+
+
+
+// $.ajax({
+//   url: 'http://subscription.iqiyi.com/dingyue/api/subscribe.action?subType=7&subKey=347472100&agent_type=13&channelId=25&ckuid=541d0b8141438a8711b0c1a867560f90&antiCsrf=40c0ea7aa7785df9c9b137b6b2a8b26a&callback=callback',
+//   dataType: 'jsonp',
+//   jsonp: false
+// }).complete(function() {
+//   console.log(22);
+// });
+
+// $.ajax({
+//   url: 'http://subscription.iqiyi.com/dingyue/api/unsubscribe.action?subType=7&subKey=347472100&agent_type=13&channelId=25&ckuid=541d0b8141438a8711b0c1a867560f90&antiCsrf=40c0ea7aa7785df9c9b137b6b2a8b26a&callback=callback',
+//   dataType: 'jsonp',
+//   jsonp: false
+// }).complete(function() {
+//   console.log(22);
+// });
+
+$.ajax({
+  type: 'GET',
+  url: 'http://subscription.iqiyi.com/apis/watchlater/list.action?subTypes=1&containsUgc=1&agent_type=13&ckuid=241d0b8141438a8711b0c1a867560f90',
+  dataType: 'jsonp',
+  jsonpCallback: 'callback'
+}).complete(function() {
+  console.log(22);
+});
+
+function callback(data) {
+  console.log(data, 1)
+}
+</script>
+
+</body>
+</html>

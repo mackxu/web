@@ -10,7 +10,6 @@ App.module('ContactsApp.Edit' ,function(Edit, App, Backbone, Marionette, $, _) {
 			e.preventDefault();
 			var formData = Backbone.Syphon.serialize(this);
 			this.trigger('form:submit', formData);
-			// console.log('edit contact');
 		},
 		onFormDataInvalid: function(errors) {
 			// 处理错误消息的

@@ -1,26 +1,13 @@
 App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
+	'use strict';
 	// 列表中当行视图
 	List.Contact = Marionette.ItemView.extend({
 		tagName: 'tr',
 		template: '#member-template',
-
-		events: {
-			'click .js-show': 'showContact',
-			'click .js-delete': 'deleteContact',
-			'click': 'onPrintInfo'
-		},
-		showContact: function(e) {
-			e.preventDefault();
-			e.stopPropagation();
-			this.trigger('contact:show', this.model);
-		},
-		deleteContact: function(e) {
-			e.preventDefault();
-			e.stopPropagation();
-			// 从集合中删除model，视图也会被删除
-			// this.model.collection.remove(this.model);
-			// 视图只用来显示，不应该担任处理数据的角色，应在Controller中处理
-			this.trigger('contact:delete', this.model);
+		triggers: {
+			'click .js-show': 'contact:show',
+			'click .js-edit': 'contact:edit',
+			'click .js-delete': 'contact:delete'
 		},
 		remove: function() {
 			// 覆盖默认remove

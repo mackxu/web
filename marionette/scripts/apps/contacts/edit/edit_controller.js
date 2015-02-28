@@ -11,9 +11,9 @@ App.module('ContactsApp.Edit' ,function(Edit, App, Backbone, Marionette, $, _) {
 				var view;
 				if (contact !== undefined) {
 					view = new Edit.Contact({ model: contact });
-					view.on('form:submit', function(data) {
-						if(contact.save(data)) {
-							// 应该等待数据更新后才跳转的
+
+					view.on('form:submit', function(data) {			// 用户提交的事件处理函数
+						if(contact.save(data)) {					// 提交成功，这个不是异步的过程吗？
 							App.trigger('contact:show', contact.get('id'));
 						}else {
 							view.triggerMethod('form:data:invalid', contact.validationError);
@@ -21,7 +21,7 @@ App.module('ContactsApp.Edit' ,function(Edit, App, Backbone, Marionette, $, _) {
 						
 					});
 				}else {
-					// 不存在id的contact
+					// 显示不存在id的contact
 					view = App.ContactsApp.Show.MissingContact();
 				}
 

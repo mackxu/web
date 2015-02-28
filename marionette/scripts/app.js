@@ -3,7 +3,8 @@ var App = new Marionette.Application();
 App.addRegions({
 	headerRegion: '#header-region',
 	mainRegion: '#main-region',
-	membersRegion: '#J_members'
+	membersRegion: '#J_members',
+	dialogRegion: '#j-dialog-region'
 });
 
 App.navigate = function(route, options) {
