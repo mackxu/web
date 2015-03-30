@@ -2,6 +2,11 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 	
 	Entities.contact = Backbone.Model.extend({
 		urlRoot: 'contacts',
+		defaults: {
+			firstName: '',
+			lastName: '',
+			phoneNumber: ''
+		},
 		validate: function(attrs, options) {
 			var errors = {};
 			
@@ -52,14 +57,16 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 			var defer = $.Deferred();
 
 			var contacts = new Entities.contactCollection();
-			contacts.fetch({
-				success: function(collection, responce, options) {
-					defer.resolve(collection);
-				},
-				error: function() {
-					defer.reject();
-				}
-			});
+			setTimeout(function() {
+				contacts.fetch({
+					success: function(collection, responce, options) {
+						defer.resolve(collection);
+					},
+					error: function() {
+						defer.reject();
+					}
+				});
+			}, 500);
 			var promise = defer.promise();
 			$.when(promise).done(function(contacts) {
 				if(contacts.length === 0) {
@@ -84,7 +91,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 						defer.reject(undefined);
 					}
 				});
-			}, 2000);
+			}, 200);
 			return defer.promise();
 		}
 	};

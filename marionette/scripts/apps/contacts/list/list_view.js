@@ -1,5 +1,22 @@
 App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
 	'use strict';
+
+	List.LayoutView = Marionette.LayoutView.extend({
+		template: '#contact-list-layout',
+		regions: {
+			panelRegion: '#panel-region',
+			contactsRegion: '#contacts-region'
+		}
+	});
+
+	List.Panel = Marionette.ItemView.extend({
+		template: '#contact-list-panel',
+		triggers: {
+			'click .js-new': 'contact:new'
+		}
+	});
+
+
 	// 列表中当行视图
 	List.Contact = Marionette.ItemView.extend({
 		tagName: 'tr',
@@ -16,6 +33,14 @@ App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
 				// self === view
 				Marionette.ItemView.prototype.remove.call(self);
 			});
+		},
+		flash: function(cssClass) {						// 用于显示高亮行数据
+			var $view = this.$el;
+			$view.hide().toggleClass(cssClass).fadeIn(800, function() {
+				setTimeout(function() {
+					$view.toggleClass(cssClass);
+				}, 500);
+			});
 		}
 	});
 
@@ -30,13 +55,22 @@ App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
 		events: {
 			'click tr': 'highlightName'
 		},
+		initialize: function() {
+			this.listenTo(this.collection, "reset", function(){
+          		this.attachHtml = function(collectionView, childView, index){
+	            	collectionView.$el.append(childView.el);
+	          	}
+	        });
+		},
+		onRenderCollection: function() {
+			this.attachHtml = function(collectionView, childView, index) {
+				collectionView.$el.prepend(childView.el);
+			}
+		},
 		highlightName: function(e) {
 			// 注意与e.target的区别
 			$(e.currentTarget).toggleClass('warning');
-		},
-		onItemviewContactDelete: function(childView, model) {
-			// 可用于监听child view事件
-			console.log(childView, model);
 		}
+		
 	});
 });

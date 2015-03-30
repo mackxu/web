@@ -1225,7 +1225,7 @@
     // Override this method to change how the new view is
     // appended to the `$el` that the region is managing
     attachHtml: function(view) {
-      this.$el.contents().detach();
+      this.$el.contents().detach();                   // 先删除region中的所有元素
   
       this.el.appendChild(view.el);
     },

@@ -3,14 +3,17 @@ App.module('ContactsApp.Edit' ,function(Edit, App, Backbone, Marionette, $, _) {
 	Edit.Controller = {
 		editContact: function(id) {
 			var loadingView = new App.Common.Views.Loading();
-			App.membersRegion.show(loadingView);
+			App.mainRegion.show(loadingView);
 
 			// 通过id获取对应的contact
 			var fetchingContact = App.request('contact:entity', id);
 			$.when(fetchingContact).done(function(contact) {
 				var view;
 				if (contact !== undefined) {
-					view = new Edit.Contact({ model: contact });
+					view = new Edit.Contact({ 
+						model: contact,
+						asModal: false 
+					});
 
 					view.on('form:submit', function(data) {			// 用户提交的事件处理函数
 						if(contact.save(data)) {					// 提交成功，这个不是异步的过程吗？
@@ -25,7 +28,7 @@ App.module('ContactsApp.Edit' ,function(Edit, App, Backbone, Marionette, $, _) {
 					view = App.ContactsApp.Show.MissingContact();
 				}
 
-				App.membersRegion.show(view);
+				App.mainRegion.show(view);
 			});
 		}
 	};

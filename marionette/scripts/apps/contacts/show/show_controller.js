@@ -7,7 +7,7 @@ App.module('ContactsApp.Show', function(Show, App, Backbone, Marionette, $, _) {
 				message: 'Data loading is delayed to demonstrate using a loading view.'
 			});
 
-			App.membersRegion.show(loadingView);
+			App.mainRegion.show(loadingView);
 			
 			var fetchingContact = App.request('contact:entity', id);
 			
@@ -30,12 +30,12 @@ App.module('ContactsApp.Show', function(Show, App, Backbone, Marionette, $, _) {
 				}else {
 					contactView = new Show.MissingContact();
 				}
-				App.membersRegion.show(contactView);
+				App.mainRegion.show(contactView);
 
 			}).fail(function() {
 
 				var contactView = new Show.MissingContact();
-				App.membersRegion.show(contactView);
+				App.mainRegion.show(contactView);
 				console.log('fail fetch contact: ', id);
 
 			});
