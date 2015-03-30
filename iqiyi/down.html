@@ -5,21 +5,28 @@
 	<title>爱信App下载</title>
 	<style type="text/css">
 		html { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
-		body { margin: 0; padding: 0; background-color: #71be35;  }
+		body { margin: 0; padding: 0; background-color: #FFF;  }
 		.container { 
 			position: relative; margin: 0 auto;
-			background: url(http://pic5.qiyipic.com/common/20150204/download-bg.jpg) no-repeat; background-size: cover; 
+			background: url(http://pic0.qiyipic.com/common/20150327/dload-bg.jpg) no-repeat; background-size: cover; 
 		}
 		.btn { position: absolute; left: 5.56%; width: 89%; height: 7.3%; text-indent: -999em; }
 		.btn-android { bottom: 18%; }
 		.btn-ios { bottom: 8.7%; }
+		.weixin-hint { 
+			text-align: center; position: absolute; top: 0; width: 100%; background-color: #8b8b8b; margin: 0;  font-size: 12px; line-height: 4;
+			display: none;
+		}
+		.weixin-hint strong { color: #ffc000; }
+		.weixin-hint i { position: absolute; right: 10px; top: 50%; margin-top: -20px; background-image: url(http://pic9.qiyipic.com/common/20150327/arrow.png); width: 30px; height: 39px; background-size: cover; }
 	</style>
 </head>
 <body>
 <div class="container" id="j-container">
-	<a class="btn btn-android" href="javascript:;" onClick="downloadAndriod()">android版</a>
-	<a class="btn btn-ios" href="javascript:;" onClick="downloadIos()">IOS版</a>
+	<a class="btn btn-android" href="http://pic4.qiyipic.com/tvpic/update/55_463_211_1427244392799.apk">android版</a>
+	<a class="btn btn-ios" href="http://www.iqiyi.com/common/tv/tvassistant/ios_download.html">IOS版</a>
 </div>
+<p id="j-weixin-hint" class="weixin-hint"><span>点击<strong>右上角菜单</strong>，选择“在浏览器中打开” 下载爱信</span><i></i></p>
 <script>
 	// 获取设备高度，计算container宽度，样式居中
 	// 确保图片不发生扭曲，并能定位图中的按钮
@@ -36,12 +43,16 @@
 	var isWx = /MicroMessenger/i.test(ua);
 
 	var iosUrl = 'http://itunes.apple.com/cn/app/hai-dao-qi-bing-boom-beach/id672150402';
-	var andriodUrl = 'http://pic9.qiyipic.com/tvpic/update/55_463_211_1422585911356.apk';
-	var andriodWxUrl = 'http://ti.3g.qq.com/open/s?aid=clientjump&url=http://url.cn/WT5D5S';
+	var andriodUrl = 'http://pic4.qiyipic.com/tvpic/update/55_463_211_1427244392799.apk';
+	// var andriodWxUrl = 'http://ti.3g.qq.com/open/s?aid=clientjump&url=http://url.cn/WT5D5S';
+
+	if(isWx) {
+		document.getElementById('j-weixin-hint').style.display = 'block';
+	}
 
 	function downloadAndriod() {
 		// if (!isAndriod) return false;			// 如果不是andriod, 取消点击事件
-		if (isWx) andriodUrl = andriodWxUrl;
+		// if (isWx) andriodUrl = andriodWxUrl;
 		window.location = andriodUrl;
 	}
 
