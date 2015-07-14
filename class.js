@@ -22,7 +22,7 @@
 			return (function() {							// 返回一个指定执行作用域的函数
 				return func.apply(self, func);
 			});
-		}
+		};
 
 		klass.fn.proxy = klass.proxy;						// 为实例添加proxy方法
 															

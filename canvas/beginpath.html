@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Canvas 文本</title>
+  <style>
+  body { background-color: #DDD; }
+  .myCanvas { margin: 20px; padding: 10px; background-color: #FFF; border: 1px solid #AAA; }
+  </style>
+</head>
+<body>
+
+<canvas class="myCanvas" id="J_canvas" width="600" height="300"></canvas>
+<script>
+  var canvas = document.getElementById('J_canvas')
+    , context = canvas.getContext("2d")
+    ;
+  context.font = '38pt Arial';
+  context.fillStyle = 'red';
+  context.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+  context.beginPath();
+  context.rect(10, 10, 100, 100);
+  context.stroke();
+
+  // context.beginPath();         // 去掉改行会重绘第一个矩形
+  context.rect(200, 10, 100, 100);
+  context.stroke();
+</script>
+
+</body>
+</html>

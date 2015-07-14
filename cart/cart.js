@@ -3,11 +3,11 @@ var Cart = new Class;
 Cart.include({
 	init: function() { 
 		 
-		 this.stripe();					// 商品的条纹
-		 this.deleteView();				// 删除按钮
+		this.stripe();					// 商品的条纹
+		this.deleteView();				// 删除按钮
 
-		 $('.quantity input')			// 订单变动事件
-		 	.keypress($.proxy(this.keypressHandle, this))
+		$('.quantity input')			// 订单变动事件
+			.keypress($.proxy(this.keypressHandle, this))
 		 	.change($.proxy(this.changeHandle, this));
 	},
 	keypressHandle: function(event) {

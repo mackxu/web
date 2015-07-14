@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <title>构建通用的动态脚本元素</title>
+    <meta name="viewport" content="width=device-width">
+    <style>
+		#box { width: 100px; height: 100px; background-color: #ccc; }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+<div id="box"></div>  
+<script>
+var h = 100;
+// 像setTimeout，只会执行一次
+requestAnimationFrame(function() {
+	// h += 50;
+	// $('#box').height(h + 'px');
+});
+
+var addHeight = function() {
+	h += 20;
+	$('#box').height(h + 'px');
+	h < 1000 && requestAnimationFrame(addHeight);
+};
+
+addHeight();
+
+</script>
+</body>
+</html>
