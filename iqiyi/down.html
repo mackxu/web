@@ -23,8 +23,8 @@
 </head>
 <body>
 <div class="container" id="j-container">
-	<a class="btn btn-android" href="http://pic4.qiyipic.com/tvpic/update/55_463_211_1427244392799.apk">android版</a>
-	<a class="btn btn-ios" href="http://www.iqiyi.com/common/tv/tvassistant/ios_download.html">IOS版</a>
+	<a class="btn btn-android" href="http://dd.myapp.com/16891/90B2C42BE3D262BFC6722B2223A8F13B.apk?fsname=com.aixin.assistant_1.0.3.27345_27345.apk&amp;asr=8eff">android版</a>
+  <a class="btn btn-ios" href="javascript:;">IOS版</a>
 </div>
 <p id="j-weixin-hint" class="weixin-hint"><span>点击<strong>右上角菜单</strong>，选择“在浏览器中打开” 下载爱信</span><i></i></p>
 <script>
@@ -39,26 +39,17 @@
 	// 判断链接
 	var ua = navigator.userAgent;
 	// var isIOS = /(iPhone|iPad|iPod|iOS)/i.test(ua);
-	// var isAndriod = /Android/i.test(ua);
+	var isAndriod = /Android/i.test(ua);
 	var isWx = /MicroMessenger/i.test(ua);
 
-	var iosUrl = 'http://itunes.apple.com/cn/app/hai-dao-qi-bing-boom-beach/id672150402';
-	var andriodUrl = 'http://pic4.qiyipic.com/tvpic/update/55_463_211_1427244392799.apk';
+	// var iosUrl = 'http://itunes.apple.com/cn/app/hai-dao-qi-bing-boom-beach/id672150402';
+	// var andriodUrl = 'http://pic2.qiyipic.com/tvpic/update/55_463_211_1427457350632.apk';
 	// var andriodWxUrl = 'http://ti.3g.qq.com/open/s?aid=clientjump&url=http://url.cn/WT5D5S';
 
-	if(isWx) {
-		document.getElementById('j-weixin-hint').style.display = 'block';
-	}
-
-	function downloadAndriod() {
-		// if (!isAndriod) return false;			// 如果不是andriod, 取消点击事件
-		// if (isWx) andriodUrl = andriodWxUrl;
-		window.location = andriodUrl;
-	}
-
-	function downloadIos() {
-		// if(!isIOS) return false;
-		window.location = iosUrl;
+	// 如果是安卓版微信，直接跳转到应用宝详情页
+	if(isWx && isAndriod) {
+		// document.getElementById('j-weixin-hint').style.display = 'block';
+		window.location = 'http://fusion.qq.com/cgi-bin/qzapps/unified_jump?appid=11982930';
 	}
 	
 </script>
