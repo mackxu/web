@@ -6,6 +6,13 @@ App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
 	List.Controller = {
 		listContacts: function() {
 			
+			// 1. 显示加载视图
+			var loadingView = new App.Common.Views.Loading();
+			App.mainRegion.show(loadingView);
+
+			var contactsListLayout = new List.LayoutView();
+			var contactsListPanel = new List.Panel();
+
 			// 发起对contact:entities的请求
 			var fetchingContacts = App.request('contact:entities');
 			
@@ -27,12 +34,14 @@ App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
 				contactsView.on('childview:contact:edit', function(childView, args) {				// modal type for edit contact 
 					var model = args.model;
 					var view = new App.ContactsApp.Edit.Contact({
-						model: model
+						model: model,
+						asModal: true
 					});
 
 					view.on('show', function() {
 						this.$el.dialog({
 							modal: true,
+							title: this.title,
 							width: 'auto'
 						});
 					});
@@ -40,7 +49,8 @@ App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
 					view.on('form:submit', function(data) {
 						if(model.save(data)) {
 							childView.render();							// 更新列表的itemView
-							App.dialogRegion.close();					// 
+							App.dialogRegion.empty();					// 
+							childView.flash('success');
 						}else {
 							view.triggerMethod('form:data:invalid', model.validationError);
 						}
@@ -49,8 +59,41 @@ App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
 					App.dialogRegion.show(view);
 				});
 
-				// 绘制members结构
-				App.membersRegion.show(contactsView);
+				contactsListPanel.on('contact:new', function() {
+					// 创建新contact的model
+					var newContact = new App.Entities.contact();
+					
+					var view = new App.ContactsApp.New.Contact({
+						model: newContact,
+						asModal: true
+					});
+
+					view.on('form:submit', function(data) {
+						var highestIdOfModel = contacts.max(function(c) {
+							return c.id
+						});
+						var highestId = highestIdOfModel.get('id');
+						data.id = highestId + 1;
+
+						if(newContact.save(data)) {
+							contacts.add(newContact);
+							App.dialogRegion.empty();
+							contactsView.children.findByModel(newContact).flash('success');
+						}else {
+							view.triggerMethod('form:data:invalid', model.validationError);
+						}
+					});
+
+					App.dialogRegion.show(view);
+				});
+
+				contactsListLayout.on('show', function() {
+					this.panelRegion.show(contactsListPanel);
+					this.contactsRegion.show(contactsView);
+				});
+
+				// 2. show LayoutView后在显示Regions
+				App.mainRegion.show(contactsListLayout);
 				console.log('list controller: Exec');
 			}).fail(function() {
 				console.log('Error: fetch list contacts');

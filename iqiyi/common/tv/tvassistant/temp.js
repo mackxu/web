@@ -1,15 +1,14 @@
-	// 保证子域名之间的跨域
+// 保证子域名之间的跨域
 	document.domain = 'iqiyi.com';
 	var $$ = function(id) { 
 			return document.getElementById(id.replace('#', '')); 
 		}
 		, fbContent = $$('#js-fb-content')
 		, fbBtn = $$('#j-btn-fb')
-		, btnFbColorOk = '#5caf19' 				// 按钮可发送
-		, btnFbColorNot = '#9c9c9c' 			// 按钮不可用
-		, fbContentMaxLen = 140						// 反馈的最多字数
-		, fbContentMaxLen = 4						// 反馈的最多字数
-		, userAgent = navigator.userAgent	// 识别设备
+		, btnFbColorOk = '#5caf19' 					// 按钮可发送
+		, btnFbColorNot = '#9c9c9c' 				// 按钮不可用
+		, fbContentMaxLen = 140							// 反馈的最多字数
+		, userAgent = navigator.userAgent		// 识别设备
 		, ios = /(iPhone|iPad|iPod|ios)/i.test(userAgent)
 		, Android = /Android/i.test(userAgent)
 		, fbClass = '其他意见'
@@ -20,6 +19,7 @@
 		}
 		, dialogDiv = null
 		, dialogTimer = null
+		, timeout = 4000						// 设置请求超时时间
 		, aLog = []
 		, myLog = function(msg) {
 			aLog.push(msg);
@@ -59,6 +59,7 @@
 			 * done: fn 
 			 * before: fn
 			*/
+			var isTimeout = true;					// 请求完成状态，默认超时
 			// 创建iframe获取数据, 并插入到页面
 			var frameElem = createIframeElement(options.iframeName || 'frame-data')
 				, fail = options.fail
@@ -71,11 +72,13 @@
 				frameElem.parentNode.removeChild(frameElem);
 			};
 			options.done = function(res, frameElem) {
+				if(!isTimeout) return;				// 此次请求已被认为超时
 				if (res.code === 'A00000') {
 					done && done(res, frameElem);
 				}else {
 					options.fail && options.fail(res, frameElem);	
 				}
+				isTimeout = false;
 			};
 			// 定义要在frame中调用的函数
 			frameElem.contentWindow.frameElement.callback = function(res) {
@@ -83,10 +86,24 @@
 			};
 			// 在获取数据前，执行
 			options.before && options.before();
+
+			// 超时处理
+			setTimeout(function() {
+				if(isTimeout) {
+					options.fail({}, frameElem);
+					isTimeout = false;
+					setBtnStateHelper(1);
+				}
+			}, timeout);
 		}
+		/**
+		 * 设置按钮状态
+		 * @param { Int } enable data-enable的值
+		 * @param { String } color  按钮颜色，可选
+		 */
 		, setBtnStateHelper = function(enable, color) {
 			fbBtn.setAttribute('data-enable', enable);
-			fbBtn.style.color = color;
+			color && (fbBtn.style.color = color);
 		}
 		, setBtnState = function() {
 			var fbLen = getFbLen();
@@ -96,30 +113,34 @@
 				setBtnStateHelper(0, btnFbColorNot);					// 设置按钮为不可提交状态
 			}else {
 				if (btnEnable === 1) return;
-				setBtnStateHelper(1, btnFbColorOk);					// 可提交状态
+				setBtnStateHelper(1, btnFbColorOk);						// 可提交状态
 			}
 		}
 		, getFbLen = function() {
 			return fbContent.value.replace(/\s+/g, '').length;
 		}
 	;
+
+
+	// -------------------------- 页面中的事件 -------------------------------
+
 	// 添加键盘keyup事件处理函数
 	fbContent.addEventListener('keyup', function(e) {
 		setBtnState();
 	}, false);
 
 	fbContent.addEventListener('keydown', function(e) {
+		console.log('keydown');
 		if(getFbLen() >= fbContentMaxLen && e.keyCode !== 8 && e.keyCode !== 13) {
-			myLog(1);
 			// 禁止再输入, 并弹出提示框
 			e.preventDefault();
 			dialogShow(dialogMsg.error);
-			return false;
+			// return false;
 		}
 	}, false);
 
 	fbContent.addEventListener('input', function(e) {
-		if(ios) return;
+		console.log('input');
 		setBtnState();
 		if(getFbLen() > fbContentMaxLen) {
 			fbContent.value = fbContent.value.substring(0, fbContentMaxLen);
@@ -128,10 +149,14 @@
 	}, false);
 
 	// 当用户满足提交时, 用来手动提交表单的
-	fbBtn.addEventListener('click', function() {
+	fbBtn.addEventListener('click', function(e) {
 		// 检测提交按钮是否可用
-		if (+fbBtn.getAttribute('data-enable') === 0) return false;
+		if (+fbBtn.getAttribute('data-enable') === 0) {
+			fbBtn.href = 'javascript:;';
+			return false;
+		}
 		fbBtn.href = fbBtn.getAttribute('data-href');
+		setBtnStateHelper(0);
 		getIframeData({
 			done: function(res, frameElem) {
 				// 获取ticket
@@ -142,7 +167,7 @@
 					done: function(res, frameElem) {
 						// 清空输入框，提交按钮置灰，显示成功提示框
 						fbContent.value = '';
-						setBtnState(0, btnFbColorNot);
+						setBtnStateHelper(0, btnFbColorNot);
 						dialogShow(dialogMsg.success);
 						// 清除创建的iframe
 						removeNode(frameElem);
