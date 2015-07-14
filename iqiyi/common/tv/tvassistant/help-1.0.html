@@ -8,7 +8,7 @@
   /*320px布局*/
 	html{font-size: 45px;}
 	body{font-size: 0.14rem /*实际相当于14px*/}
-
+	/* 按720px为标准 */
 	@media (min-device-width : 360px) {
 	  html{ font-size: 50px; }
 	}
@@ -23,31 +23,30 @@
 	/*@media (min-device-width : 768px) {
 	  html{ font-size: 100px; }
 	}*/
-  body, button, textarea, h1, ul, li, p, a { 
+  body, button, textarea, h1, ul, li, p, a {
   	margin: 0; padding: 0;
-  	-webkit-box-sizing: border-box; 
+  	-webkit-box-sizing: border-box;
   	box-sizing: border-box;
   }
   ul { list-style: none; }
   a { text-decoration: none; }
   .fullpage, .fullpage body { height: 100%; }
-  body { 
+  body {
   	padding: 0; background-color: #e2e2e2; padding: 1px 0; /* 解决外边距叠加问题 */
-  	font-family: Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-serif; 
   	position: relative;
-  	-webkit-tap-highlight-color: rgba(111, 173, 60, .6); 
+  	-webkit-tap-highlight-color: rgba(111, 173, 60, .6);
   }
   .help-container { background-color: #fff; margin: 0.2rem 0.15rem 1rem; border-radius: 0.08rem; }
-  .help-item a { display: block; padding: 0 0.35rem; }
+  .help-item a { display: block; padding: 0 0.35rem; font-size: 0.26rem; }
   .help-item + .help-item span { border-top: 1px dashed #c3c3c3; }
-  .help-item span { display: block; padding: 0.28rem 0;  font-size: 0.3rem; color: #636363; position: relative; }
-  .help-item span::after { 
+  .help-item span { display: block; padding: 0.28rem 0;  font-size: 0.28rem; color: #636363; position: relative; }
+  .help-item span::after {
   	content: ""; position: absolute; top: 50%; right: 2%; transform: translateY(-50%); -webkit-transform: translateY(-50%);
-  	width: 0.19rem; height: 0.34rem; 
-  	background: url(http://pic6.qiyipic.com/common/20150504/arrow.png) center no-repeat; 
-  	background-size: cover; -webkit-background-size: cover;   
+  	width: 0.19rem; height: 0.34rem;
+  	background: url(http://pic6.qiyipic.com/common/20150504/arrow.png) center no-repeat;
+  	background-size: cover; -webkit-background-size: cover;
   }
-  .aixinqq { text-align: center; height: 0.8rem; position: absolute; bottom: 0; width: 100%; font-size: 0.24rem; color: #b9b9b9;  }
+  .aixinqq { text-align: center; height: 0.8rem; position: absolute; bottom: 0; width: 100%; font-size: 0.22rem; color: #b9b9b9;  }
   </style>
 </head>
 <body>
