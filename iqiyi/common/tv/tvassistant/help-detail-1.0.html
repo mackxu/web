@@ -17,11 +17,14 @@
 	@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3){
 	    html{font-size: 129.375px;}
 	}
-	@media (device-width : 360px) and (-webkit-min-device-pixel-ratio : 2){
-	    html{font-size: 110px;}
+	@media (min-device-width : 360px){
+	    html{font-size: 112.5px;}
 	}
 	@media (min-device-width : 420px) {
 	    html{font-size: 140px;}
+	}
+	@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+		html { font-size: 240px; }
 	}
   body, button, textarea, h1, ul, li, p {
   	margin: 0; padding: 0;
@@ -47,7 +50,8 @@
 	}
 	.content-helper { list-style: none; padding-left: 0; }
 	.helper-item { position: relative; 1border-bottom: 1px dashed #dfdfdf; }
-	.helper-item-t { color: #949494; margin-bottom: 0.1rem; }
+	/* 有些手机不定义font-size 会出错 */
+	.helper-item-t { color: #949494; margin-bottom: 0.1rem; font-size: 0.14rem; }
 	.helper-item-c { color: #636363; font-size: 0.12rem; padding-bottom: 0.1rem; line-height: 1.4;}
 	.helper-item-q { position: absolute; left: 0; }
 	.control { list-style: none; }
