@@ -53,6 +53,7 @@
 		if(num <= 180) {
 			$this.find('.right').css('transform', 'rotate(' + num + 'deg)');
 		}else {
+			// 能保证右半圆能严丝合缝
 			$this.find('.right').css('transform', 'rotate(180deg)');
 			$this.find('.left').css('transform', 'rotate(' + (num -180) + 'deg)');
 		}
