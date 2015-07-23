@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>利用注释实现多行模板，实现模板引擎</title>
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+<script>
+
+	function getHtml(f) {
+		return f.toString()
+			.replace(/^[^\/]+\/\*!?/, '')
+			.replace(/\*\/[^\/]+$/, '')
+			.replace(/\s+/g, '');
+	}
+
+	var aaa = getHtml(function() {/*!
+		<div>
+			<p><%name%></p>
+			<div><%age%></div>
+		</div>
+	*/});
+  console.log(aaa);
+
+  // 实现模板解析
+  function template(tmpl, options) {
+  	return template.render(tmpl, options);
+  }
+  // 返回的应该是嗷嗷待哺的方法
+  template.compile = function(tmpl) {
+  	var re = /<%(.+?)%>/g,
+		reExp = /(^( )?(var|if|for|else|switch|case|break|{|}|;))(.*)?/g,
+		code = 'with(obj) { var r=[];\n',
+		cursor = 0,
+		result;
+		var add = function(line, js) {
+			js? (code += line.match(reExp) ? line + '\n' : 'r.push(' + line + ');\n') :
+				(code += line != '' ? 'r.push("' + line.replace(/"/g, '\\"') + '");\n' : '');
+			return add;
+		}
+		var matchs = null;
+		while(matchs = re.exec(tmpl)) {
+			add(tmpl.slice(cursor, matchs.index))(matchs[1], true);
+			cursor = matchs.index + matchs[0].length;
+		}
+		add(tmpl.substr(cursor, tmpl.length - cursor));
+		code = (code + 'return r.join(""); }').replace(/[\r\t\n]/g, '');
+		console.log(code);
+		result = new Function('obj', code);
+		return result;
+  };
+
+	template.render = function(tmpl, options) {
+		var render = this.compile(tmpl);
+		try { result = render.apply(options, [options]); }
+		catch(err) {
+			console.error("'" + err.message + "'", " in \n\nCode:\n", code, "\n"); }
+		return result;
+	}
+
+  // console.log(template(aaa, { name: 'zhangsan', age: 23 }));
+  console.log(template.compile(aaa)({ name: 'zhangsan', age: 23 }));
+
+</script>
+</body>
+</html>
