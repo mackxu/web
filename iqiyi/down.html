@@ -1,19 +1,19 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 	<title>爱信App下载</title>
 	<style type="text/css">
 		html { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 		body { margin: 0; padding: 0; background-color: #FFF;  }
-		.container { 
+		.container {
 			position: relative; margin: 0 auto;
-			background: url(http://pic0.qiyipic.com/common/20150327/dload-bg.jpg) no-repeat; background-size: cover; 
+			background: url(http://pic4.qiyipic.com/common/20150615/dload-bg2.jpg) no-repeat; background-size: cover;
 		}
 		.btn { position: absolute; left: 5.56%; width: 89%; height: 7.3%; text-indent: -999em; }
 		.btn-android { bottom: 18%; }
 		.btn-ios { bottom: 8.7%; }
-		.weixin-hint { 
+		.weixin-hint {
 			text-align: center; position: absolute; top: 0; width: 100%; background-color: #8b8b8b; margin: 0;  font-size: 12px; line-height: 4;
 			display: none;
 		}
@@ -23,10 +23,10 @@
 </head>
 <body>
 <div class="container" id="j-container">
-	<a class="btn btn-android" href="http://dd.myapp.com/16891/90B2C42BE3D262BFC6722B2223A8F13B.apk?fsname=com.aixin.assistant_1.0.3.27345_27345.apk&amp;asr=8eff">android版</a>
-  <a class="btn btn-ios" href="javascript:;">IOS版</a>
+	<a class="btn btn-android" href="http://www.qiyipic.com/tvpic/update/55_567_294_1434509852632.apk">android版</a>
+  <a class="btn btn-ios" href="https://itunes.apple.com/cn/app/ai-xin-rang-dian-shi-geng-you-ai/id993071674?l=en&mt=8">IOS版</a>
 </div>
-<p id="j-weixin-hint" class="weixin-hint"><span>点击<strong>右上角菜单</strong>，选择“在浏览器中打开” 下载爱信</span><i></i></p>
+<p id="j-weixin-hint" class="weixin-hint"><span>点击<strong>右上角</strong>菜单, 选择"在Safari中打开", 下载爱信</span><i></i></p>
 <script>
 	// 获取设备高度，计算container宽度，样式居中
 	// 确保图片不发生扭曲，并能定位图中的按钮
@@ -38,20 +38,14 @@
 
 	// 判断链接
 	var ua = navigator.userAgent;
-	// var isIOS = /(iPhone|iPad|iPod|iOS)/i.test(ua);
+	var isIOS = /(iPhone|iPad|iPod|iOS)/i.test(ua);
 	var isAndriod = /Android/i.test(ua);
 	var isWx = /MicroMessenger/i.test(ua);
 
-	// var iosUrl = 'http://itunes.apple.com/cn/app/hai-dao-qi-bing-boom-beach/id672150402';
-	// var andriodUrl = 'http://pic2.qiyipic.com/tvpic/update/55_463_211_1427457350632.apk';
-	// var andriodWxUrl = 'http://ti.3g.qq.com/open/s?aid=clientjump&url=http://url.cn/WT5D5S';
-
-	// 如果是安卓版微信，直接跳转到应用宝详情页
-	if(isWx && isAndriod) {
-		// document.getElementById('j-weixin-hint').style.display = 'block';
-		window.location = 'http://fusion.qq.com/cgi-bin/qzapps/unified_jump?appid=11982930';
+	// 如果是ios或者微信打开的，中转到应用宝
+	if(isIOS || isWx) {
+		window.location = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.aixin.assistant';
 	}
-	
 </script>
 </body>
 </html>

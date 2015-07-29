@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>实现圆形轨迹</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+	.pie-right {
+		position: absolute; top: 10px; left: 10px;
+		width: 200px; height: 200px;
+		background-color: #0cc;
+	}
+	.right {
+		position: absolute; top: 0; left: 0;
+		width: 200px; height: 200px;
+		background-color: #00aacc;
+		border-radius: 50%;
+
+		transform: rotate(180deg);
+	}
+
+	/* 裁剪出右半圆 */
+	.pie-right .right { clip: rect(0, auto, auto, 100px); }
+
+	.mask {
+		position: absolute; left: 10px; top: 10px;
+		width: 180px; line-height: 180px; text-align: center;
+		background-color: #fff; border-radius: 50%;
+		font-size: 32px;
+	}
+  </style>
+</head>
+<body>
+<div class="pie-right">
+	<div class="right"></div>
+	<div class="mask"><span>0</span>%</div>
+</div>
+</body>
+</html>

@@ -6,10 +6,11 @@
 <title>生成指定长度的随机的数字字母混合的字符串</title>
 </head>
 <body>
-    
+
 <script>
     function generateRandomAlphaNum(len) {
         var rdmString = "";
+        // 奇偶数长度不同
         for (; rdmString.length < len; rdmString += Math.random().toString(36).substr(2));
         return rdmString.substr(0, len);
     }

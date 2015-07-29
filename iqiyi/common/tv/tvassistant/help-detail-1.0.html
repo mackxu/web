@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>详情</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  /*320px布局*/
+	html{font-size: 100px;}
+	body{font-size: 0.14rem /*实际相当于14px*/}
+
+	/* iphone 6 */
+	@media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2){
+	    html{font-size: 117.1875px;}
+	}
+	/* iphone6 plus */
+	@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3){
+	    html{font-size: 129.375px;}
+	}
+	@media (min-device-width : 360px){
+	    html{font-size: 112.5px;}
+	}
+	@media (min-device-width : 420px) {
+	    html{font-size: 140px;}
+	}
+	@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+		html { font-size: 240px; }
+	}
+  body, button, textarea, h1, ul, li, p {
+  	margin: 0; padding: 0;
+  	-webkit-box-sizing: border-box;
+  	box-sizing: border-box;
+  }
+  body { padding: 0; background-color: #f7f7f7; }
+  .gutter { padding: 0 0.1rem; }
+	.header {
+		position: relative;
+		background-color: #5caf19;
+		padding: 0.3rem 0 0.12rem; margin-bottom: 0.18rem;
+	}
+	.header-title { color: #FFF; text-align: center; font-weight: normal; font-size: 0.2rem; }
+	.main { padding-top: 0.2rem; }
+	.fd-link-helper {
+		position: absolute; right: 0.1rem; bottom: 0.1rem;
+		color: #FFF; font-size: 0.14rem;
+		padding: 3px 5px;
+		border: 1px solid currentColor;
+		border-radius: 2px;
+		text-decoration: none;
+	}
+	.content-helper { list-style: none; padding-left: 0; }
+	.helper-item { position: relative; 1border-bottom: 1px dashed #dfdfdf; }
+	/* 有些手机不定义font-size 会出错 */
+	.helper-item-t { color: #949494; margin-bottom: 0.1rem; font-size: 0.14rem; }
+	.helper-item-c { color: #636363; font-size: 0.12rem; padding-bottom: 0.1rem; line-height: 1.4;}
+	.helper-item-q { position: absolute; left: 0; }
+	.control { list-style: none; }
+	.control span { color: #666; }
+	.control li { margin-bottom: 0.1rem; }
+	.remove-control { width: 0.2rem; }
+	.response-img { display: block; width: 100%; margin-bottom: 4px; }
+	.bindtv { list-style: none; }
+	.bindtv li { margin-bottom: 0.1rem; }
+  </style>
+</head>
+<body>
+<!-- <div class="header header-fd">
+	<h1 class="header-title">使用帮助</h1>
+	<a href="#" class="fd-link-helper">用户反馈</a>
+</div> -->
+<div class="main gutter">
+	<ul class="content-helper" id="j-helper-list"></ul>
+</div>
+<script type="text/template" id="j-helper-item">
+	<li class="helper-item">
+		<p class="helper-item-t">问: <% q %></p>
+		<div class="helper-item-c"><% a %></div>
+	</li>
+</script>
+<script>
+	// 对应help-list.html文件中的helpLists数组
+	var helpers = {
+		error: {
+			q: '出错啦！',
+			a: '快检查一下链接的参数吧！！'
+		},
+		a: {
+			q: '这个App是干什么的？',
+			a: '爱信是一款移动端App，为了帮助你更好地看电视。爱信不仅可以带来更好的体验，还可以帮助你通过电视和手机向你的亲友传递更多的爱。<br>电视手机在同一Wi-Fi时，秒推大片在电视上观看；不在同一Wi-Fi时，如果绑定一台智能电视（盒子），便可以给电视发送影视剧、照片、视频。'
+		},
+		b: {
+			q: '怎么绑定一台电视？',
+			a: '<ul class="bindtv"><li>1.打开电视，找到电视上的【爱信箱】。<br><img class="response-img" src="http://pic5.qiyipic.com/common/20150504/bindtv01.png"></li><li>2.点击【爱信箱】，进入爱信箱页面。<br><img class="response-img" src="http://pic8.qiyipic.com/common/20150504/bindtv02.png"></li><li>3.打开手机上爱信，点扫一扫来扫描电视上的二维码。（如果不在电视旁，可以让亲友拍下二维码发给你，通过“添加本地图片”来识别绑定，也可以让亲友将设备码发给你，通过手动输入绑定。）<br><img class="response-img" src="http://pic5.qiyipic.com/common/20150504/bindtv03.png"></li><li>4.给绑定的电视填写个昵称。（需要先登录爱信。）<br><img class="response-img" src="http://pic5.qiyipic.com/common/20150504/bindtv04.png"></li><li>5.绑定成功，你可以在【电视列表】页管理已绑定好的电视。<br><img class="response-img" src="http://pic4.qiyipic.com/common/20150513/bindtv05.png"></li></ul>'
+		},
+		c: {
+			q: '推片怎么用？',
+			a: '把智能电视（电视盒子）和手机连入同一 Wi-Fi 下，选择想看的片子进入影片详情页面，点击“电视上看”，分分钟就能在电视上看精彩大片。'
+		},
+		d: {
+			q: '"发送亲友"是干嘛的？',
+			a: '不依赖是否把智能电视（电视盒子）和手机连入同一Wi-Fi，绑定好电视后，通过分享功能，可以发送影视剧、照片、视频给电视。'
+		},
+		e: {
+			q: '遥控器怎么用？',
+			a: '爱信有三种遥控器模式，可根据电视上不同的显示内容进行自动切换：<ul class="control"><li><span>a.&nbsp;触控板模式</span><img class="response-img" src="http://pic2.qiyipic.com/common/20150514/remote_guide1.png">手机连接好电视后，点击<img class="remove-control" src="http://pic3.qiyipic.com/common/20150515/remove-control.png" />进入到遥控器。触控板上会显示你手指运动的轨迹，手机还会对操作进行震动反馈。（小贴士：我的->设置 里可关闭震动反馈功能）<img class="response-img" src="http://pic9.qiyipic.com/common/20150514/remote_guide2.png">手机的物理音量键还可以调节电视机的音量大小</li><li><span>b.&nbsp;播控模式</span><img class="response-img" src="http://pic2.qiyipic.com/common/20150514/remote_guide3.png">电视上全屏播放视频时，遥控器会自动进入播控模式。你可以在海报图上左滑右滑实现快退快进，或者拖拽进度条调节。退出全屏播放，播控模式会自动切换到触控板模式。</li><li><span>c.&nbsp;键盘模式</span><img class="response-img" src="http://pic9.qiyipic.com/common/20150514/remote_guide4.png">电视上进入有键盘的页面，手机遥控器会自动进入键盘模式。你在手机上输入的内容会同步到电视。</li></ul>'
+		},
+	};
+
+	var helperHtml = ''
+		, tmpl = document.getElementById('j-helper-item').innerHTML
+		, toHtml = function(tmpl, obj) {
+			return tmpl.replace(/<%\s*(.*?)\s*%>/g, function(match, $1) {
+				return obj[$1]? obj[$1] : match;
+			});
+		}
+		, getWhichValue = function() {
+			var url = location.href;
+			var index = url.indexOf('=');
+			if(index === -1) return 'error';
+			return url.slice(index + 1);
+		}
+	;
+	console.log(getWhichValue());
+
+	var helpContent = helpers[getWhichValue()] || helpers['error'];
+
+	// helpers.forEach(function(item) {
+	// 	console.log(toHtml(tmpl, item));
+	// 	helperHtml += toHtml(tmpl, item);
+	// });
+	document.getElementById('j-helper-list').innerHTML = toHtml(tmpl, helpContent);
+</script>
+</body>
+</html>

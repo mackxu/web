@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>功能介绍</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  /*320px布局*/
+	html{font-size: 45px;}
+	body{font-size: 0.14rem /*实际相当于14px*/}
+	/* 按720px为标准 */
+	@media (min-device-width : 360px) {
+	  html{ font-size: 50px; }
+	}
+	/* iphone 6 */
+	@media (min-device-width : 375px) {
+	  html{ font-size: 52px; }
+	}
+	/* iphone6 plus */
+	@media (min-device-width : 414px) {
+	  html{ font-size: 57.5px; }
+	}
+	/*@media (min-device-width : 768px) {
+	  html{ font-size: 100px; }
+	}*/
+  body, button, textarea, h1, ul, li, p, a {
+  	margin: 0; padding: 0;
+  	-webkit-box-sizing: border-box;
+  	box-sizing: border-box;
+  }
+  ul { list-style: none; }
+  a { text-decoration: none; }
+  .fullpage, .fullpage body { height: 100%; }
+  body {
+  	padding: 0; background-color: #e2e2e2; padding: 1px 0; /* 解决外边距叠加问题 */
+  	position: relative;
+  	-webkit-tap-highlight-color: rgba(111, 173, 60, .6);
+  }
+  .help-container { background-color: #fff; margin: 0.2rem 0.15rem 1rem; border-radius: 0.08rem; }
+  .help-item a { display: block; padding: 0 0.35rem; font-size: 0.26rem; }
+  .help-item + .help-item span { border-top: 1px dashed #c3c3c3; }
+  .help-item span { display: block; padding: 0.28rem 0;  font-size: 0.28rem; color: #636363; position: relative; }
+  .help-item span::after {
+  	content: ""; position: absolute; top: 50%; right: 2%; transform: translateY(-50%); -webkit-transform: translateY(-50%);
+  	width: 0.19rem; height: 0.34rem;
+  	background: url(http://pic6.qiyipic.com/common/20150504/arrow.png) center no-repeat;
+  	background-size: cover; -webkit-background-size: cover;
+  }
+  .aixinqq { text-align: center; height: 0.8rem; position: absolute; bottom: 0; width: 100%; font-size: 0.22rem; color: #b9b9b9;  }
+  </style>
+</head>
+<body>
+<!-- <div class="header header-fd">
+	<h1 class="header-title">使用帮助</h1>
+	<a href="#" class="fd-link-helper">用户反馈</a>
+</div> -->
+<ul class="help-container" id="j-helper-list"></ul>
+<p class="aixinqq">更多问题与反馈，欢迎加入爱信QQ交流群:263514040</p>
+<script type="text/template" id="j-helper-item">
+	<li class="help-item"><a href="./help-detail-1.0.html?which=<% which %>"><span><% title %></span></a></li>
+</script>
+<script type="text/javascript">
+	// 对应help.html的helpers对象
+	var helpLists = [
+		{ which: 'a', title: '这个App是干什么的？' },
+		{ which: 'b', title: '怎么绑定一台电视？' },
+		{ which: 'c', title: '推片怎么用？' },
+		{ which: 'd', title: '"发送亲友"是干嘛的？' },
+		{ which: 'e', title: '遥控器怎么用？' }
+	];
+	var helperHtml = ''
+		, tmpl = document.getElementById('j-helper-item').innerHTML
+		, toHtml = function(tmpl, obj) {
+			return tmpl.replace(/<%\s*(.*?)\s*%>/g, function(match, $1) {
+				return obj[$1]? obj[$1] : match;
+			});
+		}
+	;
+	helpLists.forEach(function(item) {
+		console.log(toHtml(tmpl, item));
+		helperHtml += toHtml(tmpl, item);
+	});
+	document.getElementById('j-helper-list').innerHTML = helperHtml;
+	// 判断页面长度是否已整屏
+	var root = document.documentElement;
+	var clientH = root.clientHeight;
+	var pageH = root.scrollHeight;
+	console.log(clientH, pageH)
+	if (clientH > pageH + 100)
+		root.className = 'fullpage';
+</script>
+</body>
+</html>
