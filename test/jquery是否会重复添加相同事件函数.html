@@ -16,10 +16,13 @@
 
     <div id="like">hello world</div>
     <script>
+    // 会重复添加相同时间处理函数
     $('#like').on('click', func).on('click', func);
     function func() {
         console.log(1)
     }
+
+
     </script>
 
 </body>

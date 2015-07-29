@@ -2,9 +2,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0">
 	<title>css3 transform</title>
 	<link rel="stylesheet" type="text/css" href="style/reset.css">
 	<style>
+	/*body { overflow: hidden; }*/
 	.transform{ border: 1px solid #000; }
 	.scaleRotate{ 
 		width: 200px;
@@ -59,14 +61,84 @@
 		-ms-transform: perspective(400px) rotateY(40deg);
 		transform: perspective(400px) rotateY(40deg);
 	}
+	#scale { 
+		/*transform: scale(0.5); 
+		-webkit-transform: scale(0.5);*/
+
+		-webkit-transition: all 2s;
+		margin: 40px; 
+	}
+	.scale {  
+		transform: scale(1.1); 
+		-webkit-transform: scale(1.1);
+	}
+
+	#translate {
+		width: 9999px;
+		transition: all 1s;
+		-webkit-transition: all 1s;
+		/*transition-delay: 2s;
+		-webkit-transition-delay: 2s;*/
+	}
+	#translate img { 1float: left; margin-right: 10px; width: 200px; }
+	.translate {
+		transform: translateX(-600px);
+		-webkit-transform: translateX(-600px);
+	}
+
+	
+
+	.container { 
+		width: 860px;
+		overflow: hidden;
+	}
+
 	</style>
 </head>
 <body>
 	<!-- 变换 -->
-	<div class="h50"></div>
+	<!-- <div class="h50"></div>
 	<div class="transform scaleRotate bc"></div>
 	<div class="wrap">
 		<div class="perspective bc tc mt10"><img src="images/mm.jpg" height="150" /></div>
+	</div> -->
+	
+	<div class="container">
+		<div id="translate">
+			<img src="http://pic0.qiyipic.com/image/20150324/5b/20/v_109028603_m_601_m4_195_260.jpg" />
+			<img src="http://pic0.qiyipic.com/image/20150324/5b/20/v_109028603_m_601_m4_195_260.jpg" />
+			<img src="http://pic0.qiyipic.com/image/20150324/5b/20/v_109028603_m_601_m4_195_260.jpg" />
+			<img src="http://pic0.qiyipic.com/image/20150324/5b/20/v_109028603_m_601_m4_195_260.jpg" />
+			<img src="http://pic0.qiyipic.com/image/20150324/5b/20/v_109028603_m_601_m4_195_260.jpg" />
+			<img src="http://pic0.qiyipic.com/image/20150324/5b/20/v_109028603_m_601_m4_195_260.jpg" />
+			<img src="http://pic0.qiyipic.com/image/20150324/5b/20/v_109028603_m_601_m4_195_260.jpg" />
+			<img src="http://pic0.qiyipic.com/image/20150324/5b/20/v_109028603_m_601_m4_195_260.jpg" />
+			<img src="http://pic0.qiyipic.com/image/20150324/5b/20/v_109028603_m_601_m4_195_260.jpg" />
+		</div>
 	</div>
+	<!-- <img id="translate" class="translate" src="http://pic0.qiyipic.com/image/20150324/5b/20/v_109028603_m_601_m4_195_260.jpg" /> -->
+
+	<img id="scale" class="scale" src="http://pic0.qiyipic.com/image/20150324/5b/20/v_109028603_m_601_m4_195_260.jpg" />
+	
+	<script>
+		window.Android && Android.onLoadCompleted();
+		var img = document.getElementById('scale');
+		var translate = document.getElementById('translate');
+		setInterval(function() {
+			// if(!img.className) {
+			// 	img.className = 'scale'
+			// }else {
+			// 	img.className = '';
+			// }
+
+			if(!translate.className) {
+				translate.className = 'translate'
+			}else {
+				translate.className = '';
+			}
+
+
+		}, 3000);
+	</script>
 </body>
 </html>
