@@ -5,9 +5,9 @@
 		}
 		, fbContent = $$('#js-fb-content')
 		, fbBtn = $$('#j-btn-fb')
-		, btnFbColorOk = '#5caf19' 					// 按钮可发送
-		, btnFbColorNot = '#9c9c9c' 				// 按钮不可用
-		, fbContentMaxLen = 140							// 反馈的最多字数
+		, btnFbOk = '#5caf19' 					// 按钮可发送
+		, btnFbNot = '#9c9c9c' 					// 按钮不可用
+		, fbContentMaxLen = 140					// 反馈的最多字数
 		, userAgent = navigator.userAgent		// 识别设备
 		, ios = /(iPhone|iPad|iPod|ios)/i.test(userAgent)
 		, Android = /Android/i.test(userAgent)
@@ -99,21 +99,26 @@
 		/**
 		 * 设置按钮状态
 		 * @param { Int } enable data-enable的值
-		 * @param { String } color  按钮颜色，可选
+		 * @param { String } able  按钮颜色，可选
 		 */
-		, setBtnStateHelper = function(enable, color) {
+		, setBtnStateHelper = function(enable) {
 			fbBtn.setAttribute('data-enable', enable);
-			color && (fbBtn.style.color = color);
+			// color && (fbBtn.style.color = color);
+			if(enable) {
+				fbBtn.className += ' ok';
+			}else {
+				fbBtn.className = fbBtn.className.replace(/\sok/, '');
+			}
 		}
 		, setBtnState = function() {
 			var fbLen = getFbLen();
 			var btnEnable = +fbBtn.getAttribute('data-enable');
 			if (fbLen === 0) {
 				if (btnEnable === 0) return; 					
-				setBtnStateHelper(0, btnFbColorNot);					// 设置按钮为不可提交状态
+				setBtnStateHelper(0, btnFbNot);							// 设置按钮为不可提交状态
 			}else {
 				if (btnEnable === 1) return;
-				setBtnStateHelper(1, btnFbColorOk);						// 可提交状态
+				setBtnStateHelper(1, btnFbOk);							// 可提交状态
 			}
 		}
 		, getFbLen = function() {
@@ -167,7 +172,7 @@
 					done: function(res, frameElem) {
 						// 清空输入框，提交按钮置灰，显示成功提示框
 						fbContent.value = '';
-						setBtnStateHelper(0, btnFbColorNot);
+						setBtnStateHelper(0, btnFbNot);
 						dialogShow(dialogMsg.success);
 						// 清除创建的iframe
 						removeNode(frameElem);

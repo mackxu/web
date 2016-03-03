@@ -1,0 +1,77 @@
+<svg width="13.5cm" height="2.7cm" viewBox="0 0 1350 270"
+     xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <title>使用背景截图的例子</title>
+  <desc>下面几个例子解释了不同情况下背景截图的使用情况</desc>
+
+  <defs>
+    <filter id="ShiftBGAndBlur" 
+            filterUnits="userSpaceOnUse" x="0" y="0" width="1200" height="400">
+      <desc>这个滤镜舍弃了源图片，而是使用背景截图</desc>
+      <feOffset in="BackgroundImage" dx="0" dy="125" />
+      <feGaussianBlur stdDeviation="8" />
+    </filter>
+    <filter id="ShiftBGAndBlur_WithSourceGraphic" 
+            filterUnits="userSpaceOnUse" x="0" y="0" width="1200" height="400">
+      <desc>这个滤镜特效同时融合了背景截图和当前元素的图片</desc>
+      <feOffset in="BackgroundImage" dx="0" dy="125" />
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g transform="translate(0,0)">
+    <desc>第一幅是没加滤镜的效果</desc>
+    <rect x="25" y="25" width="100" height="100" fill="red"/>
+    <g opacity=".5">
+      <circle cx="125" cy="75" r="45" fill="green"/>
+      <polygon points="160,25 160,125 240,75" fill="blue"/>
+    </g>
+    <rect x="5" y="5" width="260" height="260" fill="none" stroke="blue"/>
+  </g>
+
+  <g enable-background="new" transform="translate(270,0)">
+    <desc>第二幅是在容器上使用滤镜效果</desc>
+    <rect x="25" y="25" width="100" height="100" fill="red"/>
+    <g opacity=".5">
+      <circle cx="125" cy="75" r="45" fill="green"/>
+      <polygon points="160,25 160,125 240,75" fill="blue"/>
+    </g>
+    <g filter="url(#ShiftBGAndBlur)"/>
+    <rect x="5" y="5" width="260" height="260" fill="none" stroke="blue"/>
+  </g>
+
+  <g enable-background="new" transform="translate(540,0)">
+    <desc>第三幅是在内部容器上使用滤镜效果，注意与第二幅图的不同</desc>
+    <rect x="25" y="25" width="100" height="100" fill="red"/>
+    <g filter="url(#ShiftBGAndBlur)" opacity=".5">
+      <circle cx="125" cy="75" r="45" fill="green"/>
+      <polygon points="160,25 160,125 240,75" fill="blue"/>
+    </g>
+    <rect x="5" y="5" width="260" height="260" fill="none" stroke="blue"/>
+  </g>
+
+  <g enable-background="new" transform="translate(810,0)">
+    <desc>第四幅是在图形元素上使用滤镜效果</desc>
+    <rect x="25" y="25" width="100" height="100" fill="red"/>
+    <g opacity=".5">
+      <circle cx="125" cy="75" r="45" fill="green"/>
+      <polygon points="160,25 160,125 240,75" fill="blue"
+               filter="url(#ShiftBGAndBlur)"/>
+    </g>
+    <rect x="5" y="5" width="260" height="260" fill="none" stroke="blue"/>
+  </g>
+
+  <g enable-background="new" transform="translate(1080,0)">
+    <desc>第五幅是在图形元素上使用不同的滤镜效果</desc>
+    <rect x="25" y="25" width="100" height="100" fill="red"/>
+    <g opacity=".5">
+      <circle cx="125" cy="75" r="45" fill="green"/>
+      <polygon points="160,25 160,125 240,75" fill="blue"
+               filter="url(#ShiftBGAndBlur_WithSourceGraphic)"/>
+    </g>
+    <rect x="5" y="5" width="260" height="260" fill="none" stroke="blue"/>
+  </g>
+</svg>
