@@ -10,8 +10,21 @@
 </head>
 <body>
 <div class="a">
-	<div class="b">bbbbbbbbbbbbbbbbbbb</div>
-	<div class="c fl">cccc</div>
+	<input id="input" type="text" onchange="console.log(this.value)">
+	<button id="btn">Button</button>
+	<script>
+		for(let i=1; i<5; i++) {
+			setTimeout(function() {
+				console.log(i);
+			}, i * 1000);
+		}
+
+		for(var i=5; i<10; i++) {
+			setTimeout(function() {
+				console.log(i);
+			}, 0);
+		}
+	</script>
 </div>
 </body>
 </html>
