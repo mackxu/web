@@ -2,29 +2,41 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width">
 	<title>测试页面 小试验</title>
 	<style type="text/css">
-		.b {  }
-		.c { float: left; }
+	body {
+    padding: 20px;
+    font-family: Helvetica, Arial, sans-serif;
+    background: black;
+	}
+	p, span { margin: 10px 0; color: white; }
+	span { display: inline-block; }
+
+	.antialiased { -webkit-font-smoothing: antialiased; }
+	.transition {
+	  -webkit-transition: -webkit-transform 1s;
+	  -webkit-transform: scale(1);
+	  /*-webkit-transform-origin: 0% 0%;*/
+	}
+	.transition.transitioned {
+	  -webkit-transform: scale(1.5);
+	}
 	</style>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
 <body>
-<div class="a">
-	<input id="input" type="text" onchange="console.log(this.value)">
-	<button id="btn">Button</button>
-	<script>
-		for(let i=1; i<5; i++) {
-			setTimeout(function() {
-				console.log(i);
-			}, i * 1000);
-		}
+<p style="text-align: center;"><span class="transition">Watch me transition</span></p>
 
-		for(var i=5; i<10; i++) {
-			setTimeout(function() {
-				console.log(i);
-			}, 0);
-		}
-	</script>
-</div>
+<p>I am some text. Since I am unaliased, I will blink during a transition.</p>
+
+<p class="antialiased">I am more text. Since I am antialiased, I wll not blink.</p>
+<script>
+	$(function(){
+    setInterval(function(){
+        $('.transition').toggleClass('transitioned');
+    },3000);
+});
+</script>
 </body>
 </html>

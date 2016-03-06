@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>功能详情</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  /*320px布局*/
+	html{font-size: 45px;}
+	body{font-size: 0.14rem /*实际相当于14px*/}
+	/* 按720px为标准 */
+	@media (min-device-width : 360px) {
+	  html{ font-size: 50px; }
+	}
+	/* iphone 6 */
+	@media (min-device-width : 375px) {
+	  html{ font-size: 52px; }
+	}
+	/* iphone6 plus */
+	@media (min-device-width : 414px) {
+	  html{ font-size: 57.5px; }
+	}
+	/*@media (min-device-width : 768px) {
+	  html{ font-size: 100px; }
+	}*/
+	html, body { height: 100%; }
+  body, button, textarea, h1, ul, li, p, a {
+  	margin: 0; padding: 0;
+  	-webkit-box-sizing: border-box;
+  	box-sizing: border-box;
+  }
+  ul { list-style: none; }
+  a { text-decoration: none; }
+  .fullpage, .fullpage body { height: 100%; }
+  body {
+  	background: #e2e2e2 url(http://static.iqiyi.com/common/20150925/vr-bg.jpg) center no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover; 
+  	-webkit-background-size: cover; 
+  	padding: 1px 0; /* 解决外边距叠加问题 */
+  	position: relative;
+  	-webkit-tap-highlight-color: rgba(111, 173, 60, .6);
+
+  }
+  .gutter { padding: 0 0.1rem; }
+	.header {
+		position: relative;
+		background-color: #5caf19;
+		padding: 0.3rem 0 0.12rem; margin-bottom: 0.18rem;
+	}
+	.header-title { color: #FFF; text-align: center; font-weight: normal; font-size: 0.2rem; }
+	.main { padding-top: 0.2rem; }
+	.fd-link-helper {
+		position: absolute; right: 0.1rem; bottom: 0.1rem;
+		color: #FFF; font-size: 0.14rem;
+		padding: 3px 5px;
+		border: 1px solid currentColor;
+		border-radius: 2px;
+		text-decoration: none;
+	}
+	.content-helper { list-style: none; padding-left: 0; }
+	.helper-item { position: relative; 1border-bottom: 1px dashed #dfdfdf; }
+	/* 有些手机不定义font-size 会出错 */
+	.helper-item-t { color: #B3CBF0; margin-bottom: 0.1rem; font-size: 0.32rem; }
+	.helper-item-c { color: #7E96BA; font-size: 0.28rem; padding-bottom: 0.1rem; line-height: 1.4;}
+	.helper-item-q { position: absolute; left: 0; }
+	.control { list-style: disc; margin-left: 0.36rem; }
+	.control span { color: #666; }
+	.control li { margin-bottom: 0.1rem; }
+	.remove-control { width: 0.2rem; }
+	.response-img { display: block; width: 100%; margin-bottom: 4px; }
+	.bindtv { list-style: none; }
+	.bindtv li { margin-bottom: 0.1rem; }
+  </style>
+</head>
+<body>
+<!-- <div class="header header-fd">
+	<h1 class="header-title">使用帮助</h1>
+	<a href="#" class="fd-link-helper">用户反馈</a>
+</div> -->
+<div class="main gutter">
+	<ul class="content-helper" id="j-helper-list"></ul>
+</div>
+<script type="text/template" id="j-helper-item">
+	<li class="helper-item">
+		<p class="helper-item-t">问: <% q %></p>
+		<div class="helper-item-c"><% a %></div>
+	</li>
+</script>
+<script>
+	// 对应help-list.html文件中的helpLists数组
+	var helpers = {
+		error: {
+			q: '出错啦！',
+			a: '快检查一下链接的参数吧！！'
+		},
+		a: {
+			q: '什么是虚拟现实（Virtual Reality）?',
+			a: '虚拟现实技术是一种可以创建和体验虚拟世界的计算机仿真系统。它利用计算机生成一种模拟环境是一种多源信息融合的交互式的三维动态视景和实体行为的系统仿真使用户沉浸到该环境中。-------来自网络释义<br/>翻译成普通话就是利用计算机技术模拟出一个类似现实的环境，配合显示设备，让人置身在虚拟出来的类现实环境中。'
+		},
+		b: {
+			q: '什么是全景视频？',
+			a: '全景视频即720°或360°的视频。利用专用的拍摄设备和拼接技术，还原拍摄点的全部景象。让人获得身临其境的体验。'
+		},
+		c: {
+			q: '爱奇艺VR App如何使用？',
+			a: '<ul class="control"><li>打开App后，找到感兴趣的影片，点击“播放”；</li><li>请把手机放置在VR头戴设备中，调整设备的瞳距等参数直到您观看时感觉较清晰、舒适；</li><li>使用VR头戴设备的遥控器，点击“确定”，即刻体验震撼的虚拟现实效果；</li></ul>'
+		},
+		d: {
+			q: '暗藏玄机',
+			a: '<ul class="control"><li>全景视频全量看：精选爱奇艺的全景视频，内容数量持续增加中；</li><li>最精彩的爱奇艺VIP内容：院线新片、好莱坞大片可以在虚拟现实中观看；</li><li>3D影片：专属3D片单，虚拟现实+3D效果有点超出你想象；</li><li>片库：你可能还想看的爱奇艺精彩内容，都可以在这里找到；</li></ul>'
+		}
+	};
+
+	var helperHtml = ''
+		, tmpl = document.getElementById('j-helper-item').innerHTML
+		, toHtml = function(tmpl, obj) {
+			return tmpl.replace(/<%\s*(.*?)\s*%>/g, function(match, $1) {
+				return obj[$1]? obj[$1] : match;
+			});
+		}
+		, getWhichValue = function() {
+			var url = location.href;
+			var index = url.indexOf('=');
+			if(index === -1) return 'error';
+			return url.slice(index + 1);
+		}
+	;
+	console.log(getWhichValue());
+
+	var helpContent = helpers[getWhichValue()] || helpers['error'];
+
+	// helpers.forEach(function(item) {
+	// 	console.log(toHtml(tmpl, item));
+	// 	helperHtml += toHtml(tmpl, item);
+	// });
+	document.getElementById('j-helper-list').innerHTML = toHtml(tmpl, helpContent);
+</script>
+</body>
+</html>
