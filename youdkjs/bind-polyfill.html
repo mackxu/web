@@ -1,0 +1,40 @@
+<script>
+
+if(!Function.prototype.bind) {
+	Function.prototype.bind = function(oThis) {
+		if(typeof this !== 'function') {
+			throw new TypeError('what is not callable');
+		}
+		var slice = Array.prototype.slice
+			, aArgs = slice.call(arguments, 1)
+			, fToBind = this
+			, fNOP = function() {}
+			, fBound = function() {
+				console.log(this);
+				return fToBind.apply(
+					this instanceof fNOP ? this : (oThis || this)			// 不理解这行代码
+					, aArgs.concat(slice.call(arguments))
+				);
+			}
+		;
+
+		fNOP.prototype = this.prototype;
+		fBound.prototype = new fNOP();
+
+		return fBound;
+	};
+}
+
+function foo(a) {
+	this.a = a;
+}
+
+var o = {};
+var bar = foo.bind(o);		// this: window
+bar(2);
+console.log(o.a);
+var baz = new bar(3);			// this: fBound
+console.log(baz.a);
+
+
+</script>
