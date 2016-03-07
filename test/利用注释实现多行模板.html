@@ -6,29 +6,14 @@
     <meta name="viewport" content="width=device-width">
 </head>
 <body>
+	<div id="main"></div>
 <script>
-
-	function getHtml(f) {
-		return f.toString()
-			.replace(/^[^\/]+\/\*!?/, '')
-			.replace(/\*\/[^\/]+$/, '')
-			.replace(/\s+/g, '');
-	}
-
-	var aaa = getHtml(function() {/*!
-		<div>
-			<p><%name%></p>
-			<div><%age%></div>
-		</div>
-	*/});
-  console.log(aaa);
-
-  // 实现模板解析
-  function template(tmpl, options) {
-  	return template.render(tmpl, options);
+  // 实现注释版模板的解析
+  function template(tmplFunc, options) {
+  	return template.render(tmplFunc, options);
   }
-  // 返回的应该是嗷嗷待哺的方法
-  template.compile = function(tmpl) {
+  // 返回编译后的函数
+  template.compile = function(tmplFunc) {
   	var re = /<%(.+?)%>/g,
 		reExp = /(^( )?(var|if|for|else|switch|case|break|{|}|;))(.*)?/g,
 		code = 'with(obj) { var r=[];\n',
@@ -39,6 +24,8 @@
 				(code += line != '' ? 'r.push("' + line.replace(/"/g, '\\"') + '");\n' : '');
 			return add;
 		}
+		var tmpl = this._getTmpl(tmplFunc);
+		console.log('tmpl:', tmpl);
 		var matchs = null;
 		while(matchs = re.exec(tmpl)) {
 			add(tmpl.slice(cursor, matchs.index))(matchs[1], true);
@@ -46,12 +33,12 @@
 		}
 		add(tmpl.substr(cursor, tmpl.length - cursor));
 		code = (code + 'return r.join(""); }').replace(/[\r\t\n]/g, '');
-		console.log(code);
+		console.log('compile tmpl: ', code);
 		result = new Function('obj', code);
 		return result;
   };
 
-	template.render = function(tmpl, options) {
+	template.render = function(tmplFunc, options) {
 		var render = this.compile(tmpl);
 		try { result = render.apply(options, [options]); }
 		catch(err) {
@@ -59,8 +46,20 @@
 		return result;
 	}
 
-  // console.log(template(aaa, { name: 'zhangsan', age: 23 }));
-  console.log(template.compile(aaa)({ name: 'zhangsan', age: 23 }));
+	template._getTmpl = function(f) {
+		return f.toString().replace(/^[^\/]+\/\*!?/, '').replace(/\*\/[^\/]+$/, '');
+	};
+
+	var intro = template.compile(function(){/*!
+		<div>
+			<p><%name%></p>
+			<div><%age%></div>
+		</div>
+	*/});
+
+	console.log(intro({ name: 'zhangsan', age: 23 }));
+
+	document.getElementById('main').innerHTML = intro({ name: 'zhangsan', age: 23 });
 
 </script>
 </body>

@@ -9,19 +9,19 @@
     padding: 20px;
     font-family: Helvetica, Arial, sans-serif;
     background: black;
-}
-p, span { margin: 10px 0; color: white; }
-span { display: inline-block; }
+	}
+	p, span { margin: 10px 0; color: white; }
+	span { display: inline-block; }
 
-.antialiased { -webkit-font-smoothing: antialiased; }
-.transition {
-    -webkit-transition: -webkit-transform 1s;        
-    -webkit-transform: scale(1);
-    /*-webkit-transform-origin: 0% 0%;*/
-}
-.transition.transitioned {
-    -webkit-transform: scale(1.5);        
-}
+	.antialiased { -webkit-font-smoothing: antialiased; }
+	.transition {
+	  -webkit-transition: -webkit-transform 1s;
+	  -webkit-transform: scale(1);
+	  /*-webkit-transform-origin: 0% 0%;*/
+	}
+	.transition.transitioned {
+	  -webkit-transform: scale(1.5);
+	}
 	</style>
 	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
@@ -34,8 +34,8 @@ span { display: inline-block; }
 <script>
 	$(function(){
     setInterval(function(){
-        $('.transition').toggleClass('transitioned');        
-    },3000);        
+        $('.transition').toggleClass('transitioned');
+    },3000);
 });
 </script>
 </body>
