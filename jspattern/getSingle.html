@@ -1,0 +1,49 @@
+<script>
+var getSingle = function(fn) {
+	var ret;
+	return function() {
+		return ret || (ret = fn.apply(this, arguments))
+	};
+};
+
+var getAlbums = getSingle(function() {
+	return [1, 2, 4];
+});
+
+var albums = getAlbums();
+albums.push(6);
+albums = getAlbums();
+
+console.log(albums);
+
+
+/**
+ * 若仅仅是原函数的add-on，则它们应该【静默执行】，before不阻断原函数执行，after不覆盖原函数返回，
+ * 多数传统语言中的AOP其实是这个路子，应用的场景如：日志、统计等
+ * 还有种情况就是责任链式AOP，在责任链中原函数和它的before、after在业务上是同等重要的，
+ * 因此before必须要能阻断，after也必须要能覆盖。楼主提到的表单验证就是典型应用场景
+ * 个人觉得有必要明确地区分这两种AOP场景，各用一套工具函数来实现
+ */
+// AOP切页面编程
+Function.prototype.after = function(afterFn) {
+	var _self = this;
+	return function() {
+		var ret = _self.apply(this, arguments);
+		if(ret) return ret;
+		return afterFn.apply(this, arguments);
+	};
+};
+
+var a = function() {
+	return 'a';
+}
+var b = function() {
+	return 'b';
+}
+var c = function() {
+	return 'c';
+}
+var d = a.after(b).after(c);
+
+console.log(d());
+</script>
