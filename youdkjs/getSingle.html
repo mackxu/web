@@ -1,0 +1,9 @@
+<script>
+// 把创建实例对象的职责和管理单例的职责分别放置在两个方法内
+var getSingle = function(fn) {
+	var result = null;
+	return function() {
+		return result || result = fn.apply(this, arguments);
+	}
+};
+</script>

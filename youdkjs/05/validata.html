@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>使用策略模式完成表单校验</title>
+	<style>
+	button {
+		padding: 6px 10px;
+		background-color: green;
+		color: #ddd;
+		border: 0;
+		font-size: 14px;
+	}
+	</style>
+
+</head>
+<body>
+<form action="#" id="registerForm" name="registerForm">
+	<p>请输入用户名: <input type="text" name="username" /></p>
+	<p>请输入密码: <input type="text" name="password" /></p>
+	<p>请输入手机号: <input type="text" name="phoneNumber" /></p>
+	<button>提交</button>
+</form>
+<script>
+// 使用策略模式完成表单校验
+/* -------------------- strategy class -------------------- */
+var strategies = {
+	isNonEmpty: function(value, errMsg) {
+		return (value === '') && errMsg;
+	},
+	minLength: function(value, length, errMsg) {
+		return (value.length < length) && errMsg;
+	},
+	isMobile: function(value, errMsg) {
+		return ( /^1[3|4|5|7|8][0-9]{9}$/.test(value) ) || errMsg;
+	},
+};
+
+/* -------------------- Validator class -------------------- */
+var Validator = function() {
+	this.cache = [];
+};
+
+Validator.prototype.add = function(dom, rules) {
+	var self = this;
+	for(var i = 0, rule; rule = rules[i++]; ) {
+		(function(rule) {
+			var strategyAry = rule.strategy.split(':');			// 把strategy和参数分开
+			var errorMsg = rule.errorMsg;
+
+			self.cache.push(function() {										// 把校验的步骤用空函数包装起来, 并放入cache
+				var strategy = strategyAry.shift();						// 获取strategy
+				strategyAry.unshift(dom.value);								// 把input的value添加进参数列表
+				strategyAry.push(errorMsg);										// 把errorMsg添加进参数列表
+
+				return strategies[strategy].apply(dom, strategyAry);
+			})
+		})(rule);
+	}
+};
+
+Validator.prototype.start = function() {
+	for(var i = 0, validataFunc; validataFunc = this.cache[i++]; ) {
+		var msg = validataFunc.call();		// 校验rule
+		// return msg && msg;								// 如果msg有值, 说明校验没有通过
+		if(msg) return msg;
+	}
+};
+
+/* -------------------- client use: -------------------- */
+
+
+var validataFunc = function() {
+	var validator = new Validator();
+
+	validator.add(registerForm.username, [{
+		strategy: 'isNonEmpty',
+		errorMsg: '用户名不能为空'
+	},{
+		strategy: 'minLength:6',
+		errorMsg: '用户名长度不能小于6位'
+	},
+	]);
+
+	validator.add(registerForm.password, [{
+		strategy: 'minLength:8',
+		errorMsg: '密码长度不能小于8位'
+	},]);
+
+	validator.add(registerForm.phoneNumber, [{
+		strategy: 'isMobile',
+		errorMsg: '手机号格式不正确'
+	},]);
+
+	var errorMsg = validator.start();
+	return errorMsg;
+};
+
+var registerForm = document.getElementById('registerForm');
+registerForm.onsubmit = function() {
+	var errorMsg = validataFunc();
+	if(errorMsg) {
+		console.log(errorMsg);
+		return false;
+	}
+};
+</script>
+</body>
+</html>

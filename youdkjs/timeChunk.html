@@ -1,0 +1,33 @@
+<script>
+	// 分时函数
+	// 分时段处理数组
+
+	var timeChunk = function(arr, process, count, interval) {
+		count || (count = 1);
+		interval || (interval = 200);
+
+		var arr = arr.concat()					// 由于对象是引用传递, 需要复制数组
+			, t = null
+			handle = function() {
+				for(var i = 0, l = arr.length; i < Math.min(count, l); i++) {
+					process(arr.shift());
+				}
+			}
+
+		return function() {
+			t = setInterval(function() {
+				if(arr.length === 0) {
+					return clearTimeout(t);
+				}
+				handle();
+			}, interval);
+		}
+
+	}
+
+	var func = timeChunk([2,5,6,8,3,4,6,7,2,5], function(data) {
+		console.log(data)
+	}, 2, 1000);
+
+	func();
+</script>

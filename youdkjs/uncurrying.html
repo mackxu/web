@@ -1,0 +1,28 @@
+<script>
+
+	// 为方法指定对象执行
+	Function.prototype.uncurrying = function() {
+		var __self = this;
+		return function() {
+			var obj = Array.prototype.shift.call(arguments);		// 截去第一个参数
+			return __self.apply(obj, arguments);								// 指定this为obj, 剩余的参数为参数
+		}
+	};
+
+	// 另外一种实现方式
+	Function.prototype.uncurrying2 = function() {
+		var __self = this;
+		return function() {
+			return Function.prototype.call.apply(__self, arguments);
+		}
+	};
+
+	(function() {
+		// 通过uncurring的方式, Array.prototype.push.call变成了一个通用的push函数
+		var push = Array.prototype.push.uncurrying2();
+
+		push(arguments, 1);
+
+		console.log(arguments);
+	})(2, 3, 4)
+</script>

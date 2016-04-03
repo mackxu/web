@@ -1,0 +1,15 @@
+<body>
+<div id="box">11111111</div>
+
+<script>
+	// var getId = document.getElementById.bind(document);
+
+	document.getElementById = (function(func) {
+		return function() {
+			return func.apply(document, arguments);
+		}
+	}(document.getElementById));
+	var getId = document.getElementById;
+	console.log(getId('box'))
+</script>
+</body>
