@@ -1,0 +1,39 @@
+<script>
+// 添加在函数之前执行的函数
+Function.prototype.before = function(beforeFn) {
+	var __self = this;			// 保存原函数引用
+	return function() {			// 返回包含了原函数和新函数的“代理”函数
+		beforeFn.apply(this, arguments);				// 执行新函数，修正this
+		return __self.apply(this, arguments);		// 执行原函数
+	}
+};
+
+Function.prototype.after = function(afterFn) {
+	var __self = this;
+	return function() {
+		var ret = __self.apply(this, arguments);
+		afterFn.apply(this, arguments);
+		return ret;
+	}
+};
+
+var func = function() {
+	console.log(1);
+};
+
+// func = func.before(function() {					// beforeFn和func
+// 	console.log(2);
+// }).after(function() {										// beforeFn、func、afterFn
+// 	console.log(3);
+// });
+
+// func();
+
+func = func.after(function() {
+	console.log(4);
+}).before(function() {
+	console.log(5);
+})
+
+func();
+</script>
