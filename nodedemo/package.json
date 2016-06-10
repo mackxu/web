@@ -7,9 +7,12 @@
     "express": "^4.13.4",
     "utility": "^1.8.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^2.5.3",
+    "should": "^9.0.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha-phantomjs ./app7/index.html --ssl-protocol=any --ignore-ssl-errors=true"
   },
   "author": "",
   "license": "ISC"
