@@ -1,6 +1,7 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
+import IntervalEnhance from './interval-enhance';
 
 class CartItem extends Component {
 
@@ -59,9 +60,12 @@ class CartItem extends Component {
 				<h3 className="large-12 column text-center">
 					Total: ${this.state.total}
 				</h3>
+				<p className="large-12 column">
+					<strong> Time elapsed for interval: </strong>{this.props.seconds} s
+				</p>
 			</article>
 		);
 	}
 }
 
-export default CartItem;
+export default IntervalEnhance(CartItem);
