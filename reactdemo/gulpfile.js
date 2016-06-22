@@ -1,20 +1,31 @@
 var gulp = require('gulp');
+var watchify = require('watchify');
 var browserify = require('browserify');
 var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 
-gulp.task('build', function() {
-	return browserify({
-		entries: './src/es6-react/demo1.js',
-		debug: true,
-	}).transform('babelify', { presets: ['es2015', 'react', 'stage-0']})
-	.bundle()
-	.pipe(source('bundle.js'))
-	.pipe(gulp.dest('dist'));
+var b = browserify({
+	entries: './src/todo/index.js',
+	debug: true,
+	plugin: [watchify],
 });
-
-gulp.task('watch', ['build'], function() {
-	gulp.watch('src/**/*.js', ['build']);
+b.on('update', function(ids) {
+	bundle();
+	ids.forEach(function(v) {
+		console.log('bundle changed file:' + v);  //记录改动的文件名
+	})
 });
+gulp.task('build', bundle);
 
-gulp.task('default', ['watch']);
+// gulp.task('watch', ['build'], function() {
+// 	gulp.watch('src/**/*.js', ['build']);
+// });
+
+gulp.task('default', ['build']);
+
+function bundle() {
+	return b.transform('babelify', { presets: ['es2015', 'react', 'stage-0']})
+		.bundle()
+		.pipe(source('bundle.js'))
+		.pipe(gulp.dest('dist'));
+}
