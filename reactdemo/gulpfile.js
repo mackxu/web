@@ -7,7 +7,9 @@ var source = require('vinyl-source-stream');
 var b = browserify({
 	entries: './src/todo/index.js',
 	debug: true,
-	plugin: [watchify],
+});
+b.plugin(watchify, {
+	ignoreWatch: ['**/node_modules/**'],
 });
 b.on('update', function(ids) {
 	bundle();
@@ -23,6 +25,7 @@ gulp.task('build', bundle);
 
 gulp.task('default', ['build']);
 
+// 打包过程
 function bundle() {
 	return b.transform('babelify', { presets: ['es2015', 'react', 'stage-0']})
 		.bundle()
