@@ -1,0 +1,28 @@
+<script>
+	// 函数节流
+	
+	var throttle = function(fn, interval) {
+		var timer
+			, firstTime = true				// 是否第一次调用
+
+		return function() {					// 返回含有延迟函数的新函数
+			var args = arguments
+				, __self = this
+
+			if(firstTime) {
+				fn.apply(__self, args);
+				return firstTime = false;
+			}
+
+			if(timer) {
+				return false;
+			}
+
+			timer = setTimeout(function() {
+				clearTimeout(timer);
+				timer = null;
+				fn.apply(__self, args)
+			}, interval);
+		}
+	};
+</script>

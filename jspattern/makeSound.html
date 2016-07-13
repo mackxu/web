@@ -1,0 +1,25 @@
+<head>
+	<meta charset="utf-8">
+</head>
+<script>
+	// 多态性: 给不同对象发送同一个消息，会给出不同的反馈。
+	
+	/* --------  分支语句  ----- */
+	'use strict';
+	var makeSound = function(animal) {
+		if(animal instanceof Duck) {
+			console.log('嘎嘎嘎')
+		}else if(animal instanceof Chiken) {
+			console.log('咯咯咯');
+		}
+	};
+
+	// var Duck = function() {};
+	// var Chiken = function() {};
+
+	class Duck {}
+	class Chiken {}
+
+	makeSound(new Duck);
+	makeSound(new Chiken);
+</script>

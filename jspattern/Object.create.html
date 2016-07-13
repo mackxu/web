@@ -1,0 +1,23 @@
+<script>
+	// 克隆是创建对象的手段
+	// 原型模式提供了一种便捷的方式去创建某个类型的对象
+	// 要得到一个对象，不是通过实例化类，而是找到一个对象做为原型并克隆它
+	Object.create = Object.create || function (obj) {
+		var F = function() {};
+		F.prototype = obj;
+		return new F();
+	}
+
+	/* ------------------ test --------------- */
+	var Animal = function(name) {
+		this.name = name;
+	}
+	var animal = new Animal('xiaoming');
+	console.log(animal.name);
+
+	var dog = Object.create(animal);			// 创建(克隆)一个Animal类型的对象
+	dog.name = 'lilei';
+
+	console.log(dog.name);
+	console.log(animal.name);
+</script>
