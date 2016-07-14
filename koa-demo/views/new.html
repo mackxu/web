@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block title %}Add Todo{% endblock %}
+
+{% block content %}
+<h1>Add Todo</h1>
+<p>Create a new Todo item</p>
+<form action="/todo/create" method="post">
+    <input type="text" name="name" placeholder="Name"><br>
+    <input type="text" name="desc" placeholder="Description"><br>
+    <input type="submit" value="Create">
+</form>
+{% endblock %}
