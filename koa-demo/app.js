@@ -8,7 +8,12 @@ var koa = require('koa');
 var app = koa();
 
 // data store
-var todos = [];
+var todos = [{
+    id: 0,
+    name: 'test todo',
+    createdOn: 0,
+    updatedOn: 0,
+}];
 
 app.use(logger());
 
@@ -47,6 +52,16 @@ function *add() {
  */
 function *show() {
 
+    var todo = todos[this.params.id];
+    if(!todo) throw404(this);
+
+    // 格式化时间
+    var todo = Object.assign({}, todo, {
+        createdOn: (new Date(todo.createdOn)).toLocaleString(),
+        updatedOn: (new Date(todo.updatedOn)).toLocaleString(),
+    });
+
+    this.body = yield render('show', { todo });
 }
 
 
@@ -54,15 +69,25 @@ function *show() {
  * Remove a todo item
  */
 
-function *remove() {
+function *remove(id) {
+    var todo = todos[this.params.id];
+    if(!todo) throw404(this);
 
+    todos.splice(id, 1);
+
+    todos.forEach((todo, i) => todo.id = i);
+
+    this.redirect('/');
 }
 
 /**
  * Form for edit a todo items.
  */
 function *edit() {
+    var todo = todos[this.params.id];
+    if(!todo) throw404(this);
 
+    this.body = yield render('edit', { todo });
 }
 
 /**
@@ -84,9 +109,21 @@ function *create() {
  * Update an existing todo item.
  */
 function *update() {
+    var todo = yield parse(this);
+
+    Object.assign(todos[todo.id], {
+        name: todo.name,
+        desc: todo.desc,
+        updatedOn: (+new Date()),
+    });
+
+    this.redirect('/');
 
 }
 
+function throw404(context) {
+    context.throw('404', 'invalid todo id');
+}
 
 
 app.listen(3000);
