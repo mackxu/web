@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { addTodo, completeTodo, setVisibilityFilter, VisibilityFilter } from '../actions'
 import AddTodo from '../components/AddTodo'
 import TodoList from '../components/todoList'
+import Footer from '../components/footer'
 
 class App extends Component {
 
@@ -28,6 +29,10 @@ class App extends Component {
 			<div>
 				<AddTodo onAddClick={ text => dispatch(addTodo(text)) } />
 				<TodoList todos={visibleTodos} onTodoClick={index => dispatch(completeTodo(index))} />
+				<Footer
+					filter={visibilityFilter}
+					onFilterChange={ nextFilter => dispatch(setVisibilityFilter(nextFilter)) }
+					/>
 			</div>
 		);
 	}

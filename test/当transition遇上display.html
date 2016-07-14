@@ -1,0 +1,123 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>当transition遇上display</title>
+		<style>
+		.box {
+			background-color: goldenrod;
+			width: 300px; height: 200px;
+			margin: 100px auto;
+			transition: all 1s linear;
+		}
+/*		.hide {
+			opacity: 0;
+			display: none;
+			visibility: hidden;
+		}*/
+		.hide { display: none; }
+		.opacity0 { opacity: 0; }
+		.hidden { 1visibility: hidden; opacity: 1; display: block; }
+
+		.height { background-color: goldenrod; }
+		.height:hover { height: 0; overflow: hidden; }
+		</style>
+	</head>
+	<body>
+		<button>动画按钮</button>
+		<div class="box" id="box"></div>
+
+		<div class="height">Baby 你好！</div>
+		<span class="height">Baby 你好！</span>
+
+		<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+		<script>
+			/*
+				用visibility替代display
+				与只用opacity的区别在于, 可以避免遮挡下面的层比如按钮的点击事件
+			 */
+			var $box = $('#box');
+			$('button').on('click', function() {
+				if($box.hasClass('hidden')) {
+					$box.removeClass('hidden');
+				}else {
+					$box.addClass('hidden');
+				}
+			});
+		</script>
+		<!--
+			进阶方法: 利用了JS的setTimeout和transitionEnd事件。
+			将opacity从hidden中分离出来
+		-->
+		<script>
+			// var $box = $('#box');
+			// $('button').on('click', function() {
+			// 	if($box.hasClass('hide')) {
+			// 		$box.removeClass('hide');
+			// 		setTimeout(function() {
+			// 			$box.removeClass('opacity0');
+			// 		}, 20);
+			// 	}else {
+			// 		$box.addClass('opacity0');
+			// 		$box.one('transitionEnd, webkitTransitionEnd', function() {
+			// 			$box.addClass('hide');
+			// 		});
+			// 	}
+			// });
+		</script>
+		<!--
+			用requestAnimationFrame来取代setTimeout
+			好处：1. 浏览器会自动优化方法的调用
+					 2. 如果页面不是激活状态下，动画会自动停止，节省CPU开销
+		-->
+		<script>
+			'use strict';
+			var $box = $('#box');
+			$('button').on('click', function() {
+				if($box.hasClass('hide')) {
+					$box.removeClass('hide');
+					requestAnimationFrame(function() {			// 合适时机执行渐入动画
+						$box.removeClass('opacity0');
+					});
+				}else {
+					$box.addClass('opacity0');
+					$box.one('transitionEnd, webkitTransitionEnd', function() {
+						$box.addClass('hide');								//
+					});
+				}
+			});
+
+			var arr = [1, 2, 4, 6];
+			console.log(arr.map(v => v + 1));
+
+			// class
+			class A {
+				constructor(a) {
+					console.log(a);
+				}
+				static hello() {
+					console.log('static function');
+				}
+			}
+
+			class B extends A {
+				constructor(b, a) {
+					super(a);
+				}
+			}
+
+			var a = new A(2);
+			var b = new B(3, 4);
+			A.hello();
+
+
+
+
+
+
+
+
+
+
+		</script>
+	</body>
+</html>
