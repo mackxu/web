@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}图片上传{% endblock %}
+
+{% block content %}
+<h1>运营图片列表</h1>
+<p>展示购买相关的运营图</p>
+
+<ul class="list">
+    {% for img in bg %}
+        <li>
+            <h2>{{ img.name }}</h2>
+            <p>{{ img.updateTime }}</p>
+            <img src="{{ img.url }}" alt="">
+            <form action="/update/{{img.id}}" method="post">
+                更新图片:<input type="file" name="{{img.name}}">
+                <input type="submit" name="Update">
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
