@@ -11,7 +11,7 @@
         <li>
             <h2>{{ img.name }}</h2>
             <p>{{ img.updateTime }}</p>
-            <img src="{{ img.url }}" alt="">
+            <img width="400" src="{{ img.url }}" alt="">
             <form action="/update/{{img.id}}" method="post">
                 更新图片:<input type="file" name="{{img.name}}">
                 <input type="submit" name="Update">
