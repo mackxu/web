@@ -43,7 +43,7 @@ export default {
       editing: false
     }
   },
-  directives: {
+  directives: {         // 将数据的变化映射为DOM行为
     focus (editing) {
       if(editing) {
         this.vm.$nextTick(() => this.el.focus())

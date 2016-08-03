@@ -33,9 +33,11 @@ var configJSONUrl = './config.js';
  */
 function *list() {
     var config = yield read('./config.js');
-    config = JSON.parse(config);
+    config = parseConfigJSON(config);
+    console.log(config);
+
     this.config = config;
-    this.body = yield render('tv', { bg: config.bg });
+    this.body = yield render('tv', { bg: config.backgrounds });
 }
 
 function *updateConfigJSON() {
@@ -68,6 +70,22 @@ function write(file, data) {
     return function (fn) {
         fs.writeFile(file, data, 'utf8', fn);
     }
+}
+
+/**
+ * 解析出config配置
+ * @param {sting} config
+ */
+function parseConfigJSON(config) {
+    // 分出JSON字符串
+    var config = config.slice(9, -2);
+
+    // 解析JSON并返回
+    return JSON.parse(config);
+}
+
+function formateConfigJSON(config) {
+    return 'callback(' + JSON.stringify(config) + ')';
 }
 
 
