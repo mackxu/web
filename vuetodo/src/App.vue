@@ -77,17 +77,19 @@ export default {
   },
   data () {
     return {
-      visibility: 'all',
+      visibility: 'all',        // filters: 'all', 'active', 'completed' 
       filters: filters
     }
   },
   computed: {
+    // 未完成的todo的数量
     remaining () {
       return this.todos.filter(todo => !todo.done).length
     },
     allChecked () {
       return this.todos.every(todo => todo.done)
     },
+    // todos计算属性：显示筛选this.visibility的todos
     filteredTodos () {
       return filters[this.visibility].call(this, this.todos)
     }
@@ -102,8 +104,8 @@ export default {
     }
   },
   filters: {
-    pluralize: (n, w) => n < 2 ? w : (w + 's'),
-    capitalize: s => s.charAt(0).toUpperCase() + s.slice(1)
+    pluralize: (n, w) => n < 2 ? w : (w + 's'),               // n == 1 单数, n >= 2 复数
+    capitalize: s => s.charAt(0).toUpperCase() + s.slice(1)   // 把首字母大写
   }
 }
 </script>
