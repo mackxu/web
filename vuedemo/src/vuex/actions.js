@@ -1,8 +1,12 @@
 /**
  * actions 用在components中管理状态
  */
-import { INCREMENT } from './mutations'
+import { INCREMENT, PLUS } from './mutations'
 
-export const incrementCounter = ({dispatch}) => {
-  dispatch(INCREMENT, 1)
+export const incrementCounter = ({dispatch}, amount = 1) => {
+  dispatch(INCREMENT, amount)
+}
+
+export const plusCounter = ({dispatch}, amount = 1) => {
+  dispatch(PLUS, amount)
 }

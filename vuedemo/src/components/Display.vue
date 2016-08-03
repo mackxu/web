@@ -12,7 +12,7 @@ export default {
   name: 'Display',
 
   vuex: {
-    getter: {
+    getters: {
       countValue: getCount
     }
   }

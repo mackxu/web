@@ -1,11 +1,12 @@
 <template>
   <div>
-    <button @click="{increment}">Increment +1</button>
+    <button @click="incrementCounter(3)">Increment +2</button>
+    <button @click="plusCounter(2)">plus -2</button>
   </div>
 </template>
 
 <script>
-import { incrementCounter } from '../vuex/actions'
+import { incrementCounter, plusCounter } from '../vuex/actions'
 
 export default {
 
@@ -13,7 +14,16 @@ export default {
 
   vuex: {
     actions: {
-      increment: incrementCounter
+      incrementCounter,
+      plusCounter
+    }
+  },
+  methods: {
+    increment () {
+      this.incrementCounter(2)      // 向actions传递参数
+    },
+    plus () {
+      this.plusCounter(3)
     }
   }
 }
