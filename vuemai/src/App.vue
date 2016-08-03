@@ -1,6 +1,8 @@
 <template>
-  <div id="app">
-    <h1>{{ msg }}</h1>
+  <div id="app-view">
+    <router-view></router-view>
+    <div class="nprogress">
+    </div>
   </div>
 </template>
 
