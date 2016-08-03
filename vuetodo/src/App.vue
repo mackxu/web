@@ -104,8 +104,8 @@ export default {
     }
   },
   filters: {
-    pluralize: (n, w) => n < 2 ? w : (w + 's'),               // n == 1 单数, n >= 2 复数
-    capitalize: s => s.charAt(0).toUpperCase() + s.slice(1)   // 把首字母大写
+    // pluralize: (n, w) => n < 2 ? w : (w + 's'),               // n == 1 单数, n >= 2 复数
+    // capitalize: s => s.charAt(0).toUpperCase() + s.slice(1)   // 把首字母大写
   }
 }
 </script>
