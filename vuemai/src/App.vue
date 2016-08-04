@@ -7,6 +7,8 @@
 </template>
 
 <script>
+require('./assets/styles/reset.css')
+require('./assets/styles/icon.css')
 export default {
   data () {
     return {

@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
   entry: './src/main.js',
@@ -26,6 +27,10 @@ module.exports = {
         exclude: /node_modules/
       },
       {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
+      {
         test: /\.json$/,
         loader: 'json'
       },
@@ -43,6 +48,9 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+     new ExtractTextPlugin("[name].css")
+  ],
   devServer: {
     historyApiFallback: true,
     noInfo: true

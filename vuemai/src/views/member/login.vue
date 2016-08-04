@@ -1,11 +1,11 @@
 <template>
-<div>Home</div>
+login
 </template>
 
 <script>
 export default {
 
-  name: 'component_home',
+  name: 'component_login',
 
   data () {
     return {
@@ -16,7 +16,4 @@ export default {
 </script>
 
 <style lang="css" scoped>
-div {
-    font-size: 14px;
-}
 </style>
