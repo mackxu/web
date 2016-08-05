@@ -1,22 +1,79 @@
 <template>
-<div>Home</div>
+    <section class="container">
+        <swipe class="my-swipe">
+            <swipe-item v-for="billboard in billboards">
+                <a href="{{billboard.url}}">
+                    <img :src="billboard.imageUrl" alt="">
+                </a>
+            </swipe-item>
+        </swipe>
+        <div class="movie">
+            <now-playing :films="nowPlayingFilms"></now-playing>
+            <coming-soon :films="comingSoonFilms"></coming-soon>
+        </div>
+    </section>
 </template>
 
 <script>
+require('vue-swipe/dist/vue-swipe.css')
+import { Swipe, SwipeItem } from 'vue-swipe'
+import NowPlaying from './NowPlaying'
+import ComingSoon from './ComingSoon'
+
+import {
+    getComingSoonFilms,
+    getBillboards,
+    getNowPlayingFilms
+} from 'getters'
+
+import {
+    fetchComingSoonFilms,
+    fetchNowPlayingFilms,
+    fetchBillboards
+} from 'actions'
+
 export default {
 
   name: 'component_home',
 
-  data () {
-    return {
-
-    };
+  vuex: {
+    getters: {
+        comingSoonFilms: getComingSoonFilms,
+        nowPlayingFilms: getNowPlayingFilms,
+        billboards: getBillboards
+    },
+    actions: {
+        fetchBillboards,
+        fetchNowPlayingFilms,
+        fetchComingSoonFilms
+    }
+  },
+  components: {
+    NowPlaying,
+    ComingSoon,
+    Swipe,
+    SwipeItem
+  },
+  ready() {
+    // this.fetchBillboards()
+    // this.fetchNowPlayingFilms(1, 5)
+    // this.fetchComingSoonFilms(1, 5)
   }
 };
 </script>
 
 <style lang="css" scoped>
-div {
-    font-size: 14px;
-}
+    .my-swipe{
+        height: 200px;
+        color: #ffffff;
+        font-size: 30px;
+        text-align: center;
+        overflow: hidden;
+    }
+    .silde img{
+        width: 100%;
+    }
+    .movie ul{
+        padding-top: 18px;
+    }
 </style>

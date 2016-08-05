@@ -1,24 +1,35 @@
 <template>
-  <div id="app-view">
-    <router-view></router-view>
+  <main class="main">
+    <Navbar></Navbar>
+    <div class="app-view">
+      <router-view></router-view>
+    </div>
+    <Sidebar></Sidebar>
     <div class="nprogress">
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
 require('./assets/styles/reset.css')
 require('./assets/styles/icon.css')
+
+import store from 'store'
+import { getLoadingState } from 'getters'
+import Navbar from './components/Navbar'
+import Sidebar from './components/Sidebar'
+
 export default {
-  data () {
-    return {
-      // note: changing this line won't causes changes
-      // with hot-reload because the reloaded component
-      // preserves its current state and we are modifying
-      // its initial state.
-      msg: 'Hello Vue!'
+  vuex: {
+    getters: {
+      loading: getLoadingState
     }
-  }
+  },
+  components: {
+    Navbar,
+    Sidebar
+  },
+  store
 }
 </script>
 

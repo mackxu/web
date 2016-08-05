@@ -10,6 +10,13 @@ module.exports = {
     filename: 'build.js'
   },
   resolve: {
+    root: path.resolve(__dirname, './src'),
+    alias: {
+      actions: 'vuex/actions.js',
+      types: 'vuex/types.js',
+      getters: 'vuex/getters.js',
+      store: 'vuex/store.js'
+    },
     extensions: ['', '.js', '.vue']
   },
   resolveLoader: {
@@ -28,7 +35,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        loader: ExtractTextPlugin.extract("style-loader", "css-loader")
       },
       {
         test: /\.json$/,
@@ -49,7 +56,7 @@ module.exports = {
     ]
   },
   plugins: [
-     new ExtractTextPlugin("[name].css")
+     new ExtractTextPlugin("styles.css")
   ],
   devServer: {
     historyApiFallback: true,

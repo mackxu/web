@@ -21,7 +21,13 @@ export default (router) => router.map({
   '/login': {
     name: 'login',
     component: resolve => {
-      require(['./views/home'], resolve);
+      require(['./views/member/login'], resolve);
+    }
+  },
+  '/register': {
+    name: 'register',
+    component: resolve => {
+      require(['./views/member/register'], resolve);
     }
   }
 })
