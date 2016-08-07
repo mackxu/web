@@ -1,5 +1,6 @@
 <template>
-hello films
+{{ $route.query | json }}
+{{ whichType }}
 </template>
 
 <script>
@@ -9,8 +10,14 @@ export default {
 
   data () {
     return {
-
+    	type: 'NOW_PLAYING'
     };
+  },
+  computed: {
+  	whichType () {
+  		// 如果query中存在type，取值之
+  		return this.$route.query.type || this.type
+  	}
   }
 };
 </script>

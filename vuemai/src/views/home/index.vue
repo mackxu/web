@@ -55,25 +55,30 @@ export default {
     SwipeItem
   },
   ready() {
+    console.log('ready!');
     // this.fetchBillboards()
     // this.fetchNowPlayingFilms(1, 5)
     // this.fetchComingSoonFilms(1, 5)
+  },
+  created () {
+    console.log('created!');
   }
 };
 </script>
 
 <style lang="css" scoped>
-    .my-swipe{
-        height: 200px;
-        color: #ffffff;
-        font-size: 30px;
-        text-align: center;
-        overflow: hidden;
-    }
-    .silde img{
-        width: 100%;
-    }
-    .movie ul{
-        padding-top: 18px;
-    }
+  .my-swipe{
+    height: 3.6rem;
+    color: #ffffff;
+    font-size: 30px;
+    text-align: center;
+    overflow: hidden;
+
+    margin-bottom: 0.32rem;
+  }
+  .my-swipe img{
+    width: 100%;
+    display: block;
+
+  }
 </style>

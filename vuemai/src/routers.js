@@ -5,10 +5,10 @@ export default (router) => router.map({
       require(['./views/home'], resolve)
     }
   },
-  '/film': {
-    name: 'film',
+  '/films/:type': {
+    name: 'filmList',
     component: resolve => {
-      require(['./views/film'], resolve)
+      require(['./views/film/list'], resolve)
     }
   },
   '/film/:id': {

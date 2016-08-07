@@ -20,6 +20,7 @@ import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 
 export default {
+  name: 'component_app',
   vuex: {
     getters: {
       loading: getLoadingState
@@ -29,12 +30,21 @@ export default {
     Navbar,
     Sidebar
   },
-  store
+  store,
+  ready() {
+    // 计算根元素的font-size大小
+    var html = document.documentElement;
+    var windowWidth = html.clientWidth;
+    html.style.fontSize = windowWidth / 6.4 + 'px';
+
+    console.log('html size calculate!!');
+  }
 }
 </script>
 
 <style>
 body {
   font-family: Helvetica, sans-serif;
+  background-color: #ebebeb;
 }
 </style>
