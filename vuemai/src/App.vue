@@ -46,5 +46,6 @@ export default {
 body {
   font-family: Helvetica, sans-serif;
   background-color: #ebebeb;
+  font-size: 0.3rem;
 }
 </style>

@@ -28,7 +28,7 @@ const _post = (url, params) => {
  * @return {Promise}                 Promise
  */
 export const fetchComingSoonFilms = ({dispatch}, page, count) => {
-
+    
 }
 
 /**

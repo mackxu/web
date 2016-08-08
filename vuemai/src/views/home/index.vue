@@ -79,6 +79,6 @@ export default {
   .my-swipe img{
     width: 100%;
     display: block;
-
+    transform: translateZ(0);
   }
 </style>
