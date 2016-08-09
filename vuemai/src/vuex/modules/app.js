@@ -2,7 +2,8 @@ import * as Types from 'types'
 
 const state = {
     showLeftNav: false,
-    loading: false
+    loading: false,
+    title: '爱奇艺电影'
 }
 
 const mutations = {
