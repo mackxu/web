@@ -44,8 +44,9 @@ export default {
 
 <style>
 body {
-  font-family: Helvetica, sans-serif;
+  font-family: 'Microsoft YaHei', Tahoma, Helvetica, Arial, sans-serif;
   background-color: #ebebeb;
   font-size: 0.3rem;
+
 }
 </style>

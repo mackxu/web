@@ -5,7 +5,7 @@
           <movie-item type="COMING_SOON" v-for="film in films" :film="film"></movie-item>
         </ul>
         <!-- 此处需要参数 与正在热映列表区分 -->
-        <more-button v-link="{path: '/films/coming-soon'}">更多即将上映的电影</more-button>
+        <more-button v-link="{path: '/films/coming_soon'}">更多即将上映的电影</more-button>
     </div>
 </template>
 
