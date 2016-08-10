@@ -1,5 +1,5 @@
 <template>
-	<li>
+	<li class="movie-item-wrap">
 		<a class="movie-item clearfix" v-link="{path:'/film/' + film.id}">
 	  		<div class="movie-cover">
 		      	<img :src="film.poster.thumbnail" :alt="film.name" class="img-responsive">
@@ -46,12 +46,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.movie-item-wrap + .movie-item-wrap { border-top: dashed 1px #c9c9c9; }
 .movie-item { 
 	display: block;
 	padding: 0.4rem 0;
 	color: #8e8e8e;
 	font-size: 0.24rem;
-	border-bottom: dashed 1px #c9c9c9;
 }
 .movie-desc {
 	padding-left: 1.4rem;
