@@ -1,8 +1,8 @@
 <template>
 	<section class="film-list-wrap">
     <div class="list-nav clearfix">
-      <a href="#" v-link="{path:'/films/now_playing'}" class="v-link">正在热播</a>
-      <a href="#" v-link="{path:'/films/coming_soon'}" class="v-link">即将上映</a>
+      <a href="#" v-link="{path:'/films/now_playing', replace: true}" class="v-link">正在热播</a>
+      <a href="#" v-link="{path:'/films/coming_soon', replace: true}" class="v-link">即将上映</a>
     </div>
     <ul class="film-list">
       <list-item :type="whichType" v-for="film in whichFilms" :film="film"></list-item>
