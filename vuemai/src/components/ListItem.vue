@@ -6,7 +6,7 @@
 		    </div>
 		    <div class="movie-desc">
 		    	<div class="movie-next-arrow"><i class="iconfont icon-arrow-right movie-next-icon"></i></div>
-		    	<div class="movie-score" v-if="type === 'now_playing'">{{ film.grade }}</div>
+		    	<div class="movie-score" v-if="type === 'now_playing'" v-text="film.grade"></div>
 		      	<p class="movie-name" v-text="film.name"></p>
 		        <p class="movie-intro" v-text="film.intro"></p>
 		        <div class="movie-count" v-if="type === 'now_playing'">
@@ -47,7 +47,7 @@ export default {
 
 <style lang="css" scoped>
 .movie-item-wrap + .movie-item-wrap { border-top: dashed 1px #c9c9c9; }
-.movie-item { 
+.movie-item {
 	display: block;
 	padding: 0.4rem 0;
 	color: #8e8e8e;

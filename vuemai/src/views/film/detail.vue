@@ -1,7 +1,7 @@
 <template>
     <section class="movie-view">
         <div class="movie-cover-wrap">
-            <img :src="film.cover.origin" class="img-responsive" alt="">
+            <img :src="film.cover.origin" class="img-responsive" :alt="film.name">
         </div>
         <div class="movie-intro">
         	<div class="movie-title">影片介绍</div>
@@ -14,7 +14,7 @@
         	</dl>
         	<div class="movie-synopsis" v-text="film.synopsis"></div>
         </div>
-    </section> 
+    </section>
 </template>
 
 <script>
@@ -32,9 +32,17 @@ export default {
         fetchFilmDetail
     }
   },
+  route: {
+    data () {
+        this.fetchFilmDetail(this.$route.params.id)
+    }
+  },
   filters: {
     timestampFormat,
     actorsList (actions) {
+        if(!Array.isArray(actions)) {
+            return actions
+        }
         return actions.slice(0, 4).map((action) => action.name ).join('|')
     }
   }
@@ -43,7 +51,7 @@ export default {
 
 <style lang="css" scoped>
 .movie-view {
-    
+
 }
 dt, dd { display: inline-block; }
 </style>

@@ -60,7 +60,8 @@ export default {
   route: {
     data() {
       console.log('!!route data');
-      this.whichType === COMING_SOON ? this.fetchComingSoonFilms(1, 10) : this.fetchNowPlayingFilms(1, 10)
+      this.whichType === COMING_SOON ?
+        this.fetchComingSoonFilms(1, 10) : this.fetchNowPlayingFilms(1, 10)
     }
   },
   components: {
