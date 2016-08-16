@@ -1,7 +1,10 @@
 import Vue from 'vue'
+import * as Types from 'types'
+
 const BASE_URL = 'http://m.maizuo.com/v4/api'
 const _get = (url) => {
-    return Vue.http.get(BASE_URL + url).then((res) => {
+    url += (url.indexOf('?') === -1 ? '?' : '&') + '_t=' + (+new Date())
+    return Vue.http.get(url).then((res) => {
         if(res.status >= 200 && res.status < 300 ) {
             return res.data
         }
@@ -18,6 +21,15 @@ const _post = (url, params) => {
     })
 }
 
+const _fetch = (dispatch, url, type) => {
+    return _get(url)
+        .then(res => {
+            return res.status === 0 ? dispatch(type, res.data) :
+                Promise.reject(new Error(type + ' failure'))
+        }).catch(err => {
+            return Promise.reject(err)
+        }) 
+}
 /*----------------------------------------------------------*/
 
 /**
@@ -28,7 +40,8 @@ const _post = (url, params) => {
  * @return {Promise}                 Promise
  */
 export const fetchComingSoonFilms = ({dispatch}, page, count) => {
-    
+    let url = `/film/coming-soon?count=${count}&page=${page}`;
+    return _fetch(dispatch, BASE_URL + url, Types.FETCH_COMING_SOON_SUCCESS)
 }
 
 /**
@@ -39,7 +52,8 @@ export const fetchComingSoonFilms = ({dispatch}, page, count) => {
  * @return {[type]}                  [description]
  */
 export const fetchNowPlayingFilms = ({dispatch}, page, count) => {
-
+    let url = `/film/now-playing?count=${count}&page=${page}`;
+    return _fetch(dispatch, BASE_URL + url, Types.FETCH_NOW_PLAYING_SUCCESS)
 }
 /**
  * 获取电影详情
@@ -48,7 +62,7 @@ export const fetchNowPlayingFilms = ({dispatch}, page, count) => {
  * @return {[type]}                  [description]
  */
 export const fetchFilmDetail = ({dispatch}, id) => {
-
+    return _fetch(dispatch, BASE_URL + '/film/' + id, Types.FETCH_DETAIL_SUCCESS)
 }
 /**
  * 获取广告数据
@@ -56,5 +70,15 @@ export const fetchFilmDetail = ({dispatch}, id) => {
  * @return {[type]}                  [description]
  */
 export const fetchBillboards = ({dispatch}) => {
+    return _fetch(dispatch, BASE_URL + '/billboard/home', Types.FETCH_BANNER_SUCCESS )
+}
 
+/**
+ * show or hide left nav
+ * @param  {[type]} options.dispatch [description]
+ * @param  {Bool}   visibility       [description]
+ * @return {[type]}                  [description]
+ */
+export const showLeftNav = ({ dispatch }) => {
+    dispatch(Types.SHOW_LEFTNAV)
 }
