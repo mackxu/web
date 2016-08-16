@@ -7,8 +7,8 @@ const state = {
 }
 
 const mutations = {
-    [Types.SHOW_LEFTNAV] (state, visibility) {
-        state.showLeftNav = visibility
+    [Types.SHOW_LEFTNAV] (state) {
+        state.showLeftNav = !state.showLeftNav
     },
     [Types.START_LOADING] (state) {
         state.loading = true

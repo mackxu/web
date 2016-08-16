@@ -53,7 +53,14 @@ export default {
   		return this.$route.params.type || this.type       // 如果params中存在type，取值之
   	},
     whichFilms () {
+      console.log('!!whichFilms');
       return this.whichType === COMING_SOON ? this.comingSoonFilms : this.nowPlayingFilms
+    }
+  },
+  route: {
+    data() {
+      console.log('!!route data');
+      this.whichType === COMING_SOON ? this.fetchComingSoonFilms(1, 10) : this.fetchNowPlayingFilms(1, 10)
     }
   },
   components: {

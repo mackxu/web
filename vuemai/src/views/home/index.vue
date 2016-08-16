@@ -56,9 +56,9 @@ export default {
   },
   ready() {
     console.log('ready!');
-    // this.fetchBillboards()
-    // this.fetchNowPlayingFilms(1, 5)
-    // this.fetchComingSoonFilms(1, 5)
+    this.fetchBillboards()
+    this.fetchNowPlayingFilms(1, 5)
+    this.fetchComingSoonFilms(1, 5)
   },
   created () {
     console.log('created!');

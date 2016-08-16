@@ -1,6 +1,6 @@
 export default (router) => router.map({
   '/': {
-    name: 'index',
+    name: 'home',
     component: resolve => {
       require(['./views/home'], resolve)
     }
@@ -9,10 +9,6 @@ export default (router) => router.map({
     name: 'filmList',
     component: resolve => {
       require(['./views/film/list'], resolve)
-    },
-    data (transition) {
-      console.log('11111111111');
-      transition.next();
     }
   },
   '/film/:id': {

@@ -62,7 +62,6 @@ export default {
 }
 .movie-name { color: #000; font-size: 0.32rem; line-height: 2; margin-bottom: 0.16rem; }
 .movie-next-arrow { float: right; line-height: 0.6rem; color: #c6c6c6; }
-.movie-next-icon { font-size: 0.1rem !important; }
 .movie-score { float: right; line-height: 0.64rem; color: #fc7103; font-size: 0.32rem; }
 .movie-intro { margin-bottom: 0.2rem; }
 .movie-count span { color: #8aa2bf; }

@@ -63,8 +63,18 @@ body {
     width: 100%;
     height: auto;
 }
-.clearfix::after {
+.clearfix::before, .clearfix::after {
     display: table;
-    clear: both;
-    content: "";
+    content: " ";
 }
+.clearfix::after { clear: both }
+
+/* element is block or inline-block */
+.text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fl { float: left }
+.fr { float: right }
