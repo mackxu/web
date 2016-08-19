@@ -1,10 +1,10 @@
 import * as Types from 'types'
 
 const state = {
-    comingSoonFilms: [],
-    nowPlayingFilms: [],
-    detail: {},
-    billboards: []
+    comingSoonFilms: null,
+    nowPlayingFilms: null,
+    detail: null,
+    billboards: null
 }
 
 const mutations = {

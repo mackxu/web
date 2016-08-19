@@ -15,6 +15,9 @@ const mutations = {
     },
     [Types.FINISH_LOADING] (state) {
         state.loading = false
+    },
+    [Types.UPDATE_TITLE] (state, title) {
+        state.title = title
     }
 }
 

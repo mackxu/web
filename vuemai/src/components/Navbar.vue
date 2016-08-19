@@ -2,7 +2,7 @@
     <nav class="app-nav">
     	<a href="javascript:;" class="fl aside" @click="showLeftNav()">
     		<div class="fl navbar-title-icon"><i class="iconfont icon-list"></i></div>
-    		<h1 class="fl text-overflow title">爱奇艺电影</h1>
+    		<h1 class="fl text-overflow title" v-text="title"></h1>
     	</a>
     	<div class="fr bside">
     		<a href="#" v-link="{path:'/city'}" class="fl nav-city">
@@ -19,11 +19,15 @@
 <script>
 
 import { showLeftNav } from 'actions'
+import { getNavTitle } from 'getters'
 
 export default {
 
   name: 'component_navbar',
   vuex: {
+    getters: {
+      title: getNavTitle
+    },
   	actions: {
   		showLeftNav
   	}

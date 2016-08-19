@@ -11,3 +11,5 @@ export const SHOW_LEFTNAV = 'SHOW_LEFTNAV'
 export const START_LOADING = 'START_LOADING'
 
 export const FINISH_LOADING = 'FINISH_LOADING'
+
+export const UPDATE_TITLE = 'UPDATE_TITLE'

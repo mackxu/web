@@ -4,7 +4,7 @@
       <a href="#" v-link="{path:'/films/now_playing', replace: true}" class="v-link">正在热播</a>
       <a href="#" v-link="{path:'/films/coming_soon', replace: true}" class="v-link">即将上映</a>
     </div>
-    <ul class="film-list">
+    <ul class="film-list" v-if="whichFilms">
       <list-item :type="whichType" v-for="film in whichFilms" :film="film"></list-item>
     </ul>
   </section>
@@ -42,7 +42,6 @@ export default {
       fetchComingSoonFilms
     }
   },
-
   data () {
     return {
     	type: NOW_PLAYING

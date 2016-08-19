@@ -1,5 +1,6 @@
 <template>
-    <section class="movie-view">
+    <!-- 异步加载数据，数据未获取到前, film为空 -->
+    <section class="movie-view" v-if="film">
         <div class="movie-cover-wrap">
             <img :src="film.cover.origin" class="img-responsive" :alt="film.name">
         </div>
@@ -29,11 +30,12 @@ export default {
         film: getDetail
     },
     actions: {
-        fetchFilmDetail
+        fetchFilmDetail,
+        updateNavTitle: ({dispatch}, title) => dispatch('UPDATE_TITLE', title)
     }
   },
   route: {
-    data () {
+    data (transition) {
         this.fetchFilmDetail(this.$route.params.id)
     }
   },
