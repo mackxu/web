@@ -26,9 +26,7 @@ const _fetch = (dispatch, url, type) => {
         .then(res => {
             return res.status === 0 ? dispatch(type, res.data) :
                 Promise.reject(new Error(type + ' failure'))
-        }, err => {
-            Promise.reject(new Error(type + ' failure'))
-        }.catch(err => {
+        }).catch(err => {
             return Promise.reject(err)
         }) 
 }

@@ -41,18 +41,17 @@ export default {
 	background-color: #282828;
 	box-shadow: 0 1px 1px #363636 inset;
 	border-top: 1px solid #222;
+  transform: none;
 }
 
 .menu-item { line-height: 1rem; }
 .menu-item a { display: block; padding: 0 0.32rem; border-bottom: 1px solid #333; color: #9a9a9a; font-size: 0.28rem; }
 .icon-arrow-right { color: #666; font-size: 0.24rem; float: right; }
 
-.fade-transition {
-	transition: all .5s ease;
-}
+.fade-transition { transition: all .5s ease; }
 .fade-enter, .fade-leave { opacity: 0 }
 
-.expand-transition { transition: width .4s ease; }
-.expand-enter, .expand-leave { width: 0 }
+.expand-transition { transition: all .4s ease; }
+.expand-enter, .expand-leave { transform: translateX(-100%); }
 
 </style>
