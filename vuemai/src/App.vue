@@ -15,8 +15,11 @@ require('./assets/styles/reset.css')
 require('./assets/styles/icon.css')
 
 import store from 'store'
-import { getLoadingState } from 'getters'
-import { updateTitle } from 'actions'
+import { 
+  getLoadingState,
+  getLeftNavState
+} from 'getters'
+import { updateTitle, showLeftNav } from 'actions'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 
@@ -24,9 +27,13 @@ export default {
   name: 'component_app',
   vuex: {
     getters: {
-      loading: getLoadingState
+      loading: getLoadingState,
+      LeftNavShowed: getLeftNavState
     },
-    actions: { updateTitle }
+    actions: { 
+      updateTitle, 
+      showLeftNav 
+    }
   },
   components: {
     Navbar,
@@ -43,8 +50,8 @@ export default {
   },
   created () {
     this.$route.router.afterEach(({ to }) => {
-      console.log(to.name)
       this.updateTitle('爱奇艺电影')
+      this.LeftNavShowed && this.showLeftNav()
     })
   }
 }
