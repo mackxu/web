@@ -16,6 +16,7 @@ require('./assets/styles/icon.css')
 
 import store from 'store'
 import { getLoadingState } from 'getters'
+import { updateTitle } from 'actions'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 
@@ -24,20 +25,27 @@ export default {
   vuex: {
     getters: {
       loading: getLoadingState
-    }
+    },
+    actions: { updateTitle }
   },
   components: {
     Navbar,
     Sidebar
   },
   store,
-  ready() {
+  ready () {
     // 计算根元素的font-size大小
     var html = document.documentElement;
     var windowWidth = html.clientWidth;
     html.style.fontSize = windowWidth / 6.4 + 'px';
 
     console.log('html size calculate!!');
+  },
+  created () {
+    this.$route.router.afterEach(({ to }) => {
+      console.log(to.name)
+      this.updateTitle('爱奇艺电影')
+    })
   }
 }
 </script>

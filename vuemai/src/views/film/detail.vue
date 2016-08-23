@@ -20,7 +20,7 @@
 
 <script>
 import { getDetail } from 'getters'
-import { fetchFilmDetail } from 'actions'
+import { fetchFilmDetail, updateTitle } from 'actions'
 import { timestampFormat } from '../../filters'
 export default {
 
@@ -31,12 +31,15 @@ export default {
     },
     actions: {
         fetchFilmDetail,
-        updateNavTitle: ({dispatch}, title) => dispatch('UPDATE_TITLE', title)
+        updateNavTitle: updateTitle
     }
   },
   route: {
-    data (transition) {
-        this.fetchFilmDetail(this.$route.params.id)
+    data () {
+        console.log('detail route')
+        this.fetchFilmDetail(this.$route.params.id).then(() => {
+            this.updateNavTitle(this.film.name)
+        })
     }
   },
   filters: {
