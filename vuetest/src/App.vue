@@ -2,7 +2,9 @@
   <div id="app">
     <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
-    <List></List>
+    <!-- <List></List> -->
+    <a href="javascript:;" v-tap="hello" :msg="msg">tap test</a><br>
+    <a href="javascript:;" v-tap="hello" :msg="msg">tap test</a>
   </div>
 </template>
 
@@ -12,6 +14,11 @@ export default {
   data () {
     return {
       msg: 'Hello Vue!'
+    }
+  },
+  methods: {
+    hello (name) {
+      console.log(name)
     }
   },
   components: {
