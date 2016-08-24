@@ -49,6 +49,11 @@ export default {
 
 		color: #000;
 	}
+	.movie-cover {
+		height: 0;
+		padding-bottom: 51.25%;
+		overflow: hidden;
+	}
 	.movie-desc {
 		padding: 0.24rem 0.2rem;
 		background-color: #fff;

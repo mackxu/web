@@ -77,6 +77,7 @@ export default {
 
     margin-bottom: 0.32rem;
   }
+  .swipe-item { will-change: transform; }
   .my-swipe img{
     width: 100%;
     display: block;

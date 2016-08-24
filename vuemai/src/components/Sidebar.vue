@@ -48,10 +48,10 @@ export default {
 .menu-item a { display: block; padding: 0 0.32rem; border-bottom: 1px solid #333; color: #9a9a9a; font-size: 0.28rem; }
 .icon-arrow-right { color: #666; font-size: 0.24rem; float: right; }
 
-.fade-transition { transition: all .5s ease; }
+.fade-transition { transition: opacity .5s ease; will-change: transform; }
 .fade-enter, .fade-leave { opacity: 0 }
 
-.expand-transition { transition: all .4s ease; }
+.expand-transition { transition: all .4s ease; will-change: transform; }
 .expand-enter, .expand-leave { transform: translateX(-100%); }
 
 </style>
