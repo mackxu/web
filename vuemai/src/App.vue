@@ -15,7 +15,11 @@ require('./assets/styles/reset.css')
 require('./assets/styles/icon.css')
 
 import store from 'store'
-import { getLoadingState } from 'getters'
+import { 
+  getLoadingState,
+  getLeftNavState
+} from 'getters'
+import { updateTitle, showLeftNav } from 'actions'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 
@@ -23,7 +27,12 @@ export default {
   name: 'component_app',
   vuex: {
     getters: {
-      loading: getLoadingState
+      loading: getLoadingState,
+      LeftNavShowed: getLeftNavState
+    },
+    actions: { 
+      updateTitle, 
+      showLeftNav 
     }
   },
   components: {
@@ -31,13 +40,19 @@ export default {
     Sidebar
   },
   store,
-  ready() {
+  ready () {
     // 计算根元素的font-size大小
     var html = document.documentElement;
     var windowWidth = html.clientWidth;
     html.style.fontSize = windowWidth / 6.4 + 'px';
 
     console.log('html size calculate!!');
+  },
+  created () {
+    this.$route.router.afterEach(({ to }) => {
+      this.updateTitle('爱奇艺电影')
+      this.LeftNavShowed && this.showLeftNav()
+    })
   }
 }
 </script>

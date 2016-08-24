@@ -5,10 +5,9 @@ const BASE_URL = 'http://m.maizuo.com/v4/api'
 const _get = (url) => {
     url += (url.indexOf('?') === -1 ? '?' : '&') + '_t=' + (+new Date())
     return Vue.http.get(url).then((res) => {
-        if(res.status >= 200 && res.status < 300 ) {
-            return res.data
-        }
-        return Promise.reject(new Error(res.status))
+        return new Promise((resolve, reject) => {
+            res.ok ? resolve(res.data) : reject(new Error(res.status))
+        })
     })
 }
 
@@ -23,9 +22,14 @@ const _post = (url, params) => {
 
 const _fetch = (dispatch, url, type) => {
     return _get(url)
-        .then(res => {
-            return res.status === 0 ? dispatch(type, res.data) :
-                Promise.reject(new Error(type + ' failure'))
+        .then(({ status, data }) => {
+            return new Promise((resolve, reject) => {
+                if ( 0 === status ) {
+                    resolve(dispatch(type, data))
+                }else {
+                    reject(new Error(type + ' failure'))
+                }
+            })
         }).catch(err => {
             return Promise.reject(err)
         }) 
@@ -81,4 +85,8 @@ export const fetchBillboards = ({dispatch}) => {
  */
 export const showLeftNav = ({ dispatch }) => {
     dispatch(Types.SHOW_LEFTNAV)
+}
+
+export const updateTitle = ({ dispatch }, newValue) => {
+    dispatch(Types.UPDATE_TITLE, newValue)
 }
