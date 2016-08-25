@@ -3,8 +3,11 @@
     <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
     <!-- <List></List> -->
-    <a href="javascript:;" v-tap="hello" :msg="msg">tap test</a><br>
-    <a href="javascript:;" v-tap="hello" :msg="msg">tap test</a>
+    <div class="wrapper" v-tap="hello">
+      <p>two button</p>
+      <a href="javascript:;" v-tap.stop="hello" :msg="msg">tap test</a><br>
+      <a href="javascript:;" v-tap.stop="hello" :msg="msg">tap test</a>
+    </div>
   </div>
 </template>
 
