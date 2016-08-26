@@ -78,6 +78,7 @@ exports.install = (Vue, Options) => {
 		el.removeEventListener('touchend', el._touchend, false)
 	}
 	let addListener = (el, binding, vnode) => {
+		console.log('addListener')
 		let fn = binding.value
 
 		if(typeof fn !== 'function') {
@@ -92,7 +93,6 @@ exports.install = (Vue, Options) => {
 	Vue.directive('tap', {
 		acceptStatement : true,
 		bind: addListener,
-		update: addListener,
 		unbind: componentWillUnmount
 	})
 }
