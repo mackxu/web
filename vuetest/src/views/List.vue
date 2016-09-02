@@ -1,13 +1,19 @@
+<style lang="css" scoped>
+.list-wrapper { width: 750px; overflow: hidden; margin-bottom: 30px;}
+.list { width: 10000px; }
+li { display: inline-block; }
+a { display: block; width: 200px; height: 120px; background-color: #2196f3; margin: 0 5px 10px; }
+</style>
 <template>
-	<div class="list">
-		<ul class="list-img">
-			<li v-for="img in list" class="item-img">
-				<div class="img-wrap">
-					<img v-lazy="img" alt="">
-				</div>
-			</li>
-		</ul>
-	</div>
+  <div class="list-wrapper">
+    <ul class="list" v-key:list.hori="myList">
+      <li class="focusable focus-current"><a href="">a</a></li>
+      <li class="focusable"><a href="">b</a></li>
+      <li class="focusable"><a href="">c</a></li>
+      <li class="focusable"><a href="">d</a></li>
+      <li class="focusable"><a href="">e</a></li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -17,56 +23,21 @@ export default {
 
   data () {
     return {
-    	list: [
-    		'http://hilongjw.github.io/vue-lazyload/dist/test1.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test2.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test3.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test4.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test5.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test6.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test7.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test8.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test9.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test10.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test2.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test3.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test4.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test5.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test6.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test7.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test8.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test9.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test10.jpg',
-    		'http://hilongjw.github.io/vue-lazyload/dist/test11.jpg'
-    	]
-    };
+        currFocus: 0,
+        isScope: true
+    }
+  },
+  methods: {
+    scopeLeft () {
+        console.log('scopeLeft')
+        return 'changescope'
+    },
+    focusLeft () {
+        console.log('focusLeft')
+        // 改变UI相关的数据
+        this.currFocus -= 1
+        console.log(this.currFocus)
+    }
   }
 };
 </script>
-
-<style lang="css" scoped>
-* {
-	box-sizing: border-box;
-}
-ul,li, body { padding: 0; margin: 0;  }
-.list-img {
-
-}
-.item-img {
-	display: inline-block;
-	width: 50%;
-	padding: 0 5px;
-	margin-bottom: 10px;
-}
-.img-wrap {
-	overflow: hidden;
-	width: 100%;
-	height: 0;
-	padding-bottom: 119.83%;
-}
-.item-img img {
-	display: block;
-	width: 100%;
-	height: auto;
-}
-</style>

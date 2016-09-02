@@ -1,15 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
-import VueLazyload from 'vue-lazyload'
-import VueTap from './directives/tap'
+import Dpad from './directives/dpad.js'
 
-Vue.use(VueLazyload, {
-	preLoad: 1.3
-})
-
-Vue.use(VueTap)
+Vue.use(Dpad)
 
 new Vue({
-  el: '#app',
-  render: h => h(App)
+  el: 'body',
+  components: { App }
 })

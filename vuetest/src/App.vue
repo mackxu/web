@@ -1,37 +1,45 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
-    <!-- <List></List> -->
-    <div class="wrapper" v-tap="hello">
-      <p>two button</p>
-      <a href="javascript:;" v-tap.stop="hello" :msg="msg">tap test</a><br>
-      <a href="javascript:;" v-tap.stop="hello" :msg="msg">tap test</a>
-    </div>
+    <!-- <demo></demo> -->
+    <hori></hori>
   </div>
 </template>
 
 <script>
-import List from './views/List'
+import Demo from './views/demo.vue'
+import Hori from './views/hori.vue'
 export default {
   data () {
     return {
+      // note: changing this line won't causes changes
+      // with hot-reload because the reloaded component
+      // preserves its current state and we are modifying
+      // its initial state.
       msg: 'Hello Vue!'
     }
   },
-  methods: {
-    hello (name) {
-      console.log(name)
-    }
-  },
-  components: {
-    List
+  components: { Demo, Hori },
+  ready () {
+    // window.addEventListener('keydown', e => {
+    //   let which = e.which || e.keyCode
+    //   this.$broadcast('changeFocus', which)
+    // })
   }
 }
 </script>
 
 <style>
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+
+  padding: 0;
+  margin: 0;
+}
+ul { list-style: none; }
 body {
   font-family: Helvetica, sans-serif;
 }
+html, body { height: 100%; }
 </style>
