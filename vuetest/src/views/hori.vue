@@ -6,53 +6,81 @@
 }
 .list {
 	position: absolute; top: 0; left: 0; width: 9999px;
-	transition: transform .5s; margin: 30px 0;
+	transition: transform .5s cubic-bezier(.17,.67,.83,.67); margin: 30px 0;
 }
 li {
-	height: 120px; width: 200px; margin-left: 20px;
+	padding: 0 10px;
 	float: left;
+}
+a {
+	display: block;
+	height: 120px;
+	width: 200px;
 	background-color: #009688;
 	transition: transform .5s;
 }
-.focus {
+.current-scope .focus a {
 	transform: scale(1.1);
+	background-color: #f00;
 }
 </style>
 <template>
 
-<div class="wrapper" v-scope:list.hori="changeFocus" :data-focusIndex="focusIndex" data-name="myList">
+<div group class="wrapper"
+	v-scope:list.hori="items"
+	:class="{ 'current-scope': currentScope }"
+	:data-focus-index="focusIndex"
+	:data-offset="listTop"
+	:data-current-scope="currentScope"
+	>
 	<ul class="list" :style="{transform: 'translateX(' + listTop + 'px)'}">
-		<li focusable :class="{focus: focusIndex === 1}"><a href="#">1 {{ listTop }}</a></li>
-		<li focusable :class="{focus: focusIndex === 2}"><a href="#">2</a></li>
-		<li focusable :class="{focus: focusIndex === 3}"><a href="#">3</a></li>
-		<li focusable :class="{focus: focusIndex === 4}"><a href="#">4</a></li>
-		<li focusable :class="{focus: focusIndex === 5}"><a href="#">5</a></li>
-		<li focusable :class="{focus: focusIndex === 6}"><a href="#">6</a></li>
-		<li focusable :class="{focus: focusIndex === 7}"><a href="#">7</a></li>
-		<li focusable :class="{focus: focusIndex === 8}"><a href="#">8</a></li>
-		<li focusable :class="{focus: focusIndex === 9}"><a href="#">9</a></li>
+		<li focusable v-for="item in items" :class="{focus: focusIndex === $index}">
+			<a href="#">{{$index}}</a>
+		</li>
 	</ul>
 </div>
 </template>
 
 <script>
-let keyMap = {
-  37: -1,
-  39: +1
-}
 export default {
   name: 'component_name-hori',
+  props: {
+  	currentScope: {
+  		type: Boolean,
+  		default: false
+  	},
+  	items: {
+  		type: Array,
+  		default: () => {
+  			return []
+  		}
+  	},
+  	scopeName: {
+  		type: String
+  	}
+  },
   data () {
     return {
     	listTop: 0,
-    	focusIndex: 1,
-    	currentScope: true
-    };
+    	focusIndex: 0
+    }
+  },
+  events: {
+  	updateFocus (step) {
+  		this.focusIndex += step
+  	},
+  	updateXOffset (offset) {
+  		this.listTop = offset
+  	}
   },
   methods: {
   	changeFocus (step, offset) {
   		step && (this.focusIndex += step)
-  		offset && (this.listTop += offset)
+  		if(offset) {
+  			this.focusIndex === 0 ? (this.listTop = 0) : (this.listTop = offset)
+  			// console.log(this.listTop)
+  		}
+
   	}
   }
 }
