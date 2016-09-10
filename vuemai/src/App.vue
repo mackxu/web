@@ -15,7 +15,7 @@ require('./assets/styles/reset.css')
 require('./assets/styles/icon.css')
 
 import store from 'store'
-import { 
+import {
   getLoadingState,
   getLeftNavState
 } from 'getters'
@@ -30,9 +30,9 @@ export default {
       loading: getLoadingState,
       LeftNavShowed: getLeftNavState
     },
-    actions: { 
-      updateTitle, 
-      showLeftNav 
+    actions: {
+      updateTitle,
+      showLeftNav
     }
   },
   components: {
