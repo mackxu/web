@@ -1,44 +1,23 @@
-<style lang="css" scoped>
-li { display: inline-block; }
-a { display: block; width: 200px; height: 120px; background-color: #009688; margin: 0 5px 10px; }
+<style>
+
 </style>
 <template>
-	<ul class="grid" v-key:grid="myGrid">
-		<li class="focusable focus-current"><a href="#">1</a></li>
-		<li class="focusable"><a href="#">2</a></li>
-		<li class="focusable"><a href="#">3</a></li>
-		<li class="focusable"><a href="#">4</a></li>
-		<li class="focusable"><a href="#">5</a></li>
-		<li class="focusable"><a href="#">6</a></li>
-		<li class="focusable"><a href="#">7</a></li>
-		<li class="focusable"><a href="#">8</a></li>
-		<li class="focusable"><a href="#">9</a></li>
-	</ul>
+  <Grid :items="items" class="current-scope" data-current-scope></Grid>
 </template>
 
 <script>
+import Grid from './grid-content.vue'
 export default {
-
-  name: 'component_name-grid',
-
-  props: {
-  	testProp: Function,
-  },
-
   data () {
     return {
-    	focusIndex: 0
-    };
+      items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    }
   },
   methods: {
-  	updateFocus (step) {
-  		this.focusIndex += step
-  	},
-  	childClick () {
-  		console.log('childClick')
-  		this.$emit('testEvent')
-  		this.testProp.call()
-  	}
-  }
-};
+    selectComponet (name) {
+      this.currentView = name
+    }
+  },
+  components: { Grid }
+}
 </script>

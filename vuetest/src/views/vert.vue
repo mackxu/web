@@ -1,18 +1,18 @@
-<style lang="css" scoped>
+<style>
+
 </style>
 <template>
-	<p>vertical</p>
+  <Vert :items="items" :current-scope="true"></Vert>
 </template>
 
 <script>
+import Vert from './vert-content.vue'
 export default {
-
-  name: 'component_name-vert',
-
   data () {
     return {
-
-    };
-  }
-};
+      items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    }
+  },
+  components: { Vert }
+}
 </script>

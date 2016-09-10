@@ -29,11 +29,9 @@ a {
 <div group class="wrapper"
 	v-scope:list.hori="items"
 	:class="{ 'current-scope': currentScope }"
-	:data-focus-index="focusIndex"
-	:data-offset="listTop"
 	:data-current-scope="currentScope"
 	>
-	<ul class="list" :style="{transform: 'translateX(' + listTop + 'px)'}">
+	<ul class="list" :style="{transform: 'translateX(' + offset + 'px)'}">
 		<li focusable v-for="item in items" :class="{focus: focusIndex === $index}">
 			<a href="#">{{$index}}</a>
 		</li>
@@ -51,9 +49,7 @@ export default {
   	},
   	items: {
   		type: Array,
-  		default: () => {
-  			return []
-  		}
+  		default: () => []
   	},
   	scopeName: {
   		type: String
@@ -61,7 +57,7 @@ export default {
   },
   data () {
     return {
-    	listTop: 0,
+    	offset: 0,
     	focusIndex: 0
     }
   },
@@ -69,8 +65,8 @@ export default {
   	updateFocus (step) {
   		this.focusIndex += step
   	},
-  	updateXOffset (offset) {
-  		this.listTop = offset
+  	updateOffset (offset) {
+  		this.offset = offset
   	}
   },
   methods: {

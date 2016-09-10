@@ -1,62 +1,3 @@
-<template>
-  <div id="app">
-    <h1>{{ msg }}</h1>
-    <!-- <demo></demo> -->
-    <div class="container"
-      v-scope.group
-      :data-focus-index="focusIndex"
-      data-focus-name="group">
-      <hori
-        data-group-name="list1"
-        data-next='{"bottom": "list2"}'
-        :current-scope="focusIndex === 'list1'"
-        :items="items">
-      </hori>
-      <hori
-        data-group-name="list2"
-        data-next='{"top": "list1", "bottom": "list3"}'
-        :current-scope="focusIndex === 'list2'"
-        :items="items">
-      </hori>
-      <hori
-        data-group-name="list3"
-        data-next='{"top": "list2"}'
-        :current-scope="focusIndex === 'list3'"
-        :items="items">
-      </hori>
-    </div>
-  </div>
-</template>
-
-<script>
-import Demo from './views/demo.vue'
-import Hori from './views/hori.vue'
-export default {
-  data () {
-    return {
-      msg: 'Hello Vue!',
-      focusIndex: 'list1',
-      offset: 0,
-      items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    }
-  },
-  methods: {
-    changeFocus (step) {
-      this.focusIndex += step
-    }
-  },
-  events: {
-    updateFocus (name) {
-      this.focusIndex = name
-    },
-    updateXOffset (offset) {
-      this.listTop = offset
-    }
-  },
-  components: { Demo, Hori }
-}
-</script>
-
 <style>
 * {
   -webkit-box-sizing: border-box;
@@ -69,6 +10,49 @@ ul { list-style: none; }
 body {
   font-family: Helvetica, sans-serif;
 }
-html, body { height: 100%; }
-.container { padding: 0 20px; }
+html, body, #app { height: 100%; overflow: hidden; }
+.container:after, .container:before {
+  content: "";
+  display: table;
+}
+.nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}
 </style>
+<template>
+  <div id="app">
+    <component :is="currentView" ></component>
+    <ul class="nav">
+      <li><a href="javascript:;" @click.stop.prevent="selectComponet('Index')">Index</a></li>
+      <li><a href="javascript:;" @click.stop.prevent="selectComponet('Grid')">Grid</a></li>
+      <li><a href="javascript:;" @click.stop.prevent="selectComponet('Vert')">Vert</a></li>
+      <li><a href="javascript:;" @click.stop.prevent="selectComponet('Group')">Group</a></li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import Demo from './views/demo.vue'
+import Index from './views/index.vue'
+import Vert from './views/vert.vue'
+import Grid from './views/grid.vue'
+import Group from './views/group.vue'
+export default {
+  data () {
+    return {
+      msg: 'Hello Vue!',
+      items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      currentView: 'Group'
+    }
+  },
+  methods: {
+    selectComponet (name) {
+      this.currentView = name
+    }
+  },
+  components: { Demo, Index, Vert, Grid, Group }
+}
+</script>
