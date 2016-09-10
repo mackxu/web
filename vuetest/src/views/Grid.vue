@@ -2,7 +2,7 @@
 
 </style>
 <template>
-  <Grid :items="items" class="current-scope" data-current-scope></Grid>
+  <Grid :items="items" :current-scope="true"></Grid>
 </template>
 
 <script>
