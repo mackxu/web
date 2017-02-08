@@ -1,0 +1,31 @@
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+	<style>
+	.overflow {
+		width: 200px;
+		height: 150px;
+		background-color: #f0f;
+		border: 5px solid #ff0;
+		overflow: hidden;
+		/*position: relative;*/
+	}
+	/* 一个绝对定位的子孙元素，部分内容在盒子(此盒子没有设置relative)外。但超出的部分不是总会被剪裁。*/
+	.block {
+		width: 300px;
+		height: 80px;
+		background-color: #0ff;
+		position: absolute;
+	}
+	.overflow img {
+		position: absolute;
+	}
+	</style>
+</head>
+<body>
+<div class="overflow">
+	<div class="block"></div>
+	<img src="images/500x250.jpg" alt="">
+</div>
+</body>
+</html>
