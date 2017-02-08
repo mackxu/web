@@ -11,6 +11,7 @@
 		/*position: relative;*/
 	}
 	/* 一个绝对定位的子孙元素，部分内容在盒子(此盒子没有设置relative)外。但超出的部分不是总会被剪裁。*/
+	/* absolute绝对定位元素，如果含有overflow不为visible的父级元素，同时，该父级元素以及到该绝对定位元素之间任何嵌套元素都没有position为非static属性的声明，则overflow对该absolute元素不起作用。 */
 	.block {
 		width: 300px;
 		height: 80px;
