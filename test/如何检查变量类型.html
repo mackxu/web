@@ -1,0 +1,36 @@
+<!--
+JS基本数据类型有5种: 字符串、数字、布尔值、null、undefined.
+用户定义的类型（object）并没有类的声明，因此继承关系只能通过构造函数和原型链来检查。
+
+结论：
+如果判断的是基本类型或者内置对象，使用toString().
+如果判断的是自定义类型，使用instanceOf
+-->
+<script>
+	var log = console.log;
+	// typeof操作法返回类型字符串
+	// typeof只能用于基本数据类型检测，对于null还有Bug
+	log(typeof 3);							// 'number'
+	log(typeof 'abc')						// 'string'
+	log(typeof true)						// 'boolean'
+	log(typeof undefined)				// 'undefined'
+	log(typeof function() {})		// 'function'
+	log(typeof {})							// 'object'
+	log(typeof [])							// 'object'
+	log(typeof null)						// 'object'
+
+	// instanceof操作符用于检查某个对象的原型链是否包含某个构造函数的prototype属性。
+	// constructor属性返回一个指向创建了该对象原型的函数引用。需要注意的是，该属性的值是那个函数本身。
+	// 跨窗口问题. instanceof、constructor会有问题
+	// toString方法是最为可靠的类型检测手段，它会将当前对象转换为字符串并输出
+	var toString = Object.prototype.toString;
+	log(toString.call(new Date))
+	log(toString.call([]))
+	log(toString.call(function() {}))
+	log(toString.call('abc'))
+	log(toString.call({}))
+	log(toString.call(3))
+	log(toString.call(true))
+	log(toString.call(null))
+	log(toString.call(undefined))
+</script>
