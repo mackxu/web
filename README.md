@@ -1,7 +1,7 @@
 web
 ===
 
-### submit text2的注册信息
+### 1.submit text2的注册信息
 Andrew Weber
 Single User License
 EA7E-855605
