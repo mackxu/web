@@ -146,7 +146,7 @@ exports.install = (Vue, options) => {
 			let currentScope = scopes.find(scope => {
 				return scope.el.hasAttribute('data-current-scope')
 			})
-			// dispatch 派发事件, 先在实例上出发它, 然后沿着父链向上冒泡
+			// dispatch 派发事件, 先在实例上触发它, 然后沿着父链向上冒泡
 			// 监听器返回true 会继续冒泡
 			currentScope && currentScope.vm.$emit('_switch', e)
 		},

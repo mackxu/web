@@ -4,6 +4,10 @@
 
 ## Build Setup
 
+*先安装nodejs*
+
+vue语法 http://cn.vuejs.org/v2/guide/
+
 ``` bash
 # install dependencies
 npm install
