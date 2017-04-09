@@ -1,0 +1,10 @@
+.main {
+  clear: both;
+}
+.container {
+  width: 100px;
+  float: left;
+}
+.container + .container {
+  margin-left: 20px;
+}
