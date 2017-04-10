@@ -1,3 +1,20 @@
+<style lang="css" scoped>
+  .my-swipe{
+    height: 3.6rem;
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+    overflow: hidden;
+
+    margin-bottom: 0.32rem;
+  }
+  .swipe-item { will-change: transform; }
+  .my-swipe img{
+    width: 100%;
+    display: block;
+    /*transform: translateZ(0);*/
+  }
+</style>
 <template>
     <section class="container">
         <swipe class="my-swipe" v-if="billboards">
@@ -67,20 +84,3 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
-  .my-swipe{
-    height: 3.6rem;
-    color: #ffffff;
-    font-size: 30px;
-    text-align: center;
-    overflow: hidden;
-
-    margin-bottom: 0.32rem;
-  }
-  .swipe-item { will-change: transform; }
-  .my-swipe img{
-    width: 100%;
-    display: block;
-    transform: translateZ(0);
-  }
-</style>
