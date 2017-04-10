@@ -2,7 +2,7 @@
     <section class="container">
         <swipe class="my-swipe" v-if="billboards">
             <swipe-item v-for="billboard in billboards">
-                <a href="{{billboard.url}}">
+                <a :href="billboard.url">
                     <img :src="billboard.imageUrl" alt="">
                 </a>
             </swipe-item>
