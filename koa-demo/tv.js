@@ -74,11 +74,11 @@ function write(file, data) {
 
 /**
  * 解析出config配置
- * @param {sting} config
+ * @param {string} config
  */
 function parseConfigJSON(config) {
     // 分出JSON字符串
-    var config = config.slice(9, -2);
+    config = config.slice(9, -2);
 
     // 解析JSON并返回
     return JSON.parse(config);

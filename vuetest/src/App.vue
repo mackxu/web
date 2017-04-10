@@ -25,12 +25,12 @@ html, body, #app { height: 100%; overflow: hidden; }
 <template>
   <div id="app">
     <component :is="currentView" ></component>
-    <ul class="nav">
+    <!-- <ul class="nav">
       <li><a href="javascript:;" @click.stop.prevent="selectComponet('Index')">Index</a></li>
       <li><a href="javascript:;" @click.stop.prevent="selectComponet('Grid')">Grid</a></li>
       <li><a href="javascript:;" @click.stop.prevent="selectComponet('Vert')">Vert</a></li>
       <li><a href="javascript:;" @click.stop.prevent="selectComponet('Group')">Group</a></li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
@@ -45,7 +45,7 @@ export default {
     return {
       msg: 'Hello Vue!',
       items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-      currentView: 'Group'
+      currentView: 'Demo'
     }
   },
   methods: {
@@ -53,6 +53,6 @@ export default {
       this.currentView = name
     }
   },
-  components: { Demo, Index, Vert, Grid, Group }
+  components: { Index, Vert, Grid, Group, Demo }
 }
 </script>

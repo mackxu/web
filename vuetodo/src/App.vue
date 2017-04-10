@@ -1,111 +1,44 @@
-<style src="todomvc-app-css/index.css"></style>
+<style lang="css">
+  .container { width: 500px; height: 300px; font-size: 32px; }
+  .container-home {  }
+  .container-epg {}
+  .container-detail {}
+  .container-subject {}
+  .container-play {}
+</style>
+
 <template>
-  <section class="todoapp">
-    <!-- header -->
-    <header class="header">
-      <h1>todos</h1>
-      <input
-        class="new-todo"
-        autofocus
-        autocomplete="off"
-        placeholder="what needs to be done?"
-        @keyup.enter="tryAddTodo" />
-    </header>
-    <!-- main -->
-    <section class="main" v-show="todos.length">
-      <input class="toggle-all"
-        type="checkbox"
-        :checked="allChecked"
-        @change="toggleAll(!allChecked)" />
-      <ul class="todo-list">
-        <!-- todo item: 传递todo数据 -->
-        <Todo v-for="todo in filteredTodos" :todo="todo"></Todo>
-      </ul>
-    </section>
-    <!-- footer -->
-    <footer class="footer" v-show="todos.length">
-      <span class="todo-count">
-        <strong>{{remaining}}</strong>
-        {{ remaining | pluralize 'item' }} left
-      </span>
-      <ul class="filters">
-        <li v-for="(key, val) of filters">
-          <a :href="'#/' + key"
-            :class="{ selected: visibility === key }"
-            @click="visibility = key">
-            {{ key | capitalize }}
-          </a>
-        </li>
-      </ul>
-      <button class="clear-completed"
-        v-show="todos.length > remaining"
-        @click="clearCompleted">
-        Clear completed
-      </button>
-    </footer>
-  </section>
+  <div class="container container-home" v-show="currPage === 'home'">home-1</div>
+  <div class="container container-epg" v-show="currPage === 'epg'">epg-2</div>
+  <div class="container container-detail" v-show="currPage === 'detail'">detail-3</div>
+  <div class="container container-subject" v-show="currPage === 'subject'">subject-4</div>
+  <div class="container container-play" v-show="currPage === 'play'">play-5</div>
 </template>
 
 <script>
-
-import Todo from './components/Todo'
-import {
-  addTodo,
-  toggleAll,
-  clearCompleted
-} from './vuex/actions'
-
-const filters = {
-  all: todos => todos,
-  active: todos => todos.filter(todo => !todo.done),
-  completed: todos => todos.filter(todo => todo.done)
-}
+// 引入js库
+import Utils from './libs/utils'
 
 export default {
-  components: {
-    Todo
-  },
-  vuex: {
-    getters: {
-      todos: state => state.todos
-    },
-    actions: {
-      addTodo,
-      toggleAll,
-      clearCompleted
-    }
-  },
   data () {
     return {
-      visibility: 'all',        // filters: 'all', 'active', 'completed' 
-      filters: filters
+      currPage: 'home'    // 修改此处
     }
   },
-  computed: {
-    // 未完成的todo的数量
-    remaining () {
-      return this.todos.filter(todo => !todo.done).length
-    },
-    allChecked () {
-      return this.todos.every(todo => todo.done)
-    },
-    // todos计算属性：显示筛选this.visibility的todos
-    filteredTodos () {
-      return filters[this.visibility].call(this, this.todos)
-    }
+  methods: {    // 方法
+    
   },
-  methods: {
-    tryAddTodo (e) {
-      let text = e.target.value
-      if (text.trim()) {
-        this.addTodo(text)
-      }
-      e.target.value = ''
-    }
-  },
-  filters: {
-    // pluralize: (n, w) => n < 2 ? w : (w + 's'),               // n == 1 单数, n >= 2 复数
-    // capitalize: s => s.charAt(0).toUpperCase() + s.slice(1)   // 把首字母大写
+  ready() {
+
+    Utils.test();
+    window.addEventListener('keydown', e => {
+      let which = e.which - 37;
+      if(which === 0) this.currPage = 'home';
+      if(which === 1) this.currPage = 'epg';
+      if(which === 2) this.currPage = 'detail';
+      if(which === 3) this.currPage = 'subject';
+
+    })
   }
 }
 </script>

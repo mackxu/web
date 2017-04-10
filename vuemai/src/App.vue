@@ -1,3 +1,11 @@
+<style>
+body {
+  font-family: 'Microsoft YaHei', Tahoma, Helvetica, Arial, sans-serif;
+  background-color: #ebebeb;
+  font-size: 0.3rem;
+  padding-top: 1rem;
+}
+</style>
 <template>
   <main class="main">
     <Navbar></Navbar>
@@ -57,11 +65,4 @@ export default {
 }
 </script>
 
-<style>
-body {
-  font-family: 'Microsoft YaHei', Tahoma, Helvetica, Arial, sans-serif;
-  background-color: #ebebeb;
-  font-size: 0.3rem;
-  padding-top: 1rem;
-}
-</style>
+

@@ -1,87 +1,92 @@
 <style lang="css" scoped>
-.wrapper {
-	height: 100%; width: 500px; margin: 0 auto;
-	overflow: hidden; padding: 0 20px;
-	position: absolute; top: 0; left: 0;
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
 }
-.list {
-	position: absolute; top: 0; width: 460px;
-	transition: transform .5s;
+.wrapper-header {
+  height: 200px;
+  background-color: #eee;
+  padding-left: 100px;
 }
-li {
-	height: 120px; margin-bottom: 20px; background-color: #009688;
-	transition: transform .5s;
+.aside {  margin-bottom: 20px; }
+.list li{
+  display: inline-block;
+  height: 80px;
+  width: 200px;
+  background-color: #009688;
+  margin-right: 20px;
 }
-.focus {
-	transform: scale(1.2);
+.row { margin-bottom: 20px; width: 9999px; }
+.row li { height: 200px; }
+.wrapper-main {
+  height: 600px;
+  overflow: hidden;
+  background-color: #888;
+  padding: 20px;
 }
 </style>
 <template>
-
-<div class="wrapper" group>
-	<ul class="list" :style="{transform: 'translateY(' + listTop + 'px)'}">
-		<li focusable :class="{focus: focusIndex === 1}"><a href="#">1 {{ listTop }}</a></li>
-		<li focusable :class="{focus: focusIndex === 2}"><a href="#">2</a></li>
-		<li focusable :class="{focus: focusIndex === 3}"><a href="#">3</a></li>
-		<li focusable :class="{focus: focusIndex === 4}"><a href="#">4</a></li>
-		<li focusable :class="{focus: focusIndex === 5}"><a href="#">5</a></li>
-		<li focusable :class="{focus: focusIndex === 6}"><a href="#">6</a></li>
-		<li focusable :class="{focus: focusIndex === 7}"><a href="#">7</a></li>
-		<li focusable :class="{focus: focusIndex === 8}"><a href="#">8</a></li>
-		<li focusable :class="{focus: focusIndex === 9}"><a href="#">9</a></li>
-	</ul>
+<div class="wrapper" v-scope.group data-focus-name="group-home">
+	<div class="wrapper-header">
+   <ul class="aside list">
+     <li><a href="">搜索</a></li>
+     <li><a href="">我的</a></li>
+     <li><a href="">消息</a></li>
+   </ul>
+   <div class="bside"></div>
+   <div class="tab-container">
+      <ul class="aside list">
+       <li><a href="">首页</a></li>
+       <li><a href="">vip会员</a></li>
+       <li><a href="">电视剧</a></li>
+     </ul>
+   </div> 
+  </div>
+  <div class="wrapper-main">
+    <div class="tab-home">
+      <ul class="row list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+      </ul>
+      <ul class="row list">
+        <li>I</li>
+        <li>II</li>
+        <li>III</li>
+        <li>IV</li>
+        <li>V</li>
+      </ul>
+      <ul class="row list">
+        <li>一</li>
+        <li>二</li>
+        <li>三</li>
+        <li>四</li>
+        <li>五</li>
+      </ul>
+    </div>
+  </div>
 </div>
 </template>
 
 <script>
-let keyMap = {
-  38: -1,
-  40: +1
-}
 export default {
-
-  name: 'component_name-demo',
-
-  data () {
+  data() {
     return {
-    	listTop: 0,
-    	focusIndex: 1,
-    	currentScope: true
-    };
-  },
-  events: {
-  	changeFocus (which) {
-  		let keyType = keyMap[which]
-  		if (!keyType) {
-  			return false
-  		}
-  		if(this.focusIndex + keyType < 1 || this.focusIndex + keyType > 9) {
-  			return false
-  		}
-  		this.focusIndex += keyType
-  		this.scroll(which)
-  	}
-  },
-  methods: {
-  	scroll () {
-  		let focusEl = this._allFocus[this.focusIndex - 1]				// 获取获焦元素
-  		let rect = focusEl.getBoundingClientRect()							// 元素在视口中的位置
-  		if( rect.bottom > this._viewRect.bottom) {							// 底部越界
-  			this.listTop -= this.getElementSize(focusEl)
-  		}
-  		if(rect.top < this._viewRect.top) {											// 头部越界
-  			this.listTop += this.getElementSize(focusEl)
-  		}
-  	},
-  	getElementSize (el) {
-  		let style = window.getComputedStyle(el)
-  		return parseFloat(style.height) + parseFloat(style.marginBottom) / 2
-  	}
-  },
-  ready () {
-  	this._allFocus = this.$el.querySelectorAll('[focusable]')
-  	this._viewRect = this.$el.getBoundingClientRect()					// scope 视口
-  	console.log(this._viewRect)
+
+    }
   }
-};
+}
 </script>
