@@ -1,0 +1,90 @@
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+	<title>条纹背景色</title>
+	<style>
+		.box {
+			width: 500px;
+			height: 150px;
+			margin: 50px;
+		}
+		.normal { background: linear-gradient(#fb3, #58a); }
+		.gradient50 { background: linear-gradient(#fb3 50%, #58a 50%); }
+		/* 如果某个色标的位置比整个列表中在它之前的色标位置值都要小，
+			 则该色标的位置值会被设置为它前面所有色标位置值的最大值
+		*/
+		.gradient50-2 { background: linear-gradient(#fb3 50%, #58a 0); }
+		.gradient-repeat {
+			background: linear-gradient(#fb3 50%, #58a 0);
+			background-size: 100% 50px;
+		}
+		/* 无限循环 */
+		.gradient-repeat2 {
+			background: repeating-linear-gradient(#fb3, #fb3 15px, #58a 0, #58a 30px);
+		}
+
+		/* 非等宽条纹 */
+		.gradient-notwidth {
+			background: linear-gradient(#fb3 25%, #58a 0);
+			background-size: 100% 50px;
+		}
+
+		/* 多于2个颜色的条纹 */
+		.gradient-moreColors {
+			background: linear-gradient(#fb3 15%, #58a 0, #58a 66%, yellowgreen 0);
+		}
+
+		.gradient-vertical {
+			background: linear-gradient(90deg, #fb3 50%, #58a 0) no-repeat;
+			background-size: 50px 100%;
+			border: 1px dashed grey;
+		}
+		/* 贴图重复 */
+		.gradient-tile {
+			background: linear-gradient(45deg, #fb3 25%, #58a 0, #58a 50%, #fb3 0, #fb3 75%, #58a 0);
+			background-size: 42px 42px;
+		}
+
+		/* 简化贴图 */
+		.gradient-tile2 {
+			background: repeating-linear-gradient(45deg, #fb3 0, #fb3 25%, #58a 0, #58a 50%);
+			background-size: 42px 42px;
+		}
+
+		/* 其他角度的条纹 */
+		.gradient-60deg {
+			background: repeating-linear-gradient(60deg, #fb3, #fb3 15px, #58a 0, #58a 30px);
+		}
+		.gradient-30deg {
+			background: repeating-linear-gradient(30deg, #fb3, #fb3 15px, #58a 0, #58a 30px);
+		}
+
+		.gradient-transparent {
+			background: #58a;
+			background-image: repeating-linear-gradient(30deg,
+				hsla(0, 0%, 100%, .1),
+				hsla(0, 0%, 100%, .1) 15px,
+				transparent 0,
+				transparent 30px
+				)
+		}
+
+	</style>
+</head>
+<body>
+<div class="box gradient-transparent"></div>
+<div class="box gradient-30deg"></div>
+<div class="box gradient-60deg"></div>
+<div class="box gradient-tile2"></div>
+<div class="box gradient-tile"></div>
+<div class="box gradient-vertical"></div>
+<div class="box gradient-moreColors"></div>
+<div class="box gradient-notwidth"></div>
+<div class="box gradient-repeat2"></div>
+<div class="box gradient-repeat"></div>
+<div class="box gradient50-2"></div>
+<div class="box gradient50"></div>
+<div class="box normal"></div>
+
+</body>
+</html>

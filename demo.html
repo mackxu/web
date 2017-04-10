@@ -5,38 +5,55 @@
 	<meta name="viewport" content="width=device-width">
 	<title>测试页面 小试验</title>
 	<style type="text/css">
+	body, ul, li {
+		margin: 0;
+		padding: 0;
+	}
+	ul { list-style: none;  }
 	body {
-    padding: 20px;
     font-family: Helvetica, Arial, sans-serif;
     background: black;
 	}
-	p, span { margin: 10px 0; color: white; }
-	span { display: inline-block; }
 
-	.antialiased { -webkit-font-smoothing: antialiased; }
-	.transition {
-	  -webkit-transition: -webkit-transform 1s;
-	  -webkit-transform: scale(1);
-	  /*-webkit-transform-origin: 0% 0%;*/
+	.list-wrapper {
+		position: relative;
+		margin-top: 40px;
 	}
-	.transition.transitioned {
-	  -webkit-transform: scale(1.5);
+	.list-slider {
+		position: absolute;
+		left: 33px;
+		overflow: hidden;
+	}
+	.list-slider li {
+		padding: 0 10px;
+		float: left;
+	}
+	.item	{
+		width: 200px;
+		height: 80px;
+		background-color: #f0f;
 	}
 	</style>
 	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
 <body>
-<p style="text-align: center;"><span class="transition">Watch me transition</span></p>
-
-<p>I am some text. Since I am unaliased, I will blink during a transition.</p>
-
-<p class="antialiased">I am more text. Since I am antialiased, I wll not blink.</p>
+<div class="list-wrapper">
+	<ul class="list-slider" id="js-slider" style="width: 1540px">
+		<li><div class="item">1</div></li>
+		<li><div class="item">2</div></li>
+		<li><div class="item">3</div></li>
+		<li><div class="item">4</div></li>
+		<li><div class="item">5</div></li>
+		<li><div class="item">6</div></li>
+		<li><div class="item">7</div></li>
+	</ul>
+</div>
 <script>
-	$(function(){
-    setInterval(function(){
-        $('.transition').toggleClass('transitioned');
-    },3000);
-});
+var $slider = $('#js-slider');
+$slider.css('transform', 'translateX(-100px)');
+console.log('slider', $slider.position());
+console.log($('li').eq(3).position());
+console.log($('li').eq(0).position());
 </script>
 </body>
 </html>
