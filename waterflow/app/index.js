@@ -4,6 +4,8 @@ import server from './server.js';
 
 let ITEM_AMOUNT = 25;
 let LIMIT_HEIGHT = 100;
+let ITEM_WIDTH = 250;			// item的宽度
+let COL_SPACE = 20;				// 每列的间隙大小
 let $cols = [];
 let $win = $(window);
 let $doc = $(document);
@@ -36,7 +38,10 @@ function onScroll() {
 
 // 动态创建容器
 function createContainers() {
-  for (let i = 0, l = 4; i < l; i++) {
+  // 计算可以生成的列数
+  // 最大有8列
+  var colLen = Math.min(Math.floor($win.width() / ITEM_WIDTH), 8);
+  for (let i = 0, l = 4; i < colLen; i++) {
     $cols[i] = $('<div class="container" id="col'+ i +'"></div>')
   }
   $('#main').append($cols);
