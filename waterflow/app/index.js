@@ -24,8 +24,8 @@ function fetchAndRenderItem() {
 	dataReady = false;
 	server().then(function() {
 		dataReady = true;
-    	_.times(ITEM_AMOUNT, appendItem)
-  	})
+    _.times(ITEM_AMOUNT, appendItem)
+  })
 }
 
 function onScroll() {
