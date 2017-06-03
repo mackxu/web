@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>sessionStorage 通信测试</title>
+</head>
+<body>
+<a href="javascript:void(0);" id="j-btn">click me</a>
+<script type="text/javascript">
+  console.log('btn: ' + sessionStorage.getItem('btn'));
+  console.log('btn2: ' + sessionStorage.getItem('btn2'));
+  document.getElementById('j-btn').onclick = function() {
+    sessionStorage.setItem('btn', 1);
+    location.href = 'b.html?t=' + (+new Date);
+  }
+</script>
+</body>
+</html>
