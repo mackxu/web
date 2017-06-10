@@ -4,11 +4,8 @@
 
 <template>
   <ul class="contacts-list">
-    <!--<li v-for="contact in contacts" >-->
-      <!--<contact-item :name="{{contact.name}}" :email="{{contact.email}}"></contact-item>-->
-    <!--</li>-->
     <contact-item
-      v-for="contact in contacts"
+      v-for="contact in validContacts"
       :name="contact.name"
       :email="contact.email"
       :key="contact.email">
@@ -19,11 +16,40 @@
   import ContactItem from './ContactItem';
   export default {
     name: 'ContactsList',
-    props: {
-      contacts: Array
-    },
     components: {
       ContactItem
+    },
+    props: {
+      contacts: Array,
+      filterText: {
+        type: String,
+        default: ''
+      }
+    },
+    data () {
+      return {
+        validContacts: []
+      }
+    },
+    created () {
+      console.log('ContactsList created');
+      this.filterContacts();
+    },
+    updated () {
+      console.log('ContactsList updated');
+    },
+    methods: {
+      filterContacts () {
+        this.validContacts = this.contacts.filter(({name}) => {
+//          console.log(name);
+          return name.indexOf(this.filterText) !== -1;
+        })
+      }
+    },
+    watch: {
+      filterText () {             // 监听filterText的更改
+        this.filterContacts();
+      }
     }
   }
 

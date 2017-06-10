@@ -4,8 +4,8 @@
 
 <template>
   <div>
-    <search-bar />
-    <contacts-list :contacts="contacts" />
+    <search-bar :filterText="filterText" @userInput="handleUserInput" />
+    <contacts-list :contacts="contacts" :filterText="filterText" />
   </div>
 </template>
 <script>
@@ -16,9 +16,19 @@
     props: {
       contacts: Array
     },
+    data () {
+      return {
+        filterText: '',
+      }
+    },
     components: {
-    		SearchBar,
-        ContactsList
+      SearchBar,
+      ContactsList
+    },
+    methods: {
+      handleUserInput(text) {
+        this.filterText = text;
+      }
     }
   }
 
