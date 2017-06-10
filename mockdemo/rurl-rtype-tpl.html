@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>template</title>
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="http://mockjs.com/dist/mock.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<pre></pre>
+<script>
+  // Mock.mock(rurl, template )
+  Mock.mock(/\.json/, 'get', { type: 'get get' });
+  // Mock.mock(/\.json/, 'post', { type: 'method post' });
+  
+  axios({
+    method: 'post',
+    url: 'hello.json', 
+    data: { c: 4 },
+    params: { d: 5 },
+    timeout: 1000
+  }).then(function(res) {
+
+    console.log(res.data)
+    $('<pre>').text(JSON.stringify(res.data, null, 4)).appendTo('body');
+  }).catch(function(err) {
+    console.log(err);
+  });
+
+  axios({
+    method: 'get',
+    url: 'hello.json?a=2&b=3',
+    data: { c: 4 },
+    params: { d: 5 },
+    timeout: 1000
+  }).then(function(res) {
+
+    console.log(res.data)
+    $('<pre>').text(JSON.stringify(res.data, null, 4)).appendTo('body');
+  }).catch(function(err) {
+    console.log(err);
+  })
+
+</script>
+</body>
+</html>
