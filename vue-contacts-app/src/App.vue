@@ -1,36 +1,44 @@
 <template>
   <div id="app">
-    <contacts-app :contacts="contacts" />
+    <contacts-app :contacts="contacts"/>
   </div>
 </template>
 
 <script>
-import ContactsApp from './components/ContactsApp.vue';
+  import ContactsApp from './components/ContactsApp.vue';
+  import API from './api'
 
-export default {
-  name: 'app',
-  data () {
-    return {
-      contacts: [
-        { name: 'zhangsan', email: 'ddswdfff@nfkd.com' },
-        { name: 'lisi', email: 'y482y49@ggg.com' },
-        { name: 'wanger', email: 'fkngkdl@kkk.com' },
-        { name: 'laoli', email: '492nkjrj@sdsd.com' },
-      ]
+  export default {
+    name: 'app',
+    components: {
+      ContactsApp
+    },
+    data () {
+      return {
+        contacts: []
+      }
+    },
+    created () {
+      this.fetchAllContacts();
+    },
+    methods: {
+      fetchAllContacts () {
+        console.log('app fetchAllContacts');
+        API.Contacts.getAllContacts().then(res => {
+          console.log(res);
+          this.contacts = res.data;
+        }).catch(e => console.log(e))
+      }
     }
-  },
-  components: {
-    ContactsApp
   }
-}
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
 </style>

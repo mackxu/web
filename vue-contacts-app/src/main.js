@@ -3,6 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 
+// 添加mockjs拦截请求，模拟返回服务器数据
+import Mock from './api/mock'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

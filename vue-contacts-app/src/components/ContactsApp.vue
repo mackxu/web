@@ -5,7 +5,10 @@
 <template>
   <div>
     <search-bar :filterText="filterText" @userInput="handleUserInput" />
-    <contacts-list :contacts="contacts" :filterText="filterText" />
+    <contacts-list
+      v-if="contacts.length"
+      :contacts="contacts"
+      :filterText="filterText" />
   </div>
 </template>
 <script>

@@ -7,7 +7,7 @@
     <input
       type="text" placeholder="search contact"
       :value="filterText"
-      @input="handleInput" />
+      @input="handleInput"/>
   </div>
 </template>
 <script>

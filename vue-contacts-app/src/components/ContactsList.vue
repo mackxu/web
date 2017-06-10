@@ -32,7 +32,7 @@
       }
     },
     created () {
-      console.log('ContactsList created');
+      console.log('ContactsList created', this.contacts.length);
       this.filterContacts();
     },
     updated () {
