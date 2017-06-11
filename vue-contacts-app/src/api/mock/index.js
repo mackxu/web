@@ -4,11 +4,12 @@
 import Mock from 'mockjs';
 
 Mock.mock('/contacts', {
-  data: [
-    {name: 'zhangsan', email: 'ddswdfff@nfkd.com'},
-    {name: 'lisi', email: 'y482y49@ggg.com'},
-    {name: 'wanger', email: 'fkngkdl@kkk.com'},
-    {name: 'laoli', email: '492nkjrj@sdsd.com'},
+  'contacts|5-10': [
+    {
+      'id|+1': 1,
+      name: '@name',
+      email: '@EMAIL'
+    }
   ]
 });
 

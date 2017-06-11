@@ -6,7 +6,7 @@
 
 <script>
   import ContactsApp from './components/ContactsApp.vue';
-  import API from './api'
+  import { ContactAPI } from './api'
 
   export default {
     name: 'app',
@@ -19,14 +19,15 @@
       }
     },
     created () {
+//      console.log(ContactsAPI);
       this.fetchAllContacts();
     },
     methods: {
       fetchAllContacts () {
         console.log('app fetchAllContacts');
-        API.Contacts.getAllContacts().then(res => {
+        ContactAPI.getAllContacts().then(res => {
           console.log(res);
-          this.contacts = res.data;
+          this.contacts = res.contacts;
         }).catch(e => console.log(e))
       }
     }
