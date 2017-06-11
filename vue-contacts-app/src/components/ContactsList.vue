@@ -26,31 +26,20 @@
         default: ''
       }
     },
-    data () {
-      return {
-        validContacts: []
-      }
-    },
     created () {
       console.log('ContactsList created', this.contacts.length);
-      this.filterContacts();
     },
     updated () {
       console.log('ContactsList updated');
     },
-    methods: {
-      filterContacts () {
-        this.validContacts = this.contacts.filter(({name}) => {
-//          console.log(name);
+    computed: {
+      validContacts () {
+        // 筛选出符合的联系人
+        return this.contacts.filter(({name}) => {
           return name.indexOf(this.filterText) !== -1;
         })
       }
     },
-    watch: {
-      filterText () {             // 监听filterText的更改
-        this.filterContacts();
-      }
-    }
   }
 
 </script>
