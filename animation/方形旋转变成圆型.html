@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>方形旋转变成圆型</title>
+  <style type="text/css">
+    /*定义方型转化为圆型的动画round*/
+  @-webkit-keyframes 'round2' {
+    from{
+      -webkit-transform: rotate(36deg);
+      -webkit-border-radius: 5px;
+    }
+    10%{
+        -webkit-transform: rotate(72deg);
+        -webkit-border-radius: 10px;
+    }
+  20% {
+      -webkit-transform: rotate(108deg);
+      -webkit-border-radius: 15px;
+    }
+  30% {
+      -webkit-transform: rotate(144deg);
+      -webkit-border-radius: 20px;
+    }
+  40%{
+     -webkit-transform: rotate(180deg);
+     -webkit-border-radius: 25px;
+  }
+  50%{
+     -webkit-transform: rotate(216deg);
+     -webkit-border-radius: 30px;
+  }
+  60% {
+     -webkit-transform: rotate(252deg);
+     -webkit-border-radius: 35px;
+  }
+  70% {
+     -webkit-transform: rotate(288deg);
+     -webkit-border-radius: 40px;
+  }
+  80%{
+     -webkit-transform: rotate(324deg);
+     -webkit-border-radius: 45px;
+  }
+  to {
+     -webkit-transform: rotate(360deg);
+     -webkit-border-radius: 50px;
+  }
+}
+   /*给方型box一个初步样式*/
+   a.box, .box2 {
+      display: block;
+      width: 50px;
+      height: 50px;
+      background: red;
+      margin-bottom: 20px;
+   }
+   /*圆型box的样式，并在这里应用animation*/
+   a.round {
+      background: green;
+      -webkit-animation-name: 'round2';                  /*动画名称*/
+      -webkit-animation-duration: 5s;                  /*播放一次所持续时间*/
+      -webkit-animation-timing-function: linear;        /*动画播放频率*/
+      -webkit-animation-iteration-count: 1;      /*动画播放次涒为无限次*/
+      -webkit-animation-play-state: running;
+      animation-fill-mode: backwards;
+      -webkit-animation-fill-mode: backwards;
+    }
+
+    .box2 {
+      -webkit-animation: round2 5s linear;
+      /*-webkit-animation-play-state: paused;*/
+    }
+
+    .box2:hover {
+      -webkit-animation-play-state: paused;
+    }
+
+    body {
+      padding-left: 200px;
+    }
+  </style>
+</head>
+<body>
+<!-- 通过transform的rotate和border-radius不同值，把一个方型图片随着时间的推移，慢慢的转换成了个圆型 -->
+<a href="#" class="box"></a>
+
+<button>Click</button>
+
+<br />
+<a href="#" class="box2"></a>
+<script type="text/javascript">
+  var box = document.querySelector('.box');
+  var btn = document.querySelector('button');
+  btn.addEventListener('click', function() {
+    box.classList.add('round');
+  })
+</script>
+</body>
+</html>

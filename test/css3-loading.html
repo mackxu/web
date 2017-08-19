@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>只用CSS实现漂亮的loading效果</title>
+    <style type="text/css">
+#sun.animate {
+    animation-name: sunrise;
+    animation-duration: 10s;                /*指定元素播放动画所持续的时间长*/
+    animation-timing-function: ease;
+    animation-iteration-count: 1;           /*指定元素播放动画的循环次数，其可以取值<number>为数字，其默认值为“1”；infinite为无限次数循环*/
+    /*指定元素动画播放的方向，normal时，动画的每次循环都是向前播放；另一个值是alternate，动画播放在第偶数次向前播放，第奇数次向反方向播放*/
+    animation-direction: normal;
+    animation-delay: 0;                     /*指定元素动画开始时间*/
+    animation-play-state: running;          /*通过paused将正在播放的动画停下了，也可以通过running将暂停的动画重新播放*/
+    animation-fill-mode: forwards;          /*none：默认值，回到动画没开始时的状态。forwards让动画保持在结束状态*/
+}
+
+@keyframes sunrise {
+
+    0% {
+        bottom: 0;
+        left: 340px;
+        background: #f00;
+    }
+
+    33% {
+        bottom: 340px;
+        left: 340px;
+        background: #ffd630;
+    }
+
+    66% {
+        bottom: 340px;
+        left: 40px;
+        background: #ffd630;
+    }
+
+    100% {
+        bottom: 0;
+        left: 40px;
+        background: #f00;
+    }
+
+}
+
+#sky.animate {
+    animation-name: sky;
+    animation-duration: 10s;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-delay: 0;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+}
+
+@keyframes sky {
+
+    0% {
+        background-color: #525252;
+    }
+
+    33% {
+        background-color: #6293e5;
+    }
+
+    66% {
+        background-color: #6293e5;
+    }
+
+    100% {
+        background-color: #525252;
+    }
+
+}
+
+#ground.animate {
+    animation-name: ground;
+    animation-duration: 10s;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-delay: 0;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+}
+
+@keyframes ground {
+
+    0% {
+        background: #6c5228;
+    }
+
+    33% {
+        background: #48a037;
+    }
+
+    66% {
+        background: #48a037;
+    }
+
+    100% {
+        background: #6c5228;
+    }
+
+}
+
+#cloud.animate {
+    animation-name: cloud;
+    animation-duration: 12s;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-delay: 0;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+}
+
+@keyframes cloud {
+
+    0% {
+        opacity: 0;
+        left: -100px;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 1;
+        left: 100px;
+    }
+
+    100% {
+        opacity: 0;
+        left: 500px;
+    }
+
+}
+
+#moon.animate {
+    animation-name: moon;
+    animation-duration: 10s;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-delay: 0;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+}
+
+@keyframes moon {
+
+    0% {
+        opacity: 0;
+        left: -100px;
+    }
+
+    50% {
+        opacity: 0;
+        left: -100px;
+    }
+
+    90% {
+        opacity: 0;
+        left: -100px;
+    }
+
+    100% {
+        opacity: 1;
+        left: 50px;
+    }
+
+}
+
+
+    </style>
+</head>
+<body>
+
+</body>
+</html>
