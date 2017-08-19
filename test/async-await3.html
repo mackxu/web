@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>async and await3</title>
+</head>
+<body>
+<script>
+
+	// 假设一个业务，三个步骤，但每一个步骤需要之前步骤的结果
+
+	/**
+	 * 传入参数n，表示这个函数执行的时间
+	 * 执行的结果是n + 200，这个值将用于下一个步骤
+	 * @param n
+	 * @returns {Promise}
+	 */
+	function takeLongTime(n) {
+		return new Promise(resolve => {
+			setTimeout(() => resolve(n + 200), n);
+		})
+	}
+
+	function step1(n) {
+		console.log(`step1 with ${n}`);
+		return takeLongTime(n);
+	}
+
+	function step2(m, n) {
+		console.log(`step2 with ${m} and ${n}`);
+		return takeLongTime(m + n);
+	}
+
+	function step3(k, m, n) {
+		console.log(`step3 with ${k}, ${m} and ${n}`);
+		return takeLongTime(k + m + n);
+	}
+
+	// 用promise方式实现这三个步骤的处理
+	function doIt() {
+		console.time('doIt');
+		const time1 = 300;
+
+		step1(time1)
+			.then(time2 => {
+				return step2(time1, time2)
+          .then(time3 => [time1, time2, time3])
+      })
+			.then(times => {
+				const [time1, time2, time3] = times;
+				return step3(time1, time2, time3);
+      })
+			.then(res => {
+				console.log(`result is ${res}`);
+				console.timeEnd('doIt')
+			});
+	}
+  doIt();
+
+	// 使用async/await实现
+	async function asyncDoIt() {
+		console.time('asyncDoIt');
+		const time1 = 300;
+		const time2 = await step1(time1);
+		const time3 = await step2(time1, time2);
+		const res = await step3(time1, time2, time3);
+		console.log(`result is ${res}`);
+		console.timeEnd('asyncDoIt');
+	}
+
+//	asyncDoIt();
+</script>
+</body>
+</html>
